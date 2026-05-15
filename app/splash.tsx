@@ -1,12 +1,12 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const SignIn = () => {
+const Splash = () => {
   return (
     <View>
-      <Text>SignIn</Text>
+      <Text>Splash</Text>
     </View>
   );
 };
 
-export default SignIn;
+export default Splash;

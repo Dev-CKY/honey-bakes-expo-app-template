@@ -1,24 +1,52 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import "react-native-reanimated";
+import Toast from "react-native-toast-message";
+
+import SplashScreen from "@/app/splash";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const unstable_settings = {
-  anchor: '(tabs)',
+  anchor: "(drawer)",
 };
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const isLoggedIn = true; // Replace with auth state
+
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (showSplash) {
+    return <SplashScreen />;
+  }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaView>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Protected guard={!isLoggedIn}>
+            <Stack.Screen name="(auth)" />
+          </Stack.Protected>
+
+          <Stack.Protected guard={isLoggedIn}>
+            <Stack.Screen name="(drawer)" />
+          </Stack.Protected>
+        </Stack>
+
+        <Toast />
+
+        <StatusBar style="dark" />
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
