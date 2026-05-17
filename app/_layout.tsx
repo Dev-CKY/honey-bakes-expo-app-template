@@ -9,14 +9,14 @@ import Toast from "react-native-toast-message";
 import SplashScreen from "@/app/splash";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import "@/global.css";
+import "../global.css";
 
 export const unstable_settings = {
   anchor: "(drawer)",
 };
 
 export default function RootLayout() {
-  const isLoggedIn = true; // Replace with auth state
+  const isLoggedIn = true;
 
   const [showSplash, setShowSplash] = useState(true);
 
@@ -33,7 +33,7 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }}>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Protected guard={!isLoggedIn}>
