@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 const SubHeadingTitle = ({ title }: { title: string }) => {
   return (
     <View>
-      <Text className="text-[16px] text-[#1F1500] font-[poppins-regular]">
+      <Text className="text-[16px] text-[#1F1500] font-[poppins-regular] mb-[20px]">
         {title}
       </Text>
     </View>
