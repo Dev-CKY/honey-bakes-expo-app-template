@@ -37,7 +37,7 @@ const TextInputField = ({
         placeholder={placeholder}
         placeholderTextColor="#B5A98A"
         secureTextEntry={secureText}
-        className="flex-1 text-[16px] text-[#3E3A2F]"
+        className="flex-1 text-[14px] text-[#3E3A2F] font-[poppins-regular]"
         textAlignVertical="center"
         {...props}
       />
