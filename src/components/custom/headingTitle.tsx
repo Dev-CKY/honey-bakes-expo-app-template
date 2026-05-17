@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 const HeadingTitle = ({ title }: { title: string }) => {
   return (
     <View>
-      <Text className="text-[36px] font-kalniaMedium text-[#1F1500]">
+      <Text className="text-[32px] text-[#1F1500] font-[kalnia-medium]">
         {title}
       </Text>
     </View>

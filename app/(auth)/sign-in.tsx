@@ -1,11 +1,19 @@
+import HeadingTitle from "@/src/components/custom/headingTitle";
+import SubHeadingTitle from "@/src/components/custom/subHeadingTitle";
 import React from "react";
-import { Text, View } from "react-native";
+import { ImageBackground } from "react-native";
 
 const SignIn = () => {
   return (
-    <View>
-      <Text>SignIn</Text>
-    </View>
+    <ImageBackground
+      source={require("@/src/assets/images/custom/bg.jpeg")}
+      className="flex-1 p-[20px]"
+      resizeMode="cover"
+    >
+      {/* Sign In Screen Content */}
+      <HeadingTitle title="Sign In" />
+      <SubHeadingTitle title="to access your account." />
+    </ImageBackground>
   );
 };
 

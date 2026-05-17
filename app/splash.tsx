@@ -7,7 +7,7 @@ const Splash = () => {
     <ImageBackground
       source={require("@/src/assets/images/custom/bg.jpeg")}
       className="flex-1 items-center justify-center"
-      resizeMode="contain"
+      resizeMode="cover"
     >
       <Animatable.View
         animation="slideInLeft"

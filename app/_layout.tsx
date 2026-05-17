@@ -19,26 +19,26 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
-  const [loaded] = useFonts({
-    poppinsRegular: require("@/src/assets/fonts/Poppins-Regular.ttf"),
-    poppinsMedium: require("@/src/assets/fonts/Poppins-Medium.ttf"),
-    kalniaMedium: require("@/src/assets/fonts/Kalnia-Medium.ttf"),
-    kalniaBold: require("@/src/assets/fonts/Kalnia-Bold.ttf"),
+  const [loaded, error] = useFonts({
+    "poppins-regular": require("@/src/assets/fonts/Poppins-Regular.ttf"),
+    "poppins-medium": require("@/src/assets/fonts/Poppins-Medium.ttf"),
+    "kalnia-medium": require("@/src/assets/fonts/Kalnia-Medium.ttf"),
+    "kalnia-bold": require("@/src/assets/fonts/Kalnia-Bold.ttf"),
   });
 
   useEffect(() => {
     async function prepare() {
-      if (loaded) {
+      if (loaded || error) {
         await SplashScreen.hideAsync();
       }
     }
 
     prepare();
-  }, [loaded]);
+  }, [loaded, error]);
 
-  if (!loaded) {
+  if (!loaded && !error) {
     return null;
   }
 

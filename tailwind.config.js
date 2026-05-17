@@ -5,16 +5,20 @@ module.exports = {
     "./components/**/*.{js,jsx,ts,tsx}",
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+
   presets: [require("nativewind/preset")],
+
   theme: {
     extend: {
       fontFamily: {
-        poppins: ["Poppins-Regular"],
-        poppinsMedium: ["Poppins-Medium"],
-        poppinsSemiBold: ["Poppins-SemiBold"],
-        poppinsBold: ["Poppins-Bold"],
+        regular: ["poppinsRegular"],
+        medium: ["poppinsMedium"],
+
+        kalniaMedium: ["kalniaMedium"],
+        kalniaBold: ["kalniaBold"],
       },
     },
   },
+
   plugins: [],
 };
