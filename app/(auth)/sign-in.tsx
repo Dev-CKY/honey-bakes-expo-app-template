@@ -57,7 +57,7 @@ const SignIn = () => {
         {/* Don't have an account? */}
         <>
           <Text className="text-[#C2A26F] text-[14px] font-[poppins-regular] self-center">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="/(auth)/sign-up"
               className="text-[#1F1500] font-[poppins-medium]"
