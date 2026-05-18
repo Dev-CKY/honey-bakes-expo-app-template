@@ -53,7 +53,7 @@ const SignUp = () => {
         />
 
         {/* Button */}
-        <Button label="Sign Up" />
+        <Button onPress={() => {}} label="Sign Up" />
 
         {/* Have an account? */}
         <>
