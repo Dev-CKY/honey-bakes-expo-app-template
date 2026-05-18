@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -44,21 +44,26 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Protected guard={!isLoggedIn}>
-            <Stack.Screen name="(auth)" />
-          </Stack.Protected>
+      <SafeAreaProvider>
+        <StatusBar translucent backgroundColor="#ffffe3" style="dark" />
 
-          <Stack.Protected guard={isLoggedIn}>
-            <Stack.Screen name="(drawer)" />
-          </Stack.Protected>
-        </Stack>
+        <SafeAreaView
+          className="flex-1 bg-[#ffffe3]"
+          edges={["top", "left", "right"]}
+        >
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Protected guard={!isLoggedIn}>
+              <Stack.Screen name="(auth)" />
+            </Stack.Protected>
 
-        <Toast />
+            <Stack.Protected guard={isLoggedIn}>
+              <Stack.Screen name="(drawer)" />
+            </Stack.Protected>
+          </Stack>
 
-        <StatusBar style="dark" />
-      </SafeAreaView>
+          <Toast />
+        </SafeAreaView>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }

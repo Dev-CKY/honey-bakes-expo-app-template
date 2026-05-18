@@ -23,6 +23,7 @@ const TextInputField = ({
   eyeOpenIcon,
   eyeCloseIcon,
   placeholder,
+  keyboardType,
   ...props
 }: TextInputFieldProps) => {
   const [secureText, setSecureText] = useState(isPassword);
@@ -40,6 +41,7 @@ const TextInputField = ({
         className="flex-1 text-[14px] text-[#3E3A2F] font-[poppins-regular]"
         textAlignVertical="center"
         {...props}
+        keyboardType={keyboardType}
       />
 
       {/* Password Toggle */}

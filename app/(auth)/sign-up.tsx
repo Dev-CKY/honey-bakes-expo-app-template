@@ -1,3 +1,4 @@
+import call from "@/src/assets/icons/svg/call";
 import email from "@/src/assets/icons/svg/email";
 import eye from "@/src/assets/icons/svg/eye";
 import eyeOff from "@/src/assets/icons/svg/eyeOff";
@@ -8,61 +9,61 @@ import SubHeadingTitle from "@/src/components/custom/SubHeadingTitle";
 import TextInputField from "@/src/components/custom/TextInputField";
 import { Link } from "expo-router";
 import React from "react";
-import { ImageBackground, Text, TouchableOpacity } from "react-native";
+import { ImageBackground, Text } from "react-native";
 import { SvgXml } from "react-native-svg";
 
-const SignIn = () => {
+const SignUp = () => {
   return (
     <ImageBackground
       source={require("@/src/assets/images/custom/bg.jpeg")}
       className="flex-1 p-[20px]"
       resizeMode="cover"
     >
-      {/* Sign In Screen Content */}
+      {/* Sign Up Screen Content */}
 
       <>
         {/* Heading */}
-        <HeadingTitle title="Sign In" />
+        <HeadingTitle title="Sign Up" />
 
         {/* Sub Heading */}
-        <SubHeadingTitle title="to access your account." />
+        <SubHeadingTitle title="to create a new account." />
+
+        {/* Phone number */}
+        <TextInputField
+          placeholder="Phone number"
+          leftIcon={<SvgXml xml={call} className="w-[24px] h-[24px]" />}
+          keyboardType="number-pad"
+        />
 
         {/* Email */}
         <TextInputField
-          keyboardType="email-address"
           placeholder="Email address"
           leftIcon={<SvgXml xml={email} className="w-[24px] h-[24px]" />}
+          keyboardType="email-address"
         />
 
         {/* Password */}
         <TextInputField
-          keyboardType="default"
           placeholder="Password"
           isPassword
           leftIcon={<SvgXml xml={lock} className="w-[24px] h-[24px]" />}
           eyeOpenIcon={<SvgXml xml={eye} className="w-[24px] h-[24px]" />}
           eyeCloseIcon={<SvgXml xml={eyeOff} className="w-[24px] h-[24px]" />}
+          keyboardType="default"
         />
 
-        {/* Forgot Password */}
-        <TouchableOpacity className="self-end mb-[20px]">
-          <Text className="text-[#1F1500] text-[14px] font-[poppins-medium]">
-            Forgot Password?
-          </Text>
-        </TouchableOpacity>
-
         {/* Button */}
-        <Button label="Sign In" />
+        <Button label="Sign Up" />
 
-        {/* Don't have an account? */}
+        {/* Have an account? */}
         <>
           <Text className="text-[#C2A26F] text-[14px] font-[poppins-regular] self-center">
-            Don't have an account?{" "}
+            Have an account?{" "}
             <Link
-              href="/(auth)/sign-up"
+              href="/(auth)/sign-in"
               className="text-[#1F1500] font-[poppins-medium]"
             >
-              Sign Up
+              Sign In
             </Link>
           </Text>
         </>
@@ -71,4 +72,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
