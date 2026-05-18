@@ -1,12 +1,42 @@
+import Button from "@/src/components/custom/Button";
+import HeadingTitle from "@/src/components/custom/HeadingTitle";
+import OtpInputField from "@/src/components/custom/OtpInputField";
+import OtpTimer from "@/src/components/custom/OtpTimer";
+import SubHeadingTitle from "@/src/components/custom/SubHeadingTitle";
+import { router } from "expo-router";
 import React from "react";
-import { Text, View } from "react-native";
+import { ImageBackground } from "react-native";
 
-const otpVerification = () => {
+const OtpVerification = () => {
   return (
-    <View>
-      <Text>otpVerification</Text>
-    </View>
+    <ImageBackground
+      source={require("@/src/assets/images/custom/bg.jpeg")}
+      className="flex-1 p-[20px]"
+      resizeMode="cover"
+    >
+      {/* Otp Verification Screen Content */}
+
+      <>
+        {/* Heading */}
+        <HeadingTitle title="Otp Verification" />
+
+        {/* Sub Heading */}
+        <SubHeadingTitle title="Enter OTP that we’ve sent on your email." />
+
+        {/* OTP Input */}
+        <OtpInputField />
+
+        {/* OTP Timer */}
+        <OtpTimer />
+
+        {/* Button */}
+        <Button
+          label="Verify OTP"
+          onPress={() => router.push("/(auth)/reset-password")}
+        />
+      </>
+    </ImageBackground>
   );
 };
 
-export default otpVerification;
+export default OtpVerification;

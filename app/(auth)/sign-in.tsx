@@ -8,7 +8,7 @@ import SubHeadingTitle from "@/src/components/custom/SubHeadingTitle";
 import TextInputField from "@/src/components/custom/TextInputField";
 import { Link } from "expo-router";
 import React from "react";
-import { ImageBackground, Text, TouchableOpacity } from "react-native";
+import { ImageBackground, Text } from "react-native";
 import { SvgXml } from "react-native-svg";
 
 const SignIn = () => {
@@ -45,14 +45,14 @@ const SignIn = () => {
         />
 
         {/* Forgot Password */}
-        <TouchableOpacity className="self-end mb-[20px]">
+        <Link href="/(auth)/forgot-password" className="self-end mb-[20px]">
           <Text className="text-[#1F1500] text-[14px] font-[poppins-medium]">
             Forgot Password?
           </Text>
-        </TouchableOpacity>
+        </Link>
 
         {/* Button */}
-        <Button label="Sign In" />
+        <Button onPress={() => {}} label="Sign In" />
 
         {/* Don't have an account? */}
         <>

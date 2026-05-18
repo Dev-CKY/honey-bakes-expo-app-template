@@ -1,5 +1,3 @@
-// src/components/ui/TextInputField.tsx
-
 import React, { ReactNode, useState } from "react";
 import {
   TextInput,
@@ -14,6 +12,7 @@ type TextInputFieldProps = TextInputProps & {
   rightIcon?: ReactNode;
   eyeOpenIcon?: ReactNode;
   eyeCloseIcon?: ReactNode;
+  keyboardType?: TextInputProps["keyboardType"];
 };
 
 const TextInputField = ({
