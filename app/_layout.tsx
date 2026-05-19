@@ -52,6 +52,8 @@ export default function RootLayout() {
           edges={["top", "left", "right"]}
         >
           <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="splash" />
+
             <Stack.Protected guard={!isLoggedIn}>
               <Stack.Screen name="(auth)" />
             </Stack.Protected>

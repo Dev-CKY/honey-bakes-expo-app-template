@@ -1,8 +1,17 @@
-import React from "react";
+import { router } from "expo-router";
+import React, { useEffect } from "react";
 import { Image, ImageBackground } from "react-native";
 import * as Animatable from "react-native-animatable";
 
 const Splash = () => {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      router.replace("/(drawer)/(tabs)");
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <ImageBackground
       source={require("@/src/assets/images/custom/bg.jpeg")}
