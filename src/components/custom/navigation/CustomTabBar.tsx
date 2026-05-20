@@ -77,17 +77,26 @@ export function CustomTabBar({
   );
 }
 
-function AnimatedTabButton(props: any) {
-  const fadeAnim = useRef(new Animated.Value(props.focused ? 1 : 0.5)).current;
+type AnimatedTabButtonProps = {
+  icon: any;
+  focused: boolean;
+  onPress: () => void;
+  onLongPress: () => void;
+  accessibilityLabel?: string;
+  testID?: string;
+};
+
+function AnimatedTabButton({ focused, ...rest }: AnimatedTabButtonProps) {
+  const fadeAnim = useRef(new Animated.Value(focused ? 1 : 0.5)).current;
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
-      toValue: props.focused ? 1 : 0.5,
+      toValue: focused ? 1 : 0.5,
       duration: 250,
       easing: Easing.inOut(Easing.ease),
       useNativeDriver: true,
     }).start();
-  }, [props.focused]);
+  }, [focused, fadeAnim]);
 
   return (
     <Animated.View
@@ -103,7 +112,7 @@ function AnimatedTabButton(props: any) {
         ],
       }}
     >
-      <TabButton {...props} />
+      <TabButton focused={focused} {...rest} />
     </Animated.View>
   );
 }
