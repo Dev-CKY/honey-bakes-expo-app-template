@@ -1,7 +1,8 @@
 import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import pencil from "@/src/assets/icons/svg/pencil";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
-import ProfileRoutes from "@/src/components/custom/ProfileRoutes";
+import Routes from "@/src/components/custom/Routes";
+import PROFILE_ROUTES from "@/src/data/profile-routes.data";
 import { router } from "expo-router";
 import React from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
@@ -59,7 +60,7 @@ const Profile = () => {
         </View>
 
         {/* Routes */}
-        <ProfileRoutes />
+        <Routes data={PROFILE_ROUTES} />
       </>
     </ScrollView>
   );
