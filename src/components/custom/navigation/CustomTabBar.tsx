@@ -1,6 +1,6 @@
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import React from "react";
-import { View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { Animated, Easing, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { moderateScale } from "react-native-size-matters";
 
@@ -32,7 +32,7 @@ export function CustomTabBar({
           backgroundColor: TAB_BAR_COLORS.background,
         }}
       >
-        {TAB_ICONS.map((tab, index) => {
+        {TAB_ICONS.map((tab) => {
           const route = state.routes.find((item) => item.name === tab.name);
 
           if (!route) return null;
@@ -61,7 +61,7 @@ export function CustomTabBar({
           };
 
           return (
-            <TabButton
+            <AnimatedTabButton
               key={route.key}
               icon={tab.icon}
               focused={isFocused}
@@ -74,5 +74,36 @@ export function CustomTabBar({
         })}
       </View>
     </View>
+  );
+}
+
+function AnimatedTabButton(props: any) {
+  const fadeAnim = useRef(new Animated.Value(props.focused ? 1 : 0.5)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: props.focused ? 1 : 0.5,
+      duration: 250,
+      easing: Easing.inOut(Easing.ease),
+      useNativeDriver: true,
+    }).start();
+  }, [props.focused]);
+
+  return (
+    <Animated.View
+      style={{
+        opacity: fadeAnim,
+        transform: [
+          {
+            scale: fadeAnim.interpolate({
+              inputRange: [0.5, 1],
+              outputRange: [0.92, 1],
+            }),
+          },
+        ],
+      }}
+    >
+      <TabButton {...props} />
+    </Animated.View>
   );
 }
