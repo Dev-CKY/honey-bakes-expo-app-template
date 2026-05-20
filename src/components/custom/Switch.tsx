@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Platform, View } from "react-native";
 import { scale } from "react-native-size-matters";
 import SwitchToggle from "react-native-switch-toggle";
 
@@ -10,6 +10,10 @@ type SwitchProps = {
 
 const Switch = ({ value = false, onChange }: SwitchProps) => {
   const [isOn, setIsOn] = useState(value);
+
+  useEffect(() => {
+    setIsOn(value);
+  }, [value]);
 
   const handleToggle = () => {
     const newValue = !isOn;
@@ -26,18 +30,22 @@ const Switch = ({ value = false, onChange }: SwitchProps) => {
         circleColorOff="#FFFFFF"
         circleColorOn="#FFFFFF"
         backgroundColorOn="#F7BC5D"
-        backgroundColorOff="#ccc"
+        backgroundColorOff="#D1D5DB"
         containerStyle={{
-          width: scale(60),
-          height: scale(30),
+          width: scale(58),
+          height: scale(32),
           borderRadius: scale(50),
-          padding: scale(3),
-          paddingLeft: scale(-5),
+          padding: Platform.OS === "ios" ? scale(5) : scale(3),
+          paddingLeft: isOn
+            ? scale(3)
+            : Platform.OS === "ios"
+              ? scale(0)
+              : scale(3),
         }}
         circleStyle={{
-          width: scale(27),
-          height: scale(27),
-          borderRadius: scale(20),
+          width: scale(26),
+          height: scale(26),
+          borderRadius: scale(13),
         }}
       />
     </View>
