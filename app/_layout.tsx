@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -12,14 +12,10 @@ import Toast from "react-native-toast-message";
 
 import "../global.css";
 
-export const unstable_settings = {
-  anchor: "(drawer)",
-};
-
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const isLoggedIn = false; // Replace with your actual authentication logic
+  const isLoggedIn = true;
 
   const [loaded, error] = useFonts({
     "poppins-regular": require("@/src/assets/fonts/Poppins-Regular.ttf"),
@@ -51,16 +47,16 @@ export default function RootLayout() {
           className="flex-1 bg-[#ffffe3]"
           edges={["top", "left", "right"]}
         >
+          {!isLoggedIn ? (
+            <Redirect href="/(auth)/sign-in" />
+          ) : (
+            <Redirect href="/(drawer)/(tabs)" />
+          )}
+
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="splash" />
-
-            <Stack.Protected guard={!isLoggedIn}>
-              <Stack.Screen name="(auth)" />
-            </Stack.Protected>
-
-            <Stack.Protected guard={isLoggedIn}>
-              <Stack.Screen name="(drawer)" />
-            </Stack.Protected>
+            <Stack.Screen name="(auth)/sign-in" />
+            <Stack.Screen name="(drawer)/(tabs)" />
           </Stack>
 
           <Toast />
