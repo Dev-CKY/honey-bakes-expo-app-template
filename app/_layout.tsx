@@ -55,8 +55,8 @@ export default function RootLayout() {
 
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="splash" />
-            <Stack.Screen name="(auth)/sign-in" />
-            <Stack.Screen name="(drawer)/(tabs)" />
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(drawer)" />
           </Stack>
 
           <Toast />
