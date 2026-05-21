@@ -1,5 +1,6 @@
 import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import pencil from "@/src/assets/icons/svg/pencil";
+import BackButton from "@/src/components/custom/BackButton";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import Routes from "@/src/components/custom/Routes";
 import PROFILE_ROUTES from "@/src/data/profile-routes.data";
@@ -22,12 +23,7 @@ const Profile = () => {
       <>
         <View className="px-[20px]">
           {/* Back button */}
-          <Pressable
-            className="border border-[1px] w-[48px] h-[48px] items-center justify-center rounded-full mb-[20px]"
-            onPress={() => router.back()}
-          >
-            <SvgXml xml={arrowLeft} className="w-[24px] h-[24px]" />
-          </Pressable>
+          <BackButton icon={arrowLeft} onPress={() => router.back()} />
 
           {/* Heading */}
           <HeadingTitle title="My Profile" />

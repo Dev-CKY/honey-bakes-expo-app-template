@@ -1,10 +1,13 @@
+import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import eye from "@/src/assets/icons/svg/eye";
 import eyeOff from "@/src/assets/icons/svg/eyeOff";
 import lock from "@/src/assets/icons/svg/lock";
+import BackButton from "@/src/components/custom/BackButton";
 import Button from "@/src/components/custom/Button";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import SubHeadingTitle from "@/src/components/custom/SubHeadingTitle";
 import TextInputField from "@/src/components/custom/TextInputField";
+import { router } from "expo-router";
 import React from "react";
 import { ImageBackground, View } from "react-native";
 import { SvgXml } from "react-native-svg";
@@ -19,6 +22,9 @@ const ResetPassword = () => {
       {/* Reset Password Screen Content */}
 
       <>
+        {/* Back Button */}
+        <BackButton icon={arrowLeft} onPress={() => router.back()} />
+
         {/* Heading */}
         <HeadingTitle title="Reset Password" />
 

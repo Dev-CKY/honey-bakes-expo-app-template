@@ -6,6 +6,6 @@ import user from "@/src/assets/icons/svg/user";
 export const TAB_ICONS = [
   { name: "index", icon: home },
   { name: "profile", icon: user },
-  { name: "settings", icon: settings },
   { name: "cart", icon: bag },
+  { name: "settings", icon: settings },
 ];

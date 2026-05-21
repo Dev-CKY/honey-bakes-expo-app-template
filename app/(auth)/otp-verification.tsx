@@ -1,3 +1,5 @@
+import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
+import BackButton from "@/src/components/custom/BackButton";
 import Button from "@/src/components/custom/Button";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import OtpInputField from "@/src/components/custom/OtpInputField";
@@ -17,6 +19,9 @@ const OtpVerification = () => {
       {/* Otp Verification Screen Content */}
 
       <>
+        {/* Back Button */}
+        <BackButton icon={arrowLeft} onPress={() => router.back()} />
+
         {/* Heading */}
         <HeadingTitle title="Otp Verification" />
 

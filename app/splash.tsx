@@ -4,9 +4,15 @@ import { Image, ImageBackground } from "react-native";
 import * as Animatable from "react-native-animatable";
 
 const Splash = () => {
+  const isLoggedIn = false; // Replace with actual auth state
+
   useEffect(() => {
     const timeout = setTimeout(() => {
-      router.replace("/(drawer)/(tabs)");
+      if (isLoggedIn) {
+        router.replace("/(drawer)/(tabs)");
+      } else {
+        router.replace("/(auth)/sign-in");
+      }
     }, 2000);
 
     return () => clearTimeout(timeout);
