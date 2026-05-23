@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import bell from "../assets/icons/svg/bell";
 import faq from "../assets/icons/svg/faq";
 import headphone from "../assets/icons/svg/headphone";
@@ -11,7 +12,7 @@ const PROFILE_ROUTES = [
     icon: bell,
     routeName: "Notifications",
     onPress: () => {
-      console.log("Notifications");
+      router.push("/(drawer)/(tabs)/notifications");
     },
   },
   {
