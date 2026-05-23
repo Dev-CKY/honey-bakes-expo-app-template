@@ -29,7 +29,7 @@ const Cart = () => {
         <BackButton icon={arrowLeft} onPress={() => router.back()} />
 
         {/* Delete Button */}
-        <BackButton icon={bin2} onPress={() => console.log("Delete item")} />
+        <BackButton icon={bin2} onPress={() => {}} />
       </View>
 
       {/* Heading */}

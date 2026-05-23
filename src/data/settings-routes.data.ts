@@ -10,33 +10,25 @@ export const SETTINGS_ROUTES = [
     id: 1,
     icon: person,
     routeName: "Profile",
-    onPress: () => {
-      console.log("Profile");
-    },
+    onPress: () => {},
   },
   {
     id: 2,
     icon: pencilFilled,
     routeName: "Edit profile",
-    onPress: () => {
-      console.log("Edit profile");
-    },
+    onPress: () => {},
   },
   {
     id: 3,
     icon: lockFilled,
     routeName: "Reset password",
-    onPress: () => {
-      console.log("Reset password");
-    },
+    onPress: () => {},
   },
   {
     id: 4,
     icon: language,
     routeName: "Languages",
-    onPress: () => {
-      console.log("Languages");
-    },
+    onPress: () => {},
   },
 ];
 

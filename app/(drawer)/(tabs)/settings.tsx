@@ -107,7 +107,7 @@ const Settings = () => {
           </Text>
 
           {/* Logout Icon */}
-          <TouchableOpacity onPress={() => console.log("Logout")}>
+          <TouchableOpacity onPress={() => {}}>
             <SvgXml xml={logout} className="w-[24px] h-[24px]" />
           </TouchableOpacity>
         </View>
@@ -120,7 +120,7 @@ const Settings = () => {
           </Text>
 
           {/* Delete Account Icon */}
-          <TouchableOpacity onPress={() => console.log("Delete Account")}>
+          <TouchableOpacity onPress={() => {}}>
             <SvgXml xml={bin} className="w-[24px] h-[24px]" />
           </TouchableOpacity>
         </View>

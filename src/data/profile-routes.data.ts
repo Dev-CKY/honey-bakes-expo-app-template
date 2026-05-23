@@ -20,40 +20,32 @@ const PROFILE_ROUTES = [
     icon: heart,
     routeName: "Wishlist",
     onPress: () => {
-      console.log("Wishlist");
+      router.push("/(drawer)/(tabs)/wishlist");
     },
   },
   {
     id: 3,
     icon: order,
     routeName: "My orders",
-    onPress: () => {
-      console.log("My orders");
-    },
+    onPress: () => {},
   },
   {
     id: 4,
     icon: faq,
     routeName: "FAQ's",
-    onPress: () => {
-      console.log("FAQ's");
-    },
+    onPress: () => {},
   },
   {
     id: 5,
     icon: settings,
     routeName: "Settings",
-    onPress: () => {
-      console.log("Settings");
-    },
+    onPress: () => {},
   },
   {
     id: 6,
     icon: headphone,
     routeName: "Help center",
-    onPress: () => {
-      console.log("Help center");
-    },
+    onPress: () => {},
   },
 ];
 
