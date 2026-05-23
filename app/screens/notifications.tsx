@@ -15,7 +15,7 @@ const Notifications = () => {
       showsVerticalScrollIndicator={false}
       bounces={false}
       contentContainerStyle={{
-        paddingBottom: scale(120),
+        paddingBottom: scale(20),
       }}
     >
       <View className="flex-row items-center justify-between px-[20px]">

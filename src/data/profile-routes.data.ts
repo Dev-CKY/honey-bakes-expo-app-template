@@ -12,7 +12,7 @@ const PROFILE_ROUTES = [
     icon: bell,
     routeName: "Notifications",
     onPress: () => {
-      router.push("/(drawer)/(tabs)/notifications");
+      router.push("/screens/notifications");
     },
   },
   {
@@ -20,7 +20,7 @@ const PROFILE_ROUTES = [
     icon: heart,
     routeName: "Wishlist",
     onPress: () => {
-      router.push("/(drawer)/(tabs)/wishlist");
+      router.push("/screens/wishlist");
     },
   },
   {
