@@ -1,7 +1,7 @@
 import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import pencil from "@/src/assets/icons/svg/pencil";
-import BackButton from "@/src/components/custom/BackButton";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
+import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import Routes from "@/src/components/custom/Routes";
 import PROFILE_ROUTES from "@/src/data/profile-routes.data";
 import { router } from "expo-router";
@@ -23,7 +23,7 @@ const Profile = () => {
       <>
         <View className="px-[20px]">
           {/* Back button */}
-          <BackButton icon={arrowLeft} onPress={() => router.back()} />
+          <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
           {/* Heading */}
           <HeadingTitle title="My Profile" />

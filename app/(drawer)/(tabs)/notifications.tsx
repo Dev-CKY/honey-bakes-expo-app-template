@@ -1,7 +1,7 @@
 import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import bin2 from "@/src/assets/icons/svg/bin2";
-import BackButton from "@/src/components/custom/BackButton";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
+import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import NOTIFICATIONS_LIST from "@/src/data/notifications-list.data";
 import { router } from "expo-router";
 import React from "react";
@@ -20,10 +20,10 @@ const Notifications = () => {
     >
       <View className="flex-row items-center justify-between px-[20px]">
         {/* Back button */}
-        <BackButton icon={arrowLeft} onPress={() => router.back()} />
+        <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
         {/* Delete Button */}
-        <BackButton icon={bin2} onPress={() => {}} />
+        <IconButtonWrapper icon={bin2} onPress={() => {}} />
       </View>
 
       {/* Heading */}

@@ -1,8 +1,8 @@
 import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import email from "@/src/assets/icons/svg/email";
-import BackButton from "@/src/components/custom/BackButton";
 import Button from "@/src/components/custom/Button";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
+import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import SubHeadingTitle from "@/src/components/custom/SubHeadingTitle";
 import TextInputField from "@/src/components/custom/TextInputField";
 import { Link, router } from "expo-router";
@@ -21,7 +21,7 @@ const ForgotPassword = () => {
 
       <>
         {/* Back Button */}
-        <BackButton icon={arrowLeft} onPress={() => router.back()} />
+        <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
         {/* Heading */}
         <HeadingTitle title="Forgot Password?" />

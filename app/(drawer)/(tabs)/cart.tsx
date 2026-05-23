@@ -3,9 +3,9 @@ import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import bin2 from "@/src/assets/icons/svg/bin2";
 import minus from "@/src/assets/icons/svg/minus";
 import plus from "@/src/assets/icons/svg/plus";
-import BackButton from "@/src/components/custom/BackButton";
 import Button from "@/src/components/custom/Button";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
+import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import { router } from "expo-router";
 import React from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
@@ -26,10 +26,10 @@ const Cart = () => {
     >
       <View className="flex-row items-center justify-between px-[20px]">
         {/* Back button */}
-        <BackButton icon={arrowLeft} onPress={() => router.back()} />
+        <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
         {/* Delete Button */}
-        <BackButton icon={bin2} onPress={() => {}} />
+        <IconButtonWrapper icon={bin2} onPress={() => {}} />
       </View>
 
       {/* Heading */}
