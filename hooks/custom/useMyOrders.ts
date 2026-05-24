@@ -59,7 +59,7 @@ export const useMyOrders = () => {
 
     // Animate active background
     translateX.value = withSpring(tab === "ongoing" ? 0 : BUTTON_WIDTH, {
-      damping: 25,
+      damping: 50,
       stiffness: 120,
     });
   };

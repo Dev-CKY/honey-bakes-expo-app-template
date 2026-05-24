@@ -1,6 +1,12 @@
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import React, { useEffect, useRef } from "react";
-import { Animated, Easing, View } from "react-native";
+import React, { useEffect } from "react";
+import { View } from "react-native";
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { moderateScale } from "react-native-size-matters";
 
@@ -8,6 +14,23 @@ import { TAB_ICONS } from "@/src/config/tabs";
 import { TAB_BAR_COLORS, TAB_BAR_SIZES } from "@/src/constants/tab-bar";
 
 import { TabButton } from "./TabButton";
+
+// ======================================================
+// Types
+// ======================================================
+
+type AnimatedTabButtonProps = {
+  icon: string;
+  focused: boolean;
+  onPress: () => void;
+  onLongPress: () => void;
+  accessibilityLabel?: string;
+  testID?: string;
+};
+
+// ======================================================
+// Custom Tab Bar
+// ======================================================
 
 export function CustomTabBar({
   state,
@@ -40,6 +63,10 @@ export function CustomTabBar({
           const isFocused = state.routes[state.index].name === route.name;
 
           const { options } = descriptors[route.key];
+
+          // ======================================================
+          // Press Handlers
+          // ======================================================
 
           const onPress = () => {
             const event = navigation.emit({
@@ -77,41 +104,53 @@ export function CustomTabBar({
   );
 }
 
-type AnimatedTabButtonProps = {
-  icon: any;
-  focused: boolean;
-  onPress: () => void;
-  onLongPress: () => void;
-  accessibilityLabel?: string;
-  testID?: string;
-};
+// ======================================================
+// Animated Tab Button
+// ======================================================
 
 function AnimatedTabButton({ focused, ...rest }: AnimatedTabButtonProps) {
-  const fadeAnim = useRef(new Animated.Value(focused ? 1 : 0.5)).current;
+  // ======================================================
+  // Shared Value
+  // ======================================================
+
+  const progress = useSharedValue<number>(focused ? 1 : 0);
+
+  // ======================================================
+  // Animate Like Toggle Button
+  // ======================================================
 
   useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: focused ? 1 : 0.5,
-      duration: 250,
-      easing: Easing.inOut(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-  }, [focused, fadeAnim]);
+    progress.value = withSpring(focused ? 1 : 0, {
+      damping: 25,
+      stiffness: 120,
+    });
+  }, [focused]);
+
+  // ======================================================
+  // Animated Styles
+  // ======================================================
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(progress.value, [0, 1], [0.55, 1]),
+
+      transform: [
+        {
+          scale: interpolate(progress.value, [0, 1], [0.92, 1]),
+        },
+        {
+          translateY: interpolate(progress.value, [0, 1], [2, 0]),
+        },
+      ],
+    };
+  });
+
+  // ======================================================
+  // Render
+  // ======================================================
 
   return (
-    <Animated.View
-      style={{
-        opacity: fadeAnim,
-        transform: [
-          {
-            scale: fadeAnim.interpolate({
-              inputRange: [0.5, 1],
-              outputRange: [0.92, 1],
-            }),
-          },
-        ],
-      }}
-    >
+    <Animated.View style={animatedStyle}>
       <TabButton focused={focused} {...rest} />
     </Animated.View>
   );
