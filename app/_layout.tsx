@@ -1,4 +1,4 @@
-import { Redirect, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -15,8 +15,6 @@ import "../global.css";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const isLoggedIn = true;
-
   const [loaded, error] = useFonts({
     "poppins-regular": require("@/src/assets/fonts/Poppins-Regular.ttf"),
     "poppins-medium": require("@/src/assets/fonts/Poppins-Medium.ttf"),
@@ -39,21 +37,13 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: "#ffffe3" }}>
       <SafeAreaProvider>
         <StatusBar translucent backgroundColor="#ffffe3" style="dark" />
 
-        <SafeAreaView
-          className="flex-1 bg-[#ffffe3]"
-          edges={["top", "left", "right"]}
-        >
-          {!isLoggedIn ? (
-            <Redirect href="/(auth)/sign-in" />
-          ) : (
-            <Redirect href="/(drawer)/(tabs)" />
-          )}
-
+        <SafeAreaView style={{ flex: 1 }} edges={["top", "left", "right"]}>
           <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="index" />
             <Stack.Screen name="splash" />
             <Stack.Screen name="(auth)" />
             <Stack.Screen name="(drawer)" />

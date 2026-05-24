@@ -1,0 +1,58 @@
+const ORDER_ITEMS = [
+  {
+    id: 1,
+    image: require("@/src/assets/images/custom/products/cake.jpg"),
+    name: "Vanilla Choco Cake",
+    status: "Out for Delivery",
+    date: "Sun, 10 May 2026",
+    time: "12:20 pm",
+    isOngoing: true,
+  },
+  {
+    id: 2,
+    image: require("@/src/assets/images/custom/products/bread.png"),
+    name: "Loaves bread",
+    status: "Order placed",
+    date: "Sun, 10 May 2026",
+    time: "12:20 pm",
+    isOngoing: true,
+  },
+  {
+    id: 3,
+    image: require("@/src/assets/images/custom/products/croissant.png"),
+    name: "Buttery Croissants",
+    status: "Delivered",
+    date: "Sun, 10 May 2026",
+    time: "12:20 pm",
+    isOngoing: false,
+  },
+  {
+    id: 4,
+    image: require("@/src/assets/images/custom/products/bread2.jpg"),
+    name: "Loaves bread",
+    status: "Order cancelled",
+    date: "Sun, 10 May 2026",
+    time: "12:20 pm",
+    isOngoing: false,
+  },
+  {
+    id: 5,
+    image: require("@/src/assets/images/custom/products/donut.jpg"),
+    name: "Donuts",
+    status: "Delivered",
+    date: "Sun, 10 May 2026",
+    time: "12:20 pm",
+    isOngoing: false,
+  },
+  {
+    id: 6,
+    image: require("@/src/assets/images/custom/products/cookie.jpg"),
+    name: "Choco Chip Cookies",
+    status: "Delivered",
+    date: "Sun, 10 May 2026",
+    time: "12:20 pm",
+    isOngoing: false,
+  },
+];
+
+export default ORDER_ITEMS;
