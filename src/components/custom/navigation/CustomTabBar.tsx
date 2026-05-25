@@ -139,7 +139,7 @@ function AnimatedTabButton({ focused, ...rest }: AnimatedTabButtonProps) {
           scale: interpolate(progress.value, [0, 1], [0.92, 1]),
         },
         {
-          translateY: interpolate(progress.value, [0, 1], [2, 0]),
+          translateX: interpolate(progress.value, [0, 1], [2, 0]),
         },
       ],
     };
