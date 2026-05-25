@@ -124,7 +124,7 @@ function AnimatedTabButton({ focused, ...rest }: AnimatedTabButtonProps) {
       damping: 25,
       stiffness: 120,
     });
-  }, [focused]);
+  }, [focused, progress]);
 
   // ======================================================
   // Animated Styles
