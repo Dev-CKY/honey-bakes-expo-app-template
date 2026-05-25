@@ -2,6 +2,7 @@
 
 import { useOrderDetails } from "@/hooks/custom/useOrderDetails";
 import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
+import CancelButton from "@/src/components/custom/CancelButton";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import OrderedItemCard from "@/src/components/custom/OrderedItemCard";
@@ -101,11 +102,9 @@ const Order = () => {
       <OrderedItemCard />
 
       {/* Cancel Button */}
-      <Pressable className="w-full h-[60px] rounded-full items-center justify-center bg-[#F7715D] mt-[20px]">
-        <Text className="font-[poppins-medium] text-[16px] text-[#fff]">
-          Cancel Order
-        </Text>
-      </Pressable>
+      <View className="mt-[20px]">
+        <CancelButton />
+      </View>
 
       {/* Track order */}
       <Pressable
