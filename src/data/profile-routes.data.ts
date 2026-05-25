@@ -28,7 +28,7 @@ const PROFILE_ROUTES = [
     icon: order,
     routeName: "My orders",
     onPress: () => {
-      router.push("/screens/my-orders");
+      router.push("/screens/my-orders/");
     },
   },
   {

@@ -22,7 +22,7 @@ const SignIn = () => {
 
       <>
         {/* Heading */}
-        <HeadingTitle title="Sign In" />
+        <HeadingTitle size={32} title="Sign In" />
 
         {/* Sub Heading */}
         <SubHeadingTitle title="to access your account." />

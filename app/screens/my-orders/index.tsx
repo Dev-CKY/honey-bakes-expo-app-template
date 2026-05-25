@@ -48,7 +48,7 @@ const MyOrders = () => {
 
       {/* Heading */}
       <View className="px-[20px]">
-        <HeadingTitle title="My Orders" />
+        <HeadingTitle size={32} title="My Orders" />
       </View>
 
       {/* Toggle Tabs */}

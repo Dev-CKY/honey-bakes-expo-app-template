@@ -24,7 +24,7 @@ const ForgotPassword = () => {
         <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
         {/* Heading */}
-        <HeadingTitle title="Forgot Password?" />
+        <HeadingTitle size={32} title="Forgot Password?" />
 
         {/* Sub Heading */}
         <SubHeadingTitle title="Reset your password via your email." />

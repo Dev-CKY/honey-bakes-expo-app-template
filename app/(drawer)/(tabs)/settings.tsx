@@ -52,13 +52,13 @@ const Settings = () => {
           </Pressable>
 
           {/* Heading */}
-          <HeadingTitle title="Settings" />
+          <HeadingTitle size={32} title="Settings" />
         </View>
 
         {/* Subheading */}
-        <Text className="text-[20px] text-[#1F1500] font-[kalnia-medium] m-[20px]">
-          Profile & Security
-        </Text>
+        <View className="m-[20px]">
+          <HeadingTitle size={20} title="Profile & Security" />
+        </View>
 
         {/* Routes */}
         <Routes data={SETTINGS_ROUTES} />
@@ -66,9 +66,9 @@ const Settings = () => {
         {/* Notification & Theme */}
         <View>
           {/* Title */}
-          <Text className="text-[20px] text-[#1F1500] font-[kalnia-medium] m-[20px]">
-            Notification & Theme
-          </Text>
+          <View className="m-[20px]">
+            <HeadingTitle size={20} title="Notification & Theme" />
+          </View>
 
           {/* Data */}
           {APP_CONTROLS.map((item, index) => (

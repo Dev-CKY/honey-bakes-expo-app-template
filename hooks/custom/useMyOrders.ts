@@ -1,5 +1,3 @@
-// useMyOrders.ts
-
 import { useMemo, useState } from "react";
 import { Dimensions } from "react-native";
 
@@ -60,7 +58,7 @@ export const useMyOrders = () => {
     // Animate active background
     translateX.value = withSpring(tab === "ongoing" ? 0 : BUTTON_WIDTH, {
       damping: 50,
-      stiffness: 120,
+      stiffness: 200,
     });
   };
 

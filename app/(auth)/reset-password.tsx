@@ -26,7 +26,7 @@ const ResetPassword = () => {
         <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
         {/* Heading */}
-        <HeadingTitle title="Reset Password" />
+        <HeadingTitle size={32} title="Reset Password" />
 
         {/* Sub Heading */}
         <SubHeadingTitle title="Enter the new password" />

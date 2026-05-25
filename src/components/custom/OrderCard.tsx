@@ -8,6 +8,7 @@ import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import arrowRight from "@/src/assets/icons/svg/arrowRight";
 import calendar from "@/src/assets/icons/svg/calender";
 import clock from "@/src/assets/icons/svg/clock";
+import { router } from "expo-router";
 import { Image, Pressable, Text, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 
@@ -25,7 +26,10 @@ const OrderCard = ({ item }: any) => {
       entering={FadeIn.duration(700)}
       exiting={FadeOut.duration(700)}
     >
-      <Pressable className="flex-row border-b border-[#ECE5C8] px-[20px] py-[20px]">
+      <Pressable
+        className="flex-row border-b border-[#ECE5C8] px-[20px] py-[20px]"
+        onPress={() => router.push("/screens/my-orders/order")}
+      >
         {/* Product Image */}
         <Image
           source={item.image}

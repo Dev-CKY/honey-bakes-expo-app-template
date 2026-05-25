@@ -28,7 +28,7 @@ const Notifications = () => {
 
       {/* Heading */}
       <View className="px-[20px]">
-        <HeadingTitle title="Notifications" />
+        <HeadingTitle size={32} title="Notifications" />
       </View>
 
       {/* Notifications List */}

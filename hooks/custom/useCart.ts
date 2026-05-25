@@ -26,9 +26,16 @@ export const useCart = () => {
     );
   };
 
+  const orderSummary = [
+    { label: "Sub total", value: "₹100" },
+    { label: "Tax", value: "8%" },
+    { label: "Delivery fee", value: "Free" },
+  ];
+
   return {
     cartItems,
     incrementQuantity,
     decrementQuantity,
+    orderSummary,
   };
 };

@@ -33,7 +33,7 @@ const Wishlist = () => {
 
       {/* Heading */}
       <View className="px-[20px]">
-        <HeadingTitle title="My Wishlist" />
+        <HeadingTitle size={32} title="My Wishlist" />
       </View>
 
       {/* Wishlist Items List */}

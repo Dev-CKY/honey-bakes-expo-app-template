@@ -23,7 +23,7 @@ const OtpVerification = () => {
         <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
         {/* Heading */}
-        <HeadingTitle title="Otp Verification" />
+        <HeadingTitle size={32} title="Otp Verification" />
 
         {/* Sub Heading */}
         <SubHeadingTitle title="Enter OTP that we’ve sent on your email." />

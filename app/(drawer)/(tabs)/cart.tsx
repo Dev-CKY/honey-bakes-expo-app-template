@@ -3,7 +3,6 @@ import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import bin2 from "@/src/assets/icons/svg/bin2";
 import minus from "@/src/assets/icons/svg/minus";
 import plus from "@/src/assets/icons/svg/plus";
-import Button from "@/src/components/custom/Button";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import { router } from "expo-router";
@@ -13,7 +12,8 @@ import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 const Cart = () => {
-  const { cartItems, incrementQuantity, decrementQuantity } = useCart();
+  const { cartItems, incrementQuantity, decrementQuantity, orderSummary } =
+    useCart();
 
   return (
     <ScrollView
@@ -34,7 +34,7 @@ const Cart = () => {
 
       {/* Heading */}
       <View className="px-[20px]">
-        <HeadingTitle title="My Cart" />
+        <HeadingTitle size={32} title="My Cart" />
       </View>
 
       {/* Cart Items */}
@@ -82,64 +82,41 @@ const Cart = () => {
       ))}
 
       {/* Total calculation */}
-      <Text className="text-[20px] text-[#1F1500] font-[kalnia-medium] m-[20px]">
-        Price Details
-      </Text>
+      <View className="m-[20px]">
+        <HeadingTitle size={20} title="Price Details" />
+      </View>
 
       {/* Pricing Wrapper */}
       <View className="px-[20px]">
-        {/* Subtotal */}
-        <View className="flex-row items-center justify-between mb-[10px]">
-          <Text className="text-[14px] text-[#1F1500] font-[poppins-regular]">
-            Sub total :
-          </Text>
+        {/* Summary Items */}
+        {orderSummary.map((item, index) => (
+          <View
+            key={index}
+            className="flex-row items-center justify-between mb-[10px]"
+          >
+            <Text className="text-[14px] text-[#C2A26F] font-[poppins-regular]">
+              {item.label} :
+            </Text>
 
-          <Text className="text-[14px] text-[#1F1500] font-[poppins-medium]">
-            ₹100
-          </Text>
-        </View>
-
-        {/* Tax */}
-        <View className="flex-row items-center justify-between mb-[10px]">
-          <Text className="text-[14px] text-[#1F1500] font-[poppins-regular]">
-            Tax :
-          </Text>
-
-          <Text className="text-[14px] text-[#1F1500] font-[poppins-medium]">
-            8%
-          </Text>
-        </View>
-
-        {/* Delivery Fee */}
-        <View className="flex-row items-center justify-between mb-[10px]">
-          <Text className="text-[14px] text-[#1F1500] font-[poppins-regular]">
-            Delivery fee :
-          </Text>
-
-          <Text className="text-[14px] text-[#1F1500] font-[poppins-medium]">
-            Free
-          </Text>
-        </View>
+            <Text className="text-[14px] text-[#C2A26F] font-[poppins-medium]">
+              {item.value}
+            </Text>
+          </View>
+        ))}
 
         {/* Dashed Border */}
         <View className="border-dashed border-[#E9DFC0] mb-[10px] border-b-[1.5px]" />
 
         {/* Total */}
         <View className="flex-row items-center justify-between mb-[20px]">
-          <Text className="text-[14px] text-[#1F1500] font-[poppins-medium]">
+          <Text className="text-[14px] text-[#C2A26F] font-[poppins-medium]">
             Total :
           </Text>
 
-          <Text className="text-[14px] text-[#1F1500] font-[poppins-medium]">
+          <Text className="text-[14px] text-[#C2A26F] font-[poppins-medium]">
             ₹108
           </Text>
         </View>
-
-        {/* Checkout Button */}
-        <Button
-          label="Proceed to Checkout"
-          onPress={() => router.push("/checkout")}
-        />
       </View>
     </ScrollView>
   );

@@ -26,7 +26,7 @@ const Profile = () => {
           <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
           {/* Heading */}
-          <HeadingTitle title="My Profile" />
+          <HeadingTitle size={32} title="My Profile" />
         </View>
 
         {/* Image avatar */}
