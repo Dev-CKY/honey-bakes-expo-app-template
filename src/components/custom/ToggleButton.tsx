@@ -1,13 +1,17 @@
 import React from "react";
 import { Pressable, Text } from "react-native";
 
-type ToggleButtonProps = {
+type ToggleButtonProps<T extends string> = {
   title: string;
-  value: "ongoing" | "history";
-  handleToggle: (tab: "ongoing" | "history") => void;
+  value: T;
+  handleToggle: (tab: T) => void;
 };
 
-const ToggleButton = ({ title, value, handleToggle }: ToggleButtonProps) => {
+const ToggleButton = <T extends string>({
+  title,
+  value,
+  handleToggle,
+}: ToggleButtonProps<T>) => {
   return (
     <Pressable
       onPress={() => handleToggle(value)}

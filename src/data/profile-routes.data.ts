@@ -1,6 +1,5 @@
 import { router } from "expo-router";
 import bell from "../assets/icons/svg/bell";
-import faq from "../assets/icons/svg/faq";
 import headphone from "../assets/icons/svg/headphone";
 import heart from "../assets/icons/svg/heart";
 import order from "../assets/icons/svg/orders";
@@ -28,25 +27,21 @@ const PROFILE_ROUTES = [
     icon: order,
     routeName: "My orders",
     onPress: () => {
-      router.push("/screens/my-orders/");
+      router.push("/screens/my-orders");
     },
   },
   {
     id: 4,
-    icon: faq,
-    routeName: "FAQ's",
-    onPress: () => {},
+    icon: headphone,
+    routeName: "Help center",
+    onPress: () => {
+      router.push("/screens/help-center");
+    },
   },
   {
     id: 5,
     icon: settings,
     routeName: "Settings",
-    onPress: () => {},
-  },
-  {
-    id: 6,
-    icon: headphone,
-    routeName: "Help center",
     onPress: () => {},
   },
 ];
