@@ -1,12 +1,12 @@
 import React from "react";
 
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 import { router } from "expo-router";
 import { scale } from "react-native-size-matters";
 
 // Reanimated
-import Animated, { FadeIn } from "react-native-reanimated";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 // Hook
 import { useHelpCenter } from "@/hooks/custom/useHelpCenter";
@@ -22,6 +22,8 @@ import ToggleButton from "@/src/components/custom/ToggleButton";
 
 // Data
 
+import Routes from "@/src/components/custom/Routes";
+import CONTACT_ROUTES from "@/src/data/contact-routes.data";
 import { FAQS_DATA } from "@/src/data/faq-items.data";
 
 const HelpCenter = () => {
@@ -79,21 +81,23 @@ const HelpCenter = () => {
       </View>
 
       {/* Content */}
-      <View className="px-[20px]">
-        <Animated.View key={activeTab} entering={FadeIn.duration(300)}>
-          {activeTab === "faqs" ? (
-            <View className="gap-y-[4px]">
-              {FAQS_DATA.map((item) => (
-                <FAQAccordion key={item.id} item={item} />
-              ))}
-            </View>
-          ) : (
-            <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
-              Contact Us Content
-            </Text>
-          )}
-        </Animated.View>
-      </View>
+      <Animated.View
+        key={activeTab}
+        entering={FadeIn.duration(500)}
+        exiting={FadeOut.duration(500)}
+      >
+        {activeTab === "faqs" ? (
+          <View className="gap-y-[4px]">
+            {FAQS_DATA.map((item) => (
+              <FAQAccordion key={item.id} item={item} />
+            ))}
+          </View>
+        ) : (
+          <View className="mt-[-10px]">
+            <Routes data={CONTACT_ROUTES} />
+          </View>
+        )}
+      </Animated.View>
     </ScrollView>
   );
 };

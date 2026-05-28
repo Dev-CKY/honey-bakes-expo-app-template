@@ -8,7 +8,6 @@ import { Pressable, Text } from "react-native";
 import Animated, {
   FadeIn,
   FadeOut,
-  Layout,
   LinearTransition,
 } from "react-native-reanimated";
 import { SvgXml } from "react-native-svg";
@@ -27,7 +26,7 @@ const FAQAccordion = ({ item }: FAQAccordionProps) => {
   return (
     <Animated.View
       layout={LinearTransition.springify()}
-      className="overflow-hidden border-b border-[#D8D1BA]"
+      className="overflow-hidden border-b border-[#D8D1BA] px-[20px]"
     >
       <Pressable
         onPress={handleToggle}
@@ -46,7 +45,7 @@ const FAQAccordion = ({ item }: FAQAccordionProps) => {
         <Animated.View
           entering={FadeIn.duration(200)}
           exiting={FadeOut.duration(200)}
-          layout={Layout.springify()}
+          layout={LinearTransition.springify()}
           className="pb-[18px]"
         >
           <Text className="font-[poppins-regular] text-[14px] leading-[22px] text-[#6B645C]">
