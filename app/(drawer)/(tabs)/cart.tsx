@@ -3,6 +3,7 @@ import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import bin2 from "@/src/assets/icons/svg/bin2";
 import minus from "@/src/assets/icons/svg/minus";
 import plus from "@/src/assets/icons/svg/plus";
+import Button from "@/src/components/custom/Button";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import { router } from "expo-router";
@@ -117,6 +118,11 @@ const Cart = () => {
             ₹108
           </Text>
         </View>
+
+        <Button
+          label="Proceed to Checkout"
+          onPress={() => router.push("/screens/checkout")}
+        />
       </View>
     </ScrollView>
   );

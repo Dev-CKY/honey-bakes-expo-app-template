@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 type TextInputFieldProps = TextInputProps & {
-  isPassword?: boolean;
+  isEncrypted?: boolean;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   eyeOpenIcon?: ReactNode;
@@ -16,7 +16,7 @@ type TextInputFieldProps = TextInputProps & {
 };
 
 const TextInputField = ({
-  isPassword = false,
+  isEncrypted = false,
   leftIcon,
   rightIcon,
   eyeOpenIcon,
@@ -25,7 +25,7 @@ const TextInputField = ({
   keyboardType,
   ...props
 }: TextInputFieldProps) => {
-  const [secureText, setSecureText] = useState(isPassword);
+  const [secureText, setSecureText] = useState(isEncrypted);
 
   return (
     <View className="h-[60px] mb-[10px] flex-row items-center rounded-full border border-[#F6F0D4] border-width-[1.5px] bg-[#FFFFE3] px-5">
@@ -44,7 +44,7 @@ const TextInputField = ({
       />
 
       {/* Password Toggle */}
-      {isPassword ? (
+      {isEncrypted ? (
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => setSecureText(!secureText)}

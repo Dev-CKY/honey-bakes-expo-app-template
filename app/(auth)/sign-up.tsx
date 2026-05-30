@@ -45,7 +45,7 @@ const SignUp = () => {
         {/* Password */}
         <TextInputField
           placeholder="Password"
-          isPassword
+          isEncrypted
           leftIcon={<SvgXml xml={lock} className="w-[24px] h-[24px]" />}
           eyeOpenIcon={<SvgXml xml={eye} className="w-[24px] h-[24px]" />}
           eyeCloseIcon={<SvgXml xml={eyeOff} className="w-[24px] h-[24px]" />}

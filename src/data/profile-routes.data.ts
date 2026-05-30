@@ -42,7 +42,9 @@ const PROFILE_ROUTES = [
     id: 5,
     icon: settings,
     routeName: "Settings",
-    onPress: () => {},
+    onPress: () => {
+      router.push("/(drawer)/(tabs)/settings");
+    },
   },
 ];
 
