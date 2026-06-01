@@ -1,44 +1,66 @@
+import { useOrderPlaced } from "@/hooks/custom/useOrderPlaced";
 import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import bin2 from "@/src/assets/icons/svg/bin2";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import { router } from "expo-router";
 import React from "react";
-import { Image, ImageBackground, Text, View } from "react-native";
+import { ImageBackground, View } from "react-native";
+
+import Animated, {
+  FadeIn,
+  FadeInDown,
+  FadeInUp,
+} from "react-native-reanimated";
 
 const OrderPlaced = () => {
+  const { circleAnimatedStyle, AnimatedImage } = useOrderPlaced();
+
   return (
     <View className="flex-1 bg-[#FFFFE3]">
       {/* Top Banner */}
-      <ImageBackground
-        source={require("@/src/assets/images/custom/flags.png")}
-        resizeMode="cover"
-        className="w-full h-[300px]"
-      >
-        <View className="flex-row items-center justify-between p-[20px]">
-          <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
+      <Animated.View entering={FadeIn.duration(600)}>
+        <ImageBackground
+          source={require("@/src/assets/images/custom/flags.png")}
+          resizeMode="cover"
+          className="w-full h-[300px]"
+        >
+          <View className="flex-row items-center justify-between p-[20px]">
+            <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
-          <IconButtonWrapper icon={bin2} onPress={() => {}} />
-        </View>
-      </ImageBackground>
+            <IconButtonWrapper icon={bin2} onPress={() => {}} />
+          </View>
+        </ImageBackground>
+      </Animated.View>
 
-      {/* Success Circle - overlaps banner */}
+      {/* Success Section */}
       <View className="mt-[40px] items-center">
-        <View className="h-[100px] w-[100px] items-center justify-center rounded-full bg-[#DBFFC9]">
-          <Image
+        <Animated.View
+          entering={FadeInUp.delay(250).duration(700)}
+          style={circleAnimatedStyle}
+          className="h-[100px] w-[100px] items-center justify-center rounded-full bg-[#DBFFC9]"
+        >
+          <AnimatedImage
+            entering={FadeIn.delay(500).duration(500)}
             source={require("@/src/assets/images/custom/icons/truck_tick.png")}
             resizeMode="contain"
             className="h-[50px] w-[50px]"
           />
-        </View>
+        </Animated.View>
 
-        <Text className="mt-[10px] text-[20px] text-[#1F1500] font-[poppins-medium]">
+        <Animated.Text
+          entering={FadeInDown.delay(500).duration(600)}
+          className="mt-[10px] text-[20px] text-[#1F1500] font-[poppins-medium]"
+        >
           Hurray! order placed!
-        </Text>
+        </Animated.Text>
 
-        <Text className="mt-[5px] text-center text-[14px] leading-[22px] text-[#C2A26F] font-[poppins-regular]">
+        <Animated.Text
+          entering={FadeInDown.delay(700).duration(600)}
+          className="mt-[5px] text-center text-[14px] leading-[22px] text-[#C2A26F] font-[poppins-regular]"
+        >
           Congratulations! order{"\n"}
           placed successfully
-        </Text>
+        </Animated.Text>
       </View>
     </View>
   );
