@@ -25,8 +25,9 @@ import {
   View,
 } from "react-native";
 import Animated, {
-  ZoomIn,
-  ZoomOutEasyDown,
+  FadeIn,
+  FadeOut,
+  LinearTransition,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -47,10 +48,15 @@ const Checkout = () => {
 
   const opacity = useSharedValue(1);
 
-  const scaleValue = useSharedValue(1);
+  const translateY = useSharedValue(0);
+
   useEffect(() => {
-    opacity.value = withTiming(isCardFormDisabled ? 0.5 : 1, {
-      duration: 250,
+    opacity.value = withTiming(isCardFormDisabled ? 0.4 : 1, {
+      duration: 300,
+    });
+
+    translateY.value = withTiming(isCardFormDisabled ? 10 : 0, {
+      duration: 300,
     });
   }, [isCardFormDisabled]);
 
@@ -58,7 +64,7 @@ const Checkout = () => {
     opacity: opacity.value,
     transform: [
       {
-        scale: scaleValue.value,
+        translateY: translateY.value,
       },
     ],
   }));
@@ -79,7 +85,7 @@ const Checkout = () => {
           }}
         >
           {/* Header */}
-          <View className="flex-row items-center justify-between px-[20px]">
+          <View className="px-[20px]">
             <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
           </View>
 
@@ -147,29 +153,35 @@ const Checkout = () => {
           <Pressable
             onPress={() => {
               if (isCardFormDisabled) {
-                scaleValue.value = withTiming(1.03, {
-                  duration: 250,
+                setSelectedPayment(null);
+
+                translateY.value = 15;
+
+                translateY.value = withTiming(0, {
+                  duration: 350,
                 });
-
-                setTimeout(() => {
-                  scaleValue.value = withTiming(1, {
-                    duration: 250,
-                  });
-
-                  setSelectedPayment(null);
-                }, 250);
               }
             }}
           >
             <Animated.View
+              entering={FadeIn.duration(300)}
+              layout={LinearTransition.springify()}
               style={[animatedStyle]}
-              className={`mx-[20px] mt-[20px] ${isCardFormDisabled && `border-dashed border-[1.5px] border-[#F7BC5D] rounded-[16px] p-[10px]`}`}
+              className={`mx-[20px] mt-[20px] ${
+                isCardFormDisabled
+                  ? "rounded-[16px] border-[1.5px] border-dashed border-[#F7BC5D] p-[10px]"
+                  : ""
+              }`}
               pointerEvents={isCardFormDisabled ? "none" : "auto"}
             >
               {isCardFormDisabled && (
-                <Text className="mb-[12px] text-center font-[poppins-medium] text-[12px] text-[#1F1500]">
+                <Animated.Text
+                  entering={FadeIn.duration(250)}
+                  exiting={FadeOut.duration(150)}
+                  className="mb-[12px] text-center font-[poppins-medium] text-[12px] text-[#1F1500]"
+                >
                   Tap anywhere here to pay with card instead
-                </Text>
+                </Animated.Text>
               )}
 
               <TextInputField
@@ -219,8 +231,8 @@ const Checkout = () => {
                 >
                   {rememberCard && (
                     <Animated.View
-                      entering={ZoomIn.duration(200)}
-                      exiting={ZoomOutEasyDown.duration(150)}
+                      entering={FadeIn.duration(150)}
+                      exiting={FadeOut.duration(150)}
                     >
                       <SvgXml xml={tick} />
                     </Animated.View>
@@ -241,7 +253,10 @@ const Checkout = () => {
             $100.00
           </Text>
 
-          <Pressable className="h-[60px] w-[60%] items-center justify-center rounded-full border-[1.5px] border-[#1F1500] bg-[#F7BC5D]">
+          <Pressable
+            className="h-[60px] w-[60%] items-center justify-center rounded-full border-[1.5px] border-[#1F1500] bg-[#F7BC5D]"
+            onPress={() => router.push("/screens/order-placed")}
+          >
             <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
               Place order
             </Text>
