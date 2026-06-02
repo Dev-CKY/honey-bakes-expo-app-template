@@ -10,7 +10,7 @@ import { scale } from "react-native-size-matters";
 
 const Categories = () => {
   return (
-    <View className="flex-1 bg-[#FFFFE3] px-[16px] pt-[20px]">
+    <View className="flex-1 bg-[#FFFFE3] p-[20px]">
       {/* Back Button */}
 
       <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
@@ -37,7 +37,7 @@ const Categories = () => {
           <CategoryCard
             title={item.title}
             image={item.image}
-            onPress={() => console.log(item.title)}
+            onPress={() => router.push("/screens/products")}
           />
         )}
       />

@@ -12,10 +12,11 @@ import { SvgXml } from "react-native-svg";
 
 type SearchBarProps = TextInputProps & {
   placeholder: string;
+  searchValue?: string;
 };
 
-const SearchBar = ({ placeholder, ...props }: SearchBarProps) => {
-  const [value, setValue] = useState("");
+const SearchBar = ({ placeholder, searchValue, ...props }: SearchBarProps) => {
+  const [value, setValue] = useState(searchValue || "");
 
   return (
     <View className="h-[50px] mb-[10px] flex-row items-center rounded-full border border-[#F6F0D4] bg-[#FFFFE3] px-5">

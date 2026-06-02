@@ -84,7 +84,7 @@ const MyOrders = () => {
 
       {/* Search */}
       <View className="px-[20px]">
-        <SearchBar placeholder="Search orders..." />
+        <SearchBar placeholder="Search orders..." searchValue="" />
       </View>
 
       {/* Orders List */}
