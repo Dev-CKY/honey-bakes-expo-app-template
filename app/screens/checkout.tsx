@@ -1,3 +1,4 @@
+import { useCheckout } from "@/hooks/custom/useCheckout";
 import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import calender2 from "@/src/assets/icons/svg/calender2";
 import card from "@/src/assets/icons/svg/card";
@@ -14,7 +15,7 @@ import TextInputField from "@/src/components/custom/TextInputField";
 import { ADDRESS_DATA } from "@/src/data/address.data";
 import { PAYMENT_METHODS } from "@/src/data/payment.data";
 import { router } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   FlatList,
   KeyboardAvoidingView,
@@ -28,46 +29,23 @@ import Animated, {
   FadeIn,
   FadeOut,
   LinearTransition,
-  useAnimatedStyle,
-  useSharedValue,
   withTiming,
 } from "react-native-reanimated";
 import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 const Checkout = () => {
-  const [selectedAddress, setSelectedAddress] = useState<number>(
-    ADDRESS_DATA[0].id,
-  );
-
-  const [selectedPayment, setSelectedPayment] = useState<number | null>(null);
-
-  const [rememberCard, setRememberCard] = useState(true);
-
-  const isCardFormDisabled = selectedPayment !== null;
-
-  const opacity = useSharedValue(1);
-
-  const translateY = useSharedValue(0);
-
-  useEffect(() => {
-    opacity.value = withTiming(isCardFormDisabled ? 0.4 : 1, {
-      duration: 300,
-    });
-
-    translateY.value = withTiming(isCardFormDisabled ? 10 : 0, {
-      duration: 300,
-    });
-  }, [isCardFormDisabled]);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
-    transform: [
-      {
-        translateY: translateY.value,
-      },
-    ],
-  }));
+  const {
+    selectedAddress,
+    setSelectedAddress,
+    selectedPayment,
+    setSelectedPayment,
+    rememberCard,
+    setRememberCard,
+    isCardFormDisabled,
+    animatedStyle,
+    translateY,
+  } = useCheckout();
 
   return (
     <KeyboardAvoidingView

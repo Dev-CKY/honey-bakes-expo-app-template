@@ -51,7 +51,14 @@ const ProductGrid = () => {
             image={item.image}
             price={item.price}
             brand={item.brand}
-            onPress={() => console.log(item.title)}
+            onPress={() =>
+              router.push({
+                pathname: "/screens/products/product",
+                params: {
+                  id: item.id,
+                },
+              })
+            }
           />
         )}
       />
