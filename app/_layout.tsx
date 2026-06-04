@@ -10,6 +10,8 @@ import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 import Toast from "react-native-toast-message";
 
+import { CartProvider } from "@/src/context/CartContext";
+
 import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -39,18 +41,20 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: "#ffffe3" }}>
       <SafeAreaProvider>
-        <StatusBar translucent backgroundColor="#ffffe3" style="dark" />
+        <CartProvider>
+          <StatusBar translucent backgroundColor="#ffffe3" style="dark" />
 
-        <SafeAreaView style={{ flex: 1 }} edges={["top", "left", "right"]}>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="index" />
-            <Stack.Screen name="splash" />
-            <Stack.Screen name="(auth)" />
-            <Stack.Screen name="(drawer)" />
-          </Stack>
+          <SafeAreaView style={{ flex: 1 }} edges={["top", "left", "right"]}>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="index" />
+              <Stack.Screen name="splash" />
+              <Stack.Screen name="(auth)" />
+              <Stack.Screen name="(drawer)" />
+            </Stack>
 
-          <Toast />
-        </SafeAreaView>
+            <Toast />
+          </SafeAreaView>
+        </CartProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

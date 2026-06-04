@@ -23,6 +23,7 @@ import starFilled from "@/src/assets/icons/svg/starFilled";
 
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
+import { useCartContext } from "@/src/context/CartContext";
 
 // Food type badge colors
 const VEG_COLOR = "#00CF21";
@@ -40,6 +41,9 @@ const ProductDetails = () => {
     decreaseQuantity,
   } = useProductDetails();
 
+  // Access cart context to manage cart actions
+  const { addToCart } = useCartContext();
+
   // Prevent rendering until product data is available
   if (!product) {
     return null;
@@ -52,6 +56,15 @@ const ProductDetails = () => {
 
   // Navigate to add to cart screen
   const handleAddToCart = () => {
+    addToCart({
+      id: product.id,
+      name: product.title,
+      seller: product.brand,
+      image: product.image,
+      price: product.price,
+      quantity,
+    });
+
     router.push("/(drawer)/(tabs)/cart");
   };
 
