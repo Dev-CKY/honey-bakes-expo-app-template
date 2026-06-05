@@ -93,6 +93,15 @@ const Checkout = () => {
                 onPress={() => setSelectedAddress(item.id)}
               />
             ))}
+
+            <Pressable
+              className="items-center justify-center rounded-full border-dashed border-[1.5px] border-[#1F1500] w-full h-[50px] self-center"
+              onPress={() => router.push("/screens/addresses")}
+            >
+              <Text className="font-[poppins-medium] text-[14px] text-[#1F1500]">
+                See more addresses
+              </Text>
+            </Pressable>
           </View>
 
           {/* Payment Method */}

@@ -13,6 +13,7 @@ import minus from "@/src/assets/icons/svg/minus";
 import plus from "@/src/assets/icons/svg/plus";
 
 import Button from "@/src/components/custom/Button";
+import EmptyScreenState from "@/src/components/custom/EmptyScreenState";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 
@@ -42,6 +43,9 @@ const Cart = () => {
 
   // Check whether cart contains any items
   const isCartEmpty = cartItems.length === 0;
+
+  // Empty cart image
+  const cartEmptyImage = require("@/src/assets/images/custom/icons/cart.png");
 
   // --------------------------------------------------
   // Clear Entire Cart
@@ -211,15 +215,7 @@ const Cart = () => {
           Empty Cart State
       ================================================== */}
       {isCartEmpty ? (
-        <View className="flex-1 items-center justify-center px-[20px]">
-          <Text className="font-[poppins-medium] text-[24px] text-[#1F1500]">
-            Your Cart Is Empty
-          </Text>
-
-          <Text className="mt-[8px] text-center font-[poppins-regular] text-[14px] text-[#C2A26F]">
-            Looks like you haven't added any items yet.
-          </Text>
-        </View>
+        <EmptyScreenState title="Cart" image={cartEmptyImage} />
       ) : (
         <>
           {/* ==================================================
@@ -227,12 +223,12 @@ const Cart = () => {
           ================================================== */}
           <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
             {cartItems.map(renderCartItem)}
-          </ScrollView>
 
-          {/* ==================================================
+            {/* ==================================================
               Price Details & Checkout
           ================================================== */}
-          {renderPriceDetails()}
+            {renderPriceDetails()}
+          </ScrollView>
         </>
       )}
     </View>
