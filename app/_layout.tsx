@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -14,9 +14,12 @@ import { CartProvider } from "@/src/context/CartContext";
 
 import "../global.css";
 
+// Keep splash visible immediately
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [appReady, setAppReady] = useState(false);
+
   const [loaded, error] = useFonts({
     "poppins-regular": require("@/src/assets/fonts/Poppins-Regular.ttf"),
     "poppins-medium": require("@/src/assets/fonts/Poppins-Medium.ttf"),
@@ -28,6 +31,7 @@ export default function RootLayout() {
     async function prepare() {
       if (loaded || error) {
         await SplashScreen.hideAsync();
+        setAppReady(true);
       }
     }
 
@@ -35,6 +39,10 @@ export default function RootLayout() {
   }, [loaded, error]);
 
   if (!loaded && !error) {
+    return null; // still keep splash
+  }
+
+  if (!appReady) {
     return null;
   }
 

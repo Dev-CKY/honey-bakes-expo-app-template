@@ -91,7 +91,10 @@ const Cart = () => {
     >
       {/* Product Information */}
       <View className="flex-1 flex-row items-center pl-[20px]">
-        <Image source={item.image} className="h-[90px] w-[90px]" />
+        <Image
+          source={item.image}
+          className="h-[90px] w-[90px] rounded-[10px]"
+        />
 
         <View className="ml-[10px] flex-1">
           <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
