@@ -75,7 +75,11 @@ const Checkout = () => {
           <View className="flex-row items-center justify-between px-[20px] pt-[20px]">
             <HeadingTitle size={20} title="Select address" />
 
-            <Pressable>
+            <Pressable
+              onPress={() => {
+                router.push("/screens/add-address");
+              }}
+            >
               <Text className="font-[poppins-medium] text-[14px] text-black">
                 Add new +
               </Text>

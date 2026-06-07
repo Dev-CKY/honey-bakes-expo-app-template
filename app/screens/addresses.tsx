@@ -141,7 +141,10 @@ const Addresses = () => {
         entering={FadeInDown.delay(250).duration(450)}
         className="mx-[20px]"
       >
-        <Pressable className="h-[50px] w-full items-center justify-center rounded-full border-[1.5px] border-dashed border-[#1F1500]">
+        <Pressable
+          className="h-[50px] w-full items-center justify-center rounded-full border-[1.5px] border-dashed border-[#1F1500]"
+          onPress={() => router.push("/screens/add-address")}
+        >
           <Text className="font-[poppins-medium] text-[14px] text-[#1F1500]">
             Add new address
           </Text>
