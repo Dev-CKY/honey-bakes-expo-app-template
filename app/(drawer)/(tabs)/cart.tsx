@@ -1,7 +1,7 @@
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { router } from "expo-router";
 import React from "react";
-import { Alert, Image, Pressable, ScrollView, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SvgXml } from "react-native-svg";
 
@@ -29,8 +29,8 @@ const Cart = () => {
     cartItems,
     incrementQuantity,
     decrementQuantity,
-    removeItem,
-    clearCart,
+    handleClearCart,
+    handleRemoveItem,
     orderSummary,
     total,
   } = useCart();
@@ -46,44 +46,6 @@ const Cart = () => {
 
   // Empty cart image
   const cartEmptyImage = require("@/src/assets/images/custom/icons/cart.png");
-
-  // --------------------------------------------------
-  // Clear Entire Cart
-  // --------------------------------------------------
-  const handleClearCart = () => {
-    Alert.alert(
-      "Clear Cart",
-      "Are you sure you want to remove all items from your cart?",
-      [
-        {
-          text: "No",
-          style: "cancel",
-        },
-        {
-          text: "Yes",
-          style: "destructive",
-          onPress: clearCart,
-        },
-      ],
-    );
-  };
-
-  // --------------------------------------------------
-  // Remove Single Item
-  // --------------------------------------------------
-  const handleRemoveItem = (id: string) => {
-    Alert.alert("Remove Item", "Are you sure you want to remove this item?", [
-      {
-        text: "No",
-        style: "cancel",
-      },
-      {
-        text: "Yes",
-        style: "destructive",
-        onPress: () => removeItem(id),
-      },
-    ]);
-  };
 
   // --------------------------------------------------
   // Render Single Cart Item
