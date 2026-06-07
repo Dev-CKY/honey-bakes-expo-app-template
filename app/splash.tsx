@@ -1,23 +1,8 @@
-import { router } from "expo-router";
-import React, { useEffect } from "react";
+import React from "react";
 import { Image, ImageBackground } from "react-native";
 import * as Animatable from "react-native-animatable";
 
 const Splash = () => {
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      const isLoggedIn = true;
-
-      if (isLoggedIn) {
-        router.replace("/(drawer)/(tabs)");
-      } else {
-        router.replace("/(auth)/sign-in");
-      }
-    }, 2500);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
   return (
     <ImageBackground
       source={require("@/src/assets/images/custom/bg.jpeg")}

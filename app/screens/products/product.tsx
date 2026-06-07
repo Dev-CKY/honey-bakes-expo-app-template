@@ -42,10 +42,6 @@ const ProductDetails = () => {
     return null;
   }
 
-  const handleGoBack = () => {
-    router.back();
-  };
-
   const renderStar = ({ id, filled }: { id: any; filled: boolean }) => (
     <SvgXml
       key={id}
@@ -90,7 +86,12 @@ const ProductDetails = () => {
         >
           <View className="flex-row justify-between">
             <View className="h-[48px] w-[48px] rounded-full bg-white">
-              <IconButtonWrapper icon={arrowLeft} onPress={handleGoBack} />
+              <IconButtonWrapper
+                icon={arrowLeft}
+                onPress={() => {
+                  router.back();
+                }}
+              />
             </View>
 
             <Pressable className="h-[50px] w-[50px] items-center justify-center rounded-full border-[1.5px] border-[#1F1500] bg-[#F7BC5D]">

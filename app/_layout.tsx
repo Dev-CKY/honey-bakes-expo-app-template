@@ -5,22 +5,18 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 
 import "react-native-reanimated";
 import Toast from "react-native-toast-message";
 
-import { CartProvider } from "@/src/context/CartContext";
-
 import "../global.css";
-
-// Keep splash visible immediately
-SplashScreen.preventAutoHideAsync();
+import Splash from "./splash";
 
 const RootLayout = () => {
-  const [appReady, setAppReady] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [loaded, error] = useFonts({
+  const [loaded] = useFonts({
     "poppins-regular": require("@/src/assets/fonts/Poppins-Regular.ttf"),
     "poppins-medium": require("@/src/assets/fonts/Poppins-Medium.ttf"),
     "kalnia-medium": require("@/src/assets/fonts/Kalnia-Medium.ttf"),
@@ -28,41 +24,34 @@ const RootLayout = () => {
   });
 
   useEffect(() => {
-    async function prepare() {
-      if (loaded || error) {
-        await SplashScreen.hideAsync();
-        setAppReady(true);
-      }
+    if (loaded) {
+      const timer = setTimeout(() => setShowSplash(false), 2500);
+
+      return () => clearTimeout(timer);
     }
+  }, [loaded]);
 
-    prepare();
-  }, [loaded, error]);
-
-  if (!loaded && !error) {
-    return null; // still keep splash
-  }
-
-  if (!appReady) {
-    return null;
+  if (!loaded || showSplash) {
+    return <Splash />;
   }
 
   return (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: "#ffffe3" }}>
       <SafeAreaProvider>
-        <CartProvider>
-          <StatusBar translucent backgroundColor="#ffffe3" style="dark" />
+        <StatusBar translucent backgroundColor="#ffffe3" style="dark" />
 
-          <SafeAreaView style={{ flex: 1 }} edges={["top", "left", "right"]}>
-            <Stack screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="index" />
-              <Stack.Screen name="splash" />
+        <SafeAreaView style={{ flex: 1 }} edges={["top", "left", "right"]}>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Protected guard={!isLoggedIn}>
               <Stack.Screen name="(auth)" />
+            </Stack.Protected>
+            <Stack.Protected guard={isLoggedIn}>
               <Stack.Screen name="(drawer)" />
-            </Stack>
+            </Stack.Protected>
+          </Stack>
 
-            <Toast />
-          </SafeAreaView>
-        </CartProvider>
+          <Toast />
+        </SafeAreaView>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

@@ -109,7 +109,7 @@ const Cart = () => {
     <View
       className="border-t border-[#F6F0D4] bg-[#FFFFE3] px-[20px] pt-[20px]"
       style={{
-        paddingBottom: insets.bottom + tabBarHeight + 16,
+        paddingBottom: insets.bottom + tabBarHeight + 40,
       }}
     >
       {/* Section Title */}
