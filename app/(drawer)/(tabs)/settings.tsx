@@ -36,7 +36,6 @@ const Settings = () => {
     <ScrollView
       className="flex-1 bg-[#FFFFE3] py-[20px]"
       showsVerticalScrollIndicator={false}
-      bounces={false}
       contentContainerStyle={{
         paddingBottom: scale(120),
       }}

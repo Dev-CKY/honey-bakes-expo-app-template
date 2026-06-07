@@ -56,7 +56,6 @@ const Checkout = () => {
         <ScrollView
           className="flex-1"
           showsVerticalScrollIndicator={false}
-          bounces={false}
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{
             paddingTop: scale(20),

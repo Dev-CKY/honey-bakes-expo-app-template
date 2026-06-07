@@ -13,7 +13,7 @@ const ProductGridCard = ({ title, image, price, brand, onPress }: Props) => {
   return (
     <Pressable
       onPress={onPress}
-      className="flex-1 border border-[#F6F0D4] rounded-[12px] bg-[#FFFFE3] overflow-hidden"
+      className="flex-1 w-[170px] border border-[#F6F0D4] rounded-[12px] bg-[#FFFFE3] overflow-hidden"
     >
       {/* Image */}
       <View className="p-[8px]">

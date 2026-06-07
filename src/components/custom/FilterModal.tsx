@@ -57,6 +57,7 @@ const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
         {/* Categories */}
         <HeadingTitle size={20} title="Categories" />
 
+        {/* Categories tabs */}
         <FilterCategories
           options={FILTER_CATEGORIES}
           selectedValue={selectedCategory}

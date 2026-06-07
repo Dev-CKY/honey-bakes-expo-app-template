@@ -18,7 +18,6 @@ const Order = () => {
     <ScrollView
       className="flex-1 bg-[#FFFDE7] pt-[20px] px-[20px]"
       showsVerticalScrollIndicator={false}
-      bounces={false}
       contentContainerStyle={{
         paddingBottom: scale(20),
       }}

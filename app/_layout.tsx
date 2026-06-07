@@ -17,7 +17,7 @@ import "../global.css";
 // Keep splash visible immediately
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+const RootLayout = () => {
   const [appReady, setAppReady] = useState(false);
 
   const [loaded, error] = useFonts({
@@ -66,4 +66,6 @@ export default function RootLayout() {
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
-}
+};
+
+export default RootLayout;

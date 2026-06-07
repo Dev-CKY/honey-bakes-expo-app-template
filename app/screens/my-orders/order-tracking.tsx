@@ -44,7 +44,6 @@ const OrderTracking = () => {
     <ScrollView
       className="flex-1 bg-[#FFFDE7] px-[20px] pt-[20px]"
       showsVerticalScrollIndicator={false}
-      bounces={false}
       contentContainerStyle={{
         paddingBottom: scale(40),
       }}

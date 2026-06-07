@@ -1,15 +1,28 @@
+import CustomDrawerContent from "@/src/components/custom/navigation/CustomDrawer";
 import { Drawer } from "expo-router/drawer";
 
-export default function DrawerLayout() {
+const DrawerLayout = () => {
   return (
-    <Drawer screenOptions={{ headerShown: false }}>
+    <Drawer
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      screenOptions={{
+        headerShown: false,
+        drawerType: "slide",
+        overlayColor: "rgba(0,0,0,0.25)",
+        drawerStyle: {
+          width: 300,
+          backgroundColor: "#FFFFE3",
+        },
+      }}
+    >
       <Drawer.Screen
         name="(tabs)"
         options={{
           drawerLabel: "Home",
-          title: "Home",
         }}
       />
     </Drawer>
   );
-}
+};
+
+export default DrawerLayout;
