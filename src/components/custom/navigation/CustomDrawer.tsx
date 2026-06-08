@@ -1,10 +1,8 @@
-import plus from "@/src/assets/icons/svg/plus";
 import DRAWER_NAVIGATION_MENU_ITEMS from "@/src/data/drawer-navigation.data";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { router } from "expo-router";
 import React from "react";
 import { Image, Pressable, Text, View } from "react-native";
-import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 export default function CustomDrawerContent(props: any) {
@@ -38,15 +36,6 @@ export default function CustomDrawerContent(props: any) {
 
       {/* Divider */}
       <View className="h-[1px] bg-[#E3DEC0] mt-6" />
-
-      {/* Add Account */}
-      <Pressable className="self-start flex-row items-center justify-center px-[20px] h-[50px] mt-[20px] bg-[#F7BC5D] border border-[#1F1500] rounded-full">
-        <SvgXml xml={plus} width={scale(18)} height={scale(18)} />
-
-        <Text className="font-[poppins-medium] text-[14px] text-[#1F1500] mt-[2px]">
-          Add account
-        </Text>
-      </Pressable>
 
       {/* Menu */}
       <View className="pt-[20px] gap-[30px]">
