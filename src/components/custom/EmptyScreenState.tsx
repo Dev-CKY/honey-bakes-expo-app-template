@@ -1,13 +1,9 @@
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { Image, Text, View } from "react-native";
 
 const EmptyScreenState = ({ title, image }: { title: string; image: any }) => {
   return (
-    <View
-      className="flex-1 items-center justify-center"
-      style={{ bottom: useBottomTabBarHeight() }}
-    >
+    <View className="flex-1 items-center justify-center">
       <Image
         source={image}
         className="w-[60px] h-[60px] mb-[10px]"
