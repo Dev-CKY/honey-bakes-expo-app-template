@@ -15,25 +15,37 @@ export const useCheckout = () => {
 
   const [rememberCard, setRememberCard] = useState(true);
 
-  const isCardFormDisabled = selectedPayment !== null;
+  // Replace with your Mastercard payment id
+  const MASTERCARD_ID = 1;
+
+  // Card form remains enabled when Mastercard is selected
+  const isCardFormDisabled =
+    selectedPayment !== null && selectedPayment !== MASTERCARD_ID;
 
   const opacity = useSharedValue(1);
-
+  const scale = useSharedValue(1);
   const translateY = useSharedValue(0);
 
   useEffect(() => {
-    opacity.value = withTiming(isCardFormDisabled ? 0.4 : 1, {
-      duration: 300,
+    opacity.value = withTiming(isCardFormDisabled ? 0.55 : 1, {
+      duration: 700,
     });
 
-    translateY.value = withTiming(isCardFormDisabled ? 10 : 0, {
-      duration: 300,
+    scale.value = withTiming(isCardFormDisabled ? 0.97 : 1, {
+      duration: 700,
+    });
+
+    translateY.value = withTiming(isCardFormDisabled ? 12 : 0, {
+      duration: 700,
     });
   }, [isCardFormDisabled]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
     transform: [
+      {
+        scale: scale.value,
+      },
       {
         translateY: translateY.value,
       },
@@ -43,11 +55,15 @@ export const useCheckout = () => {
   return {
     selectedAddress,
     setSelectedAddress,
+
     selectedPayment,
     setSelectedPayment,
+
     rememberCard,
     setRememberCard,
+
     isCardFormDisabled,
+
     animatedStyle,
     translateY,
   };

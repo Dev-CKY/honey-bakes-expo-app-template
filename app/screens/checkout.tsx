@@ -117,8 +117,8 @@ const Checkout = () => {
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
-              paddingHorizontal: 20,
-              gap: 16,
+              paddingHorizontal: scale(20),
+              gap: scale(16),
             }}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (

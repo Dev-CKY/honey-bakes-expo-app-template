@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Image, Pressable, Text } from "react-native";
 
-// Reanimated
-import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
+import Animated, {
+  LinearTransition,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
 type Props = {
   title: string;
@@ -12,13 +16,33 @@ type Props = {
 };
 
 const PaymentMethodCard = ({ title, icon, isSelected, onPress }: Props) => {
+  const opacity = useSharedValue(isSelected ? 1 : 0.85);
+  const scale = useSharedValue(isSelected ? 1 : 0.96);
+
+  useEffect(() => {
+    opacity.value = withTiming(isSelected ? 1 : 0.85, {
+      duration: 600,
+    });
+
+    scale.value = withTiming(isSelected ? 1 : 0.96, {
+      duration: 600,
+    });
+  }, [isSelected]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+    transform: [
+      {
+        scale: scale.value,
+      },
+    ],
+  }));
+
   return (
     <Pressable onPress={onPress}>
       <Animated.View
-        layout={Layout.springify().damping(18).stiffness(180)}
-        key={isSelected ? "selected" : "unselected"}
-        entering={FadeIn.duration(250)}
-        exiting={FadeOut.duration(200)}
+        layout={LinearTransition.springify().damping(18).stiffness(180)}
+        style={animatedStyle}
         className={`h-[88px] w-[118px] items-center justify-center rounded-[12px] border ${
           isSelected
             ? "border-[#1F1500] bg-[#F7BC5D]"
