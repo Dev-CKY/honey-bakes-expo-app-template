@@ -154,46 +154,51 @@ const Cart = () => {
   );
 
   return (
-    <View className="flex-1 bg-[#FFFFE3] pt-[20px]">
-      {/* ==================================================
+    <ScrollView
+      className="flex-1"
+      contentContainerStyle={{ flexGrow: 1 }}
+      showsVerticalScrollIndicator={false}
+    >
+      <View className="flex-1 bg-[#FFFFE3] pt-[20px]">
+        {/* ==================================================
           Header
       ================================================== */}
-      <View className="flex-row items-center justify-between px-[20px]">
-        <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
+        <View className="flex-row items-center justify-between px-[20px]">
+          <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
-        {!isCartEmpty && (
-          <IconButtonWrapper icon={bin2} onPress={handleClearCart} />
-        )}
-      </View>
+          {!isCartEmpty && (
+            <IconButtonWrapper icon={bin2} onPress={handleClearCart} />
+          )}
+        </View>
 
-      {/* ==================================================
+        {/* ==================================================
           Screen Title
       ================================================== */}
-      <View className="px-[20px]">
-        <HeadingTitle size={32} title="My Cart" />
-      </View>
+        <View className="px-[20px]">
+          <HeadingTitle size={32} title="My Cart" />
+        </View>
 
-      {/* ==================================================
+        {/* ==================================================
           Empty Cart State
       ================================================== */}
-      {isCartEmpty ? (
-        <EmptyScreenState title="Cart" image={cartEmptyImage} />
-      ) : (
-        <>
-          {/* ==================================================
+        {isCartEmpty ? (
+          <EmptyScreenState title="Cart" image={cartEmptyImage} />
+        ) : (
+          <>
+            {/* ==================================================
               Cart Items List
           ================================================== */}
-          <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+
             {cartItems.map(renderCartItem)}
 
             {/* ==================================================
               Price Details & Checkout
           ================================================== */}
             {renderPriceDetails()}
-          </ScrollView>
-        </>
-      )}
-    </View>
+          </>
+        )}
+      </View>
+    </ScrollView>
   );
 };
 

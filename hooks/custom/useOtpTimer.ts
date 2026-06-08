@@ -6,7 +6,7 @@ type OtpTimerProps = {
 };
 
 export const useOtpTimer = ({
-  initialTime = 120,
+  initialTime = 30,
   onResend,
 }: OtpTimerProps = {}) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
