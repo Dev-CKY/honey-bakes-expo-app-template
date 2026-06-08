@@ -19,14 +19,14 @@ type Props = {
 const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedShortByCategory, setSelectedShortByCategory] = useState("All");
-  const [ratingCategory, setRatingCategory] = useState("5 star");
+  const [ratingCategory, setRatingCategory] = useState("5");
 
   const [priceRange, setPriceRange] = useState([10, 18]);
 
   const handleReset = () => {
     setSelectedCategory("All");
     setSelectedShortByCategory("All");
-    (setRatingCategory("5 star"), setPriceRange([10, 18]));
+    (setRatingCategory("5"), setPriceRange([10, 18]));
   };
 
   const handleApply = () => {
@@ -130,6 +130,7 @@ const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
           options={RATING_CATEGORIES}
           selectedValue={ratingCategory}
           onSelect={setRatingCategory}
+          showStar
         />
 
         {/* Buttons */}

@@ -1,25 +1,35 @@
+import starFilled from "@/src/assets/icons/svg/starFilled";
+import starFilledBlack from "@/src/assets/icons/svg/starFilledBlack";
 import React, { useEffect } from "react";
-import { Pressable, ScrollView, Text } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import { SvgXml } from "react-native-svg";
 
 type Props = {
   options: string[];
   selectedValue: string;
   onSelect: (value: string) => void;
+  showStar?: boolean;
 };
 
 type FilterChipProps = {
   label: string;
   isSelected: boolean;
   onPress: () => void;
+  showStar?: boolean;
 };
 
-const FilterChip = ({ label, isSelected, onPress }: FilterChipProps) => {
+const FilterChip = ({
+  label,
+  isSelected,
+  onPress,
+  showStar,
+}: FilterChipProps) => {
   const opacity = useSharedValue(isSelected ? 1 : 0.8);
   const scale = useSharedValue(isSelected ? 1 : 0.95);
 
@@ -47,21 +57,32 @@ const FilterChip = ({ label, isSelected, onPress }: FilterChipProps) => {
           isSelected ? "bg-[#F7BC5D] border-[#1F1500]" : "border-[#E5D6B8]"
         }`}
       >
-        <Text
-          className={`${
-            isSelected
-              ? "text-[#1F1500] font-[poppins-medium]"
-              : "text-[#6B6B6B]"
-          }`}
-        >
-          {label}
-        </Text>
+        <View className="flex-row items-center gap-[4px]">
+          <Text
+            className={`${
+              isSelected
+                ? "text-[#1F1500] font-[poppins-medium]"
+                : "text-[#6B6B6B]"
+            }`}
+          >
+            {label}
+          </Text>
+
+          {showStar && (
+            <SvgXml xml={isSelected ? starFilledBlack : starFilled} />
+          )}
+        </View>
       </Pressable>
     </Animated.View>
   );
 };
 
-const FilterCategories = ({ options, selectedValue, onSelect }: Props) => {
+const FilterCategories = ({
+  options,
+  selectedValue,
+  onSelect,
+  showStar = false,
+}: Props) => {
   return (
     <ScrollView
       horizontal
@@ -78,6 +99,7 @@ const FilterCategories = ({ options, selectedValue, onSelect }: Props) => {
           label={item}
           isSelected={selectedValue === item}
           onPress={() => onSelect(item)}
+          showStar={showStar}
         />
       ))}
     </ScrollView>
