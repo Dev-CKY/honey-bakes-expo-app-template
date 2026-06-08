@@ -1,6 +1,5 @@
 import { useOrderPlaced } from "@/hooks/custom/useOrderPlaced";
 import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
-import bin2 from "@/src/assets/icons/svg/bin2";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import { router } from "expo-router";
 import React from "react";
@@ -24,10 +23,8 @@ const OrderPlaced = () => {
           resizeMode="cover"
           className="w-full h-[300px]"
         >
-          <View className="flex-row items-center justify-between p-[20px]">
+          <View className=" p-[20px]">
             <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
-
-            <IconButtonWrapper icon={bin2} onPress={() => {}} />
           </View>
         </ImageBackground>
       </Animated.View>
