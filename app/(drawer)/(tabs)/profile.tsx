@@ -40,7 +40,12 @@ const Profile = () => {
             />
 
             {/* Floating Icon Button */}
-            <Pressable className="absolute bottom-0 right-0 h-[38px] w-[38px] items-center justify-center rounded-full border border-[#1F1500] bg-[#F7BC5D]">
+            <Pressable
+              onPress={() => {
+                router.push("/screens/edit-profile");
+              }}
+              className="absolute bottom-0 right-0 h-[38px] w-[38px] items-center justify-center rounded-full border border-[#1F1500] bg-[#F7BC5D]"
+            >
               <SvgXml xml={pencil} />
             </Pressable>
           </View>

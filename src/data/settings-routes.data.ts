@@ -1,6 +1,6 @@
+import { router } from "expo-router";
 import bellFilled from "../assets/icons/svg/bellFilled";
 import language from "../assets/icons/svg/language";
-import lockFilled from "../assets/icons/svg/lockFilled";
 import pencilFilled from "../assets/icons/svg/pencilFilled";
 import person from "../assets/icons/svg/person";
 import sun from "../assets/icons/svg/sun";
@@ -10,25 +10,25 @@ export const SETTINGS_ROUTES = [
     id: 1,
     icon: person,
     routeName: "Profile",
-    onPress: () => {},
+    onPress: () => {
+      router.push("/profile");
+    },
   },
   {
     id: 2,
     icon: pencilFilled,
     routeName: "Edit profile",
-    onPress: () => {},
+    onPress: () => {
+      router.push("/screens/edit-profile");
+    },
   },
   {
     id: 3,
-    icon: lockFilled,
-    routeName: "Reset password",
-    onPress: () => {},
-  },
-  {
-    id: 4,
     icon: language,
     routeName: "Languages",
-    onPress: () => {},
+    onPress: () => {
+      router.push("/screens/languages");
+    },
   },
 ];
 
