@@ -3,12 +3,6 @@ import headphoneFilled from "../assets/icons/svg/headphoneFilled";
 import heartFilled from "../assets/icons/svg/heartFilled";
 import map from "../assets/icons/svg/map";
 
-type DrawerItem = {
-  title: string;
-  icon: string;
-  route: any;
-};
-
 const DRAWER_NAVIGATION_MENU_ITEMS = [
   {
     title: "My orders",

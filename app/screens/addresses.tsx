@@ -35,7 +35,7 @@ const AddressCard = ({ item, isSelected, onPress }: AddressCardProps) => {
     progress.value = withTiming(isSelected ? 1 : 0, {
       duration: 600,
     });
-  }, [isSelected]);
+  }, [isSelected, progress]);
 
   const animatedCardStyle = useAnimatedStyle(() => {
     return {

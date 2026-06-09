@@ -26,7 +26,8 @@ const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
   const handleReset = () => {
     setSelectedCategory("All");
     setSelectedShortByCategory("All");
-    (setRatingCategory("5"), setPriceRange([10, 18]));
+    setRatingCategory("5");
+    setPriceRange([10, 18]);
   };
 
   const handleApply = () => {

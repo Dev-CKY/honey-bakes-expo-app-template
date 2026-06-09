@@ -15,7 +15,7 @@ const EmptyScreenState = ({ title, image }: { title: string; image: any }) => {
       </Text>
 
       <Text className="mt-[8px] text-center font-[poppins-regular] text-[14px] text-[#C2A26F]">
-        Oops! Looks like you haven't {"\n"} added any items yet.
+        Oops! Looks like you haven&apos;t {"\n"} added any items yet.
       </Text>
     </View>
   );

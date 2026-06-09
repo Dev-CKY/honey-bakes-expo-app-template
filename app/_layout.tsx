@@ -14,7 +14,7 @@ import Splash from "./splash";
 
 const RootLayout = () => {
   const [showSplash, setShowSplash] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn] = useState(true);
 
   const [loaded] = useFonts({
     "poppins-regular": require("@/src/assets/fonts/Poppins-Regular.ttf"),

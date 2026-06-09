@@ -30,7 +30,7 @@ const GenderButton = ({
       duration: 550,
       easing: Easing.out(Easing.cubic),
     });
-  }, [selected]);
+  }, [selected, progress]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {

@@ -27,7 +27,7 @@ const PaymentMethodCard = ({ title, icon, isSelected, onPress }: Props) => {
     scale.value = withTiming(isSelected ? 1 : 0.96, {
       duration: 600,
     });
-  }, [isSelected]);
+  }, [isSelected, opacity, scale]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,

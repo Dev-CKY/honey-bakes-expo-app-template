@@ -42,7 +42,7 @@ const FilterChip = ({
       damping: 15,
       stiffness: 180,
     });
-  }, [isSelected]);
+  }, [isSelected, opacity, scale]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
