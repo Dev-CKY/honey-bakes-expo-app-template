@@ -3,6 +3,7 @@ import map from "@/src/assets/icons/svg/map";
 import { BannerItem } from "@/src/components/custom/BannerItem";
 import FilterCategories from "@/src/components/custom/FilterCategories";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
+import PaginationDot from "@/src/components/custom/PaginationDot";
 import ProductGridHomeCard from "@/src/components/custom/ProductGridHomeCard";
 import SearchBar from "@/src/components/custom/SearchBar";
 import { FILTER_CATEGORIES } from "@/src/data/filter-categories.data";
@@ -20,7 +21,6 @@ import {
   Text,
   View,
 } from "react-native";
-import Animated, { withTiming } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
 import { SvgXml } from "react-native-svg";
 
@@ -129,17 +129,7 @@ const Home = () => {
           {/* Pagination */}
           <View className="flex-row justify-center items-center mt-[12px]">
             {HOME_BANNERS.map((_, index) => (
-              <Animated.View
-                key={index}
-                style={{
-                  width: withTiming(activeIndex === index ? 24 : 8),
-                  height: 8,
-                  borderRadius: 20,
-                  marginHorizontal: 4,
-                  backgroundColor:
-                    activeIndex === index ? "#1F1500" : "#D6C9B4",
-                }}
-              />
+              <PaginationDot key={index} active={activeIndex === index} />
             ))}
           </View>
         </View>
