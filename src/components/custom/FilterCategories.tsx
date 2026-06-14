@@ -1,8 +1,11 @@
 import starFilled from "@/src/assets/icons/svg/starFilled";
 import starFilledBlack from "@/src/assets/icons/svg/starFilledBlack";
-import React, { useEffect } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { Pressable, Text, View } from "react-native";
 import Animated, {
+  runOnUI,
+  scrollTo,
+  useAnimatedRef,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
@@ -22,6 +25,8 @@ type FilterChipProps = {
   isSelected: boolean;
   onPress: () => void;
   showStar?: boolean;
+  onLayout?: (event: any) => void;
+  setComponentRef?: (ref: any, label: string) => void;
 };
 
 const FilterChip = ({
@@ -29,6 +34,7 @@ const FilterChip = ({
   isSelected,
   onPress,
   showStar,
+  onLayout,
 }: FilterChipProps) => {
   const opacity = useSharedValue(isSelected ? 1 : 0.8);
   const scale = useSharedValue(isSelected ? 1 : 0.95);
@@ -50,7 +56,7 @@ const FilterChip = ({
   }));
 
   return (
-    <Animated.View style={animatedStyle}>
+    <Animated.View style={animatedStyle} onLayout={onLayout}>
       <Pressable
         onPress={onPress}
         className={`px-[20px] h-[44px] rounded-full items-center justify-center border ${
@@ -83,26 +89,84 @@ const FilterCategories = ({
   onSelect,
   showStar = false,
 }: Props) => {
+  const scrollViewRef = useAnimatedRef<Animated.ScrollView>();
+  const itemPositions = useRef<Map<string, number>>(new Map());
+  const scrollViewWidth = useRef<number>(0);
+  const isFirstRender = useRef(true);
+
+  const handleItemLayout = (label: string) => (event: any) => {
+    const layout = event.nativeEvent.layout;
+    itemPositions.current.set(label, layout.x);
+
+    // Center the initially selected item on first render
+    if (isFirstRender.current && selectedValue === label) {
+      isFirstRender.current = false;
+      setTimeout(() => {
+        scrollToCenterAnimated(selectedValue);
+      }, 200);
+    }
+  };
+
+  const scrollToCenterAnimated = (label: string) => {
+    const itemX = itemPositions.current.get(label);
+    if (itemX === undefined || scrollViewWidth.current === 0) return;
+
+    runOnUI(() => {
+      "worklet";
+      // Get the width of the item by measuring the view
+      const itemLayout = itemPositions.current.get(label);
+      if (itemLayout === undefined) return;
+
+      // Since we can't easily get item width from measure without a ref,
+      // we'll estimate based on typical chip width (you can adjust this)
+      const estimatedItemWidth = 100; // Adjust based on your actual chip width
+      const itemCenter = itemLayout + estimatedItemWidth / 2;
+      const targetOffset = itemCenter - scrollViewWidth.current / 2;
+
+      scrollTo(scrollViewRef, Math.max(0, targetOffset), 0, true);
+    })();
+  };
+
+  const handleSelect = (value: string) => {
+    onSelect(value);
+    setTimeout(() => {
+      scrollToCenterAnimated(value);
+    }, 100);
+  };
+
+  const onScrollViewLayout = (event: any) => {
+    scrollViewWidth.current = event.nativeEvent.layout.width;
+
+    if (selectedValue) {
+      setTimeout(() => {
+        scrollToCenterAnimated(selectedValue);
+      }, 150);
+    }
+  };
+
   return (
-    <ScrollView
+    <Animated.ScrollView
+      ref={scrollViewRef}
       horizontal
       showsHorizontalScrollIndicator={false}
       className="mt-[12px]"
       contentContainerStyle={{
         gap: 12,
-        paddingRight: 20,
+        paddingHorizontal: 20,
       }}
+      onLayout={onScrollViewLayout}
     >
       {options.map((item) => (
         <FilterChip
           key={item}
           label={item}
           isSelected={selectedValue === item}
-          onPress={() => onSelect(item)}
+          onPress={() => handleSelect(item)}
           showStar={showStar}
+          onLayout={handleItemLayout(item)}
         />
       ))}
-    </ScrollView>
+    </Animated.ScrollView>
   );
 };
 
