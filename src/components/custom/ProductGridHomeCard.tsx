@@ -72,7 +72,7 @@ const AnimatedProductCard = ({ item, index, scrollX }: AnimatedCardProps) => {
         },
         animatedStyle,
       ]}
-      className="mr-4"
+      // className="mr-4"
     >
       <ProductGridCard
         title={item.title}
@@ -110,12 +110,12 @@ const ProductGridHomeCard = () => {
       onScroll={scrollHandler}
       scrollEventThrottle={16}
       contentContainerStyle={{
-        paddingTop: scale(16),
+        paddingTop: scale(20),
       }}
       renderItem={({ item, index }) => (
         <AnimatedProductCard item={item} index={index} scrollX={scrollX} />
       )}
-      snapToInterval={CARD_WIDTH}
+      snapToInterval={CARD_WIDTH + scale(16)}
       decelerationRate="fast"
     />
   );
