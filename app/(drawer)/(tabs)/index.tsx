@@ -1,5 +1,6 @@
 import bell from "@/src/assets/icons/svg/bell";
 import map from "@/src/assets/icons/svg/map";
+import { BannerItem } from "@/src/components/custom/BannerItem";
 import FilterCategories from "@/src/components/custom/FilterCategories";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import ProductGridHomeCard from "@/src/components/custom/ProductGridHomeCard";
@@ -19,8 +20,8 @@ import {
   Text,
   View,
 } from "react-native";
+import Animated, { withTiming } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
-import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 const { width } = Dimensions.get("window");
@@ -29,6 +30,7 @@ const Home = () => {
   const navigation = useNavigation();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [activeIndex, setActiveIndex] = useState(0);
+
   const tabBarHeight = useBottomTabBarHeight();
 
   return (
@@ -101,46 +103,48 @@ const Home = () => {
           onSelect={setSelectedCategory}
         />
 
-        {/* Bakery Carousel */}
+        {/* Premium Carousel */}
         <View className="my-[20px]">
           <Carousel
             loop
             autoPlay
             autoPlayInterval={4000}
             width={width - 40}
-            height={scale(175)}
-            data={HOME_BANNERS}
+            height={220}
             pagingEnabled
             snapEnabled
+            data={HOME_BANNERS}
             onSnapToItem={setActiveIndex}
-            renderItem={({ item }) => (
-              <>
-                {/* Product Image */}
-                <Image
-                  source={item.image}
-                  resizeMode="cover"
-                  className="w-full h-[180px] absolute self-center rounded-[10px]"
-                />
-              </>
+            mode="parallax"
+            modeConfig={{
+              parallaxScrollingScale: 0.9,
+              parallaxScrollingOffset: 80,
+              parallaxAdjacentItemScale: 0.75,
+            }}
+            renderItem={({ item, animationValue }) => (
+              <BannerItem item={item} animationValue={animationValue} />
             )}
           />
 
           {/* Pagination */}
           <View className="flex-row justify-center items-center mt-[12px]">
             {HOME_BANNERS.map((_, index) => (
-              <View
+              <Animated.View
                 key={index}
-                className={`mx-[3px] rounded-full ${
-                  activeIndex === index
-                    ? "bg-[#1F1500] w-[18px] h-[6px]"
-                    : "bg-[#C6B8A3] w-[6px] h-[6px]"
-                }`}
+                style={{
+                  width: withTiming(activeIndex === index ? 24 : 8),
+                  height: 8,
+                  borderRadius: 20,
+                  marginHorizontal: 4,
+                  backgroundColor:
+                    activeIndex === index ? "#1F1500" : "#D6C9B4",
+                }}
               />
             ))}
           </View>
         </View>
 
-        {/* Popular items */}
+        {/* Popular */}
         <View className="flex-row items-end justify-between">
           <HeadingTitle title="Popular" size={20} />
 
@@ -151,10 +155,9 @@ const Home = () => {
           </Pressable>
         </View>
 
-        {/* Items */}
         <ProductGridHomeCard />
 
-        {/* New products items */}
+        {/* New Products */}
         <View className="flex-row items-end justify-between mt-[20px]">
           <HeadingTitle title="Our new products" size={20} />
 
@@ -165,17 +168,15 @@ const Home = () => {
           </Pressable>
         </View>
 
-        {/* Items */}
         <ProductGridHomeCard />
 
-        {/* Image ad */}
         <Image
           className="w-full h-[175px] rounded-[10px] my-[20px]"
           resizeMode="contain"
           source={require("@/src/assets/images/custom/banners/4.jpg")}
         />
 
-        {/* Recently viewed items */}
+        {/* Recently Viewed */}
         <View className="flex-row items-end justify-between">
           <HeadingTitle title="Recently viewed" size={20} />
 
@@ -186,7 +187,6 @@ const Home = () => {
           </Pressable>
         </View>
 
-        {/* Items */}
         <ProductGridHomeCard />
       </View>
     </ScrollView>
