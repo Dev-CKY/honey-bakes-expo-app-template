@@ -3,7 +3,7 @@ import starFilledBlack from "@/src/assets/icons/svg/starFilledBlack";
 import React, { useEffect, useRef } from "react";
 import { Pressable, Text, View } from "react-native";
 import Animated, {
-  runOnUI,
+  Easing,
   scrollTo,
   useAnimatedRef,
   useAnimatedStyle,
@@ -12,6 +12,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { SvgXml } from "react-native-svg";
+import { scheduleOnUI } from "react-native-worklets";
 
 type Props = {
   options: string[];
@@ -36,17 +37,18 @@ const FilterChip = ({
   showStar,
   onLayout,
 }: FilterChipProps) => {
-  const opacity = useSharedValue(isSelected ? 1 : 0.8);
-  const scale = useSharedValue(isSelected ? 1 : 0.95);
+  const opacity = useSharedValue(isSelected ? 1 : 0.7);
+  const scale = useSharedValue(isSelected ? 1 : 0.97);
 
   useEffect(() => {
-    opacity.value = withTiming(isSelected ? 1 : 0.8, {
-      duration: 250,
+    opacity.value = withTiming(isSelected ? 1 : 0.7, {
+      duration: 180,
+      easing: Easing.out(Easing.cubic),
     });
 
-    scale.value = withSpring(isSelected ? 1 : 0.95, {
-      damping: 15,
-      stiffness: 180,
+    scale.value = withSpring(isSelected ? 1 : 0.98, {
+      damping: 18,
+      stiffness: 220,
     });
   }, [isSelected, opacity, scale]);
 
@@ -111,20 +113,18 @@ const FilterCategories = ({
     const itemX = itemPositions.current.get(label);
     if (itemX === undefined || scrollViewWidth.current === 0) return;
 
-    runOnUI(() => {
+    scheduleOnUI(() => {
       "worklet";
-      // Get the width of the item by measuring the view
+
       const itemLayout = itemPositions.current.get(label);
       if (itemLayout === undefined) return;
 
-      // Since we can't easily get item width from measure without a ref,
-      // we'll estimate based on typical chip width (you can adjust this)
-      const estimatedItemWidth = 100; // Adjust based on your actual chip width
-      const itemCenter = itemLayout + estimatedItemWidth / 2;
-      const targetOffset = itemCenter - scrollViewWidth.current / 2;
+      const estimatedItemWidth = 200;
+      const itemCenter = itemLayout + estimatedItemWidth;
+      const targetOffset = itemCenter - scrollViewWidth.current;
 
       scrollTo(scrollViewRef, Math.max(0, targetOffset), 0, true);
-    })();
+    });
   };
 
   const handleSelect = (value: string) => {
@@ -152,7 +152,6 @@ const FilterCategories = ({
       className="mt-[12px]"
       contentContainerStyle={{
         gap: 12,
-        paddingHorizontal: 20,
       }}
       onLayout={onScrollViewLayout}
     >
