@@ -4,4 +4,10 @@ export const FILTER_CATEGORIES = [
   "Donuts",
   "Cupcake",
   "Burger",
+  "Dessert",
+  "Pan Cake",
+  "Muffin",
+  "Cake",
+  "Hot Dog",
+  "Pasta",
 ];

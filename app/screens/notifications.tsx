@@ -83,7 +83,6 @@ const Notifications = () => {
           <NotificationItem
             key={notification.id}
             notification={notification}
-            index={index}
             isDeletingAll={isDeletingAll}
             onDelete={deleteNotification}
           />

@@ -1,17 +1,12 @@
-import React, { memo, useEffect } from "react";
+import { useNotificationSwipe } from "@/hooks/custom/useNotificationSwipe";
+import React, { memo } from "react";
 import { Image, Text, View } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   FadeIn,
   FadeOut,
-  interpolate,
   LinearTransition,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-  withTiming,
 } from "react-native-reanimated";
-import { scheduleOnRN } from "react-native-worklets";
 
 type NotificationType = {
   id: number | string;
@@ -21,100 +16,27 @@ type NotificationType = {
   time: string;
 };
 
-const DELETE_THRESHOLD = -120;
-
 const NotificationItem = memo(
   ({
     notification,
-    index,
     isDeletingAll,
     onDelete,
   }: {
     notification: NotificationType;
-    index: number;
     isDeletingAll: boolean;
     onDelete: (id: NotificationType["id"]) => void;
   }) => {
-    const translateX = useSharedValue(0);
-    const isRemoving = useSharedValue(false);
-
-    const removeItem = () => {
-      onDelete(notification.id);
-    };
-
-    useEffect(() => {
-      if (!isDeletingAll || isRemoving.value) return;
-
-      const timer = setTimeout(() => {
-        isRemoving.value = true;
-
-        translateX.value = withTiming(
-          -500,
-          {
-            duration: 400,
-          },
-          (finished) => {
-            if (finished) {
-              scheduleOnRN(removeItem);
-            }
-          },
-        );
-      }, index * 90);
-
-      return () => clearTimeout(timer);
-    }, [isDeletingAll, index]);
-
-    const panGesture = Gesture.Pan()
-      .enabled(!isDeletingAll)
-      .activeOffsetX([-15, 15])
-      .onUpdate((event) => {
-        if (event.translationX < 0) {
-          translateX.value = event.translationX;
-        }
-      })
-      .onEnd((event) => {
-        const shouldDelete =
-          translateX.value < DELETE_THRESHOLD || event.velocityX < -1000;
-
-        if (shouldDelete) {
-          isRemoving.value = true;
-
-          translateX.value = withTiming(
-            -500,
-            {
-              duration: 400,
-            },
-            (finished) => {
-              if (finished) {
-                scheduleOnRN(removeItem);
-              }
-            },
-          );
-        } else {
-          translateX.value = withSpring(0, {
-            damping: 18,
-            stiffness: 180,
-          });
-        }
-      });
-
-    const cardStyle = useAnimatedStyle(() => ({
-      transform: [
-        {
-          translateX: translateX.value,
-        },
-      ],
-    }));
-
-    const deleteBgStyle = useAnimatedStyle(() => ({
-      opacity: interpolate(translateX.value, [0, -120], [0, 1]),
-    }));
+    const { panGesture, cardStyle, deleteBgStyle } = useNotificationSwipe({
+      id: notification.id,
+      isDeletingAll,
+      onDelete,
+    });
 
     return (
       <Animated.View
         layout={LinearTransition.springify().damping(18).stiffness(150)}
-        entering={FadeIn.duration(500)}
-        exiting={FadeOut.duration(250)}
+        entering={FadeIn.duration(400)}
+        exiting={FadeOut.duration(300)}
       >
         <Animated.View
           style={deleteBgStyle}
@@ -151,6 +73,12 @@ const NotificationItem = memo(
               <Text className="text-[#C2A26F] text-[14px] font-[poppins-regular] mt-[2px]">
                 {notification.description}
               </Text>
+
+              {isDeletingAll && (
+                <Text className="text-red-500 text-[12px] font-[poppins-medium] mt-[6px]">
+                  Deleting...
+                </Text>
+              )}
             </View>
           </Animated.View>
         </GestureDetector>
