@@ -2,6 +2,7 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { router } from "expo-router";
 import React from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import Animated, { FadeOut, LinearTransition } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SvgXml } from "react-native-svg";
 
@@ -51,8 +52,10 @@ const Cart = () => {
   // Render Single Cart Item
   // --------------------------------------------------
   const renderCartItem = (item: any) => (
-    <View
+    <Animated.View
       key={item.id}
+      layout={LinearTransition.springify()}
+      exiting={FadeOut.duration(300)}
       className="mt-[20px] flex-row items-center justify-between border-b border-[#F6F0D4] pb-[20px]"
     >
       {/* Product Information */}
@@ -99,7 +102,7 @@ const Cart = () => {
           <SvgXml xml={bin2} width={18} height={18} />
         </Pressable>
       </View>
-    </View>
+    </Animated.View>
   );
 
   // --------------------------------------------------

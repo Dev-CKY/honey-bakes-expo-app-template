@@ -1,5 +1,7 @@
 // OrderTracking.tsx
 
+import { useLineProgressAnimation } from "@/hooks/custom/useLineProgressAnimation";
+import { usePulseAnimation } from "@/hooks/custom/usePulseAnimation";
 import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import CancelButton from "@/src/components/custom/CancelButton";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
@@ -8,6 +10,7 @@ import OrderedItemCard from "@/src/components/custom/OrderedItemCard";
 import { router } from "expo-router";
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
+import Animated from "react-native-reanimated";
 import { scale } from "react-native-size-matters";
 
 // Tracking data
@@ -20,12 +23,12 @@ const trackingSteps = [
   {
     title: "Order Confirmed",
     time: "12:35 pm 27th April 2026",
-    status: "completed",
+    status: "current",
   },
   {
     title: "Order started preparing",
     time: "12:40 pm 27th April 2026",
-    status: "current",
+    status: "pending",
   },
   {
     title: "Order Prepared",
@@ -40,6 +43,22 @@ const trackingSteps = [
 ];
 
 const OrderTracking = () => {
+  // Find the index of the current active step
+  const currentStepIndex = trackingSteps.findIndex(
+    (step) => step.status === "current",
+  );
+
+  // Use custom hooks for animations
+  const pulseStyle = usePulseAnimation({
+    duration: 2000,
+    scaleRange: [0.8, 1.2],
+    opacityRange: [0.3, 1],
+  });
+
+  const lineAnimatedStyle = useLineProgressAnimation({
+    duration: 3000,
+  });
+
   return (
     <ScrollView
       className="flex-1 bg-[#FFFDE7] px-[20px] pt-[20px]"
@@ -67,63 +86,71 @@ const OrderTracking = () => {
           // Check status
           const isCompleted = item.status === "completed";
           const isCurrent = item.status === "current";
-
-          // Last item check
           const isLastItem = index === trackingSteps.length - 1;
+          const isActive = index <= currentStepIndex;
+          const isLastCompleted = isCompleted && index === currentStepIndex - 1;
 
           return (
             <View key={index} className="flex-row">
               {/* Left Side */}
               <View className="items-center mr-[15px]">
-                {/* Circle */}
-                <View
-                  className={`
-                    w-[24px]
-                    h-[24px]
-                    rounded-full
-                    border-[2px]
-                    border-[#1F1500]
-                    items-center
-                    justify-center
-                  `}
-                >
-                  {/* Inner Dot */}
-                  {(isCompleted || isCurrent) && (
-                    <View
-                      className={`
-                        w-[14px]
-                        h-[14px]
-                        rounded-full
-                        ${
-                          isCompleted || isCurrent
-                            ? "bg-[#F7BC5D]"
-                            : "bg-transparent"
-                        }
-                      `}
+                {/* Circle with animation for current step */}
+                {isCurrent ? (
+                  <Animated.View className="w-[24px] h-[24px] rounded-full border-2 border-[#F7BC5D] items-center justify-center">
+                    <Animated.View
+                      className="w-[14px] h-[14px] rounded-full bg-[#F7BC5D]"
+                      style={pulseStyle}
                     />
-                  )}
-                </View>
-
-                {/* Line */}
-                {!isLastItem && (
+                  </Animated.View>
+                ) : (
                   <View
                     className={`
-                      h-[70px]
-                      border-l-[2px]
-                      border-dashed
-                      ${
-                        isCompleted || isCurrent
-                          ? "border-[#F7BC5D]"
-                          : "border-[#1F1500]"
-                      }
+                      w-[24px] h-[24px] rounded-full border-2 border-[#1F1500] 
+                      items-center justify-center
                     `}
-                  />
+                  >
+                    {/* Inner Dot */}
+                    {(isCompleted || isCurrent) && (
+                      <View
+                        className={`
+                          w-[14px] h-[14px] rounded-full
+                          ${isCompleted || isCurrent ? "bg-[#F7BC5D]" : "bg-transparent"}
+                        `}
+                      />
+                    )}
+                  </View>
+                )}
+
+                {/* Animated Line with gradient fill */}
+                {!isLastItem && (
+                  <View className="relative h-[70px] w-[2px] overflow-hidden">
+                    {/* Base line (grey/dashed) */}
+                    <View
+                      className={`
+                        absolute w-full h-full border-l-2 border-dashed
+                        ${isActive ? "border-[#ffdca3]" : "border-[#1F1500]"}
+                      `}
+                    />
+
+                    {/* Animated progress fill - only for the last completed step */}
+                    {isLastCompleted && (
+                      <Animated.View
+                        className="absolute top-0 w-full bg-[#F7BC5D]"
+                        style={lineAnimatedStyle}
+                      />
+                    )}
+
+                    {/* Fully filled lines for other completed steps (not the last one) */}
+                    {isCompleted && !isLastCompleted && (
+                      <View className="absolute top-0 w-full h-full bg-[#F7BC5D]" />
+                    )}
+                  </View>
                 )}
               </View>
 
-              {/* Right Side */}
+              {/* Right Side - No animation on text */}
               <View className="flex-1 pb-[25px]">
-                {/* Title */}
+                {/* Title - static text */}
                 <Text className="text-[18px] text-[#1F1500] font-[poppins-medium]">
                   {item.title}
                 </Text>

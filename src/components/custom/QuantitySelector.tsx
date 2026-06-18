@@ -60,21 +60,10 @@ export default function AnimatedQuantity({ value }: Props) {
 
   return (
     <View
-      style={{
-        height: DIGIT_HEIGHT,
-        overflow: "hidden",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      className={`h-${DIGIT_HEIGHT} overflow-hidden justify-center items-center`}
     >
       <Animated.View style={animatedStyle}>
-        <Text
-          style={{
-            fontSize: 18,
-            fontFamily: "poppins-medium",
-            color: "#1F1500",
-          }}
-        >
+        <Text className="font-[poppins-medium] text-[#1F1500] text-[14px]">
           {displayValue}
         </Text>
       </Animated.View>
