@@ -23,6 +23,12 @@ import starFilled from "@/src/assets/icons/svg/starFilled";
 
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
+import AnimatedQuantity from "@/src/components/custom/QuantitySelector";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
 
 const VEG_COLOR = "#00CF21";
 const NON_VEG_COLOR = "#F7715D";
@@ -38,6 +44,38 @@ const ProductDetails = () => {
     decreaseQuantity,
   } = useProductDetails();
 
+  const plusScale = useSharedValue(1);
+  const minusScale = useSharedValue(1);
+
+  const plusStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: plusScale.value }],
+  }));
+
+  const minusStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: minusScale.value }],
+  }));
+
+  const onIncrease = () => {
+    plusScale.value = 0.85;
+
+    plusScale.value = withSpring(1, {
+      damping: 8,
+      stiffness: 250,
+    });
+
+    increaseQuantity();
+  };
+
+  const onDecrease = () => {
+    minusScale.value = 0.85;
+
+    minusScale.value = withSpring(1, {
+      damping: 8,
+      stiffness: 250,
+    });
+
+    decreaseQuantity();
+  };
   if (!product) {
     return null;
   }
@@ -101,22 +139,26 @@ const ProductDetails = () => {
         </ImageBackground>
 
         {/* Quantity Controls */}
-        <View className="z-10 mt-[-25px] h-[50px] w-[120px] self-center flex-row items-center justify-between rounded-full bg-[#F6F0D4] px-[5px]">
-          <Pressable
-            onPress={decreaseQuantity}
-            className="h-[30px] w-[30px] items-center justify-center rounded-full bg-white"
-          >
-            <SvgXml xml={minus} />
-          </Pressable>
+        <View className="z-10 mt-[-25px] h-[55px] w-[130px] self-center flex-row items-center justify-between rounded-full bg-[#F6F0D4] px-[6px]">
+          <Animated.View style={minusStyle}>
+            <Pressable
+              onPress={onDecrease}
+              className="h-[34px] w-[34px] items-center justify-center rounded-full bg-white"
+            >
+              <SvgXml xml={minus} />
+            </Pressable>
+          </Animated.View>
 
-          <Text className="font-[poppins-medium] text-[14px]">{quantity}</Text>
+          <AnimatedQuantity value={quantity} />
 
-          <Pressable
-            onPress={increaseQuantity}
-            className="h-[30px] w-[30px] items-center justify-center rounded-full border-[1.5px] border-[#1F1500] bg-[#F7BC5D]"
-          >
-            <SvgXml xml={plus} />
-          </Pressable>
+          <Animated.View style={plusStyle}>
+            <Pressable
+              onPress={onIncrease}
+              className="h-[34px] w-[34px] items-center justify-center rounded-full border-[1.5px] border-[#1F1500] bg-[#F7BC5D]"
+            >
+              <SvgXml xml={plus} />
+            </Pressable>
+          </Animated.View>
         </View>
 
         {/* Product Details */}

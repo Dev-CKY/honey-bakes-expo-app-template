@@ -79,7 +79,7 @@ const Notifications = () => {
           </Text>
         </Animated.View>
       ) : (
-        notifications.map((notification, index) => (
+        notifications.map((notification) => (
           <NotificationItem
             key={notification.id}
             notification={notification}
