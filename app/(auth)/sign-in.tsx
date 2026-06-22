@@ -9,13 +9,15 @@ import TextInputField from "@/src/components/custom/TextInputField";
 import { Link } from "expo-router";
 import React from "react";
 import { ImageBackground, Text } from "react-native";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 const SignIn = () => {
   return (
     <ImageBackground
       source={require("@/src/assets/images/custom/bg.jpeg")}
-      className="flex-1 p-[20px]"
+      className="flex-1"
+      style={{ padding: scale(20) }}
       resizeMode="cover"
     >
       {/* Sign In Screen Content */}
@@ -31,7 +33,7 @@ const SignIn = () => {
         <TextInputField
           keyboardType="email-address"
           placeholder="Email address"
-          leftIcon={<SvgXml xml={email} className="w-[24px] h-[24px]" />}
+          leftIcon={<SvgXml xml={email} width={scale(24)} height={scale(24)} />}
         />
 
         {/* Password */}
@@ -39,14 +41,25 @@ const SignIn = () => {
           keyboardType="default"
           placeholder="Password"
           isEncrypted
-          leftIcon={<SvgXml xml={lock} className="w-[24px] h-[24px]" />}
-          eyeOpenIcon={<SvgXml xml={eye} className="w-[24px] h-[24px]" />}
-          eyeCloseIcon={<SvgXml xml={eyeOff} className="w-[24px] h-[24px]" />}
+          leftIcon={<SvgXml xml={lock} width={scale(24)} height={scale(24)} />}
+          eyeOpenIcon={
+            <SvgXml xml={eye} width={scale(24)} height={scale(24)} />
+          }
+          eyeCloseIcon={
+            <SvgXml xml={eyeOff} width={scale(24)} height={scale(24)} />
+          }
         />
 
         {/* Forgot Password */}
-        <Link href="/(auth)/forgot-password" className="self-end mb-[20px]">
-          <Text className="text-[#1F1500] text-[14px] font-[poppins-medium]">
+        <Link
+          href="/(auth)/forgot-password"
+          className="self-end"
+          style={{ marginBottom: scale(20) }}
+        >
+          <Text
+            className="text-[#1F1500] font-[poppins-medium]"
+            style={{ fontSize: scale(14) }}
+          >
             Forgot Password?
           </Text>
         </Link>
@@ -56,11 +69,15 @@ const SignIn = () => {
 
         {/* Don't have an account? */}
         <>
-          <Text className="text-[#C2A26F] text-[14px] font-[poppins-regular] self-center">
+          <Text
+            className="text-[#C2A26F] font-[poppins-regular] self-center"
+            style={{ fontSize: scale(14) }}
+          >
             Don&apos;t have an account?{" "}
             <Link
               href="/(auth)/sign-up"
               className="text-[#1F1500] font-[poppins-medium]"
+              style={{ fontSize: scale(14) }}
             >
               Sign Up
             </Link>

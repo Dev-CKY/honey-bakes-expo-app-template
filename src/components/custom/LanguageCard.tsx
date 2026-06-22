@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, Image, Pressable, Text } from "react-native";
+import { scale } from "react-native-size-matters";
 
 interface Props {
   language: string;
@@ -35,23 +36,31 @@ const LanguageCard = ({ language, image, onPress, selected }: Props) => {
   });
 
   return (
-    <Pressable onPress={onPress} className="flex-1">
+    <Pressable onPress={onPress} style={{ flex: 1 }}>
       <Animated.View
         style={{
           backgroundColor: bgColor,
           borderColor: borderColor,
           opacity,
+          minHeight: scale(150),
+          borderWidth: scale(1),
+          borderRadius: scale(10),
+          alignItems: "center",
+          justifyContent: "center",
+          paddingVertical: scale(18),
         }}
-        className="min-h-[150px] border rounded-[10px] items-center justify-center py-[18px]"
       >
-        <Text className="text-[15px] font-medium text-[#1F1500]">
+        <Text
+          style={{ fontSize: scale(15) }}
+          className="font-medium text-[#1F1500]"
+        >
           {language}
         </Text>
 
         <Image
           source={image}
           resizeMode="contain"
-          className="w-[50px] h-[50px] mt-[12px]"
+          style={{ width: scale(50), height: scale(50), marginTop: scale(12) }}
         />
       </Animated.View>
     </Pressable>

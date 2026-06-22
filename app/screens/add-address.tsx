@@ -10,14 +10,16 @@ import TextInputField from "@/src/components/custom/TextInputField";
 import { router } from "expo-router";
 import React from "react";
 import { ImageBackground } from "react-native";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 const AddAddress = () => {
   return (
     <ImageBackground
       source={require("@/src/assets/images/custom/bg.jpeg")}
-      className="flex-1 p-[20px]"
+      className="flex-1"
       resizeMode="cover"
+      style={{ padding: scale(20) }}
     >
       {/* Address Screen Content */}
 
@@ -31,19 +33,19 @@ const AddAddress = () => {
         {/* Phone number */}
         <TextInputField
           placeholder="Phone number"
-          leftIcon={<SvgXml xml={call} className="w-[24px] h-[24px]" />}
+          leftIcon={<SvgXml xml={call} width={scale(24)} height={scale(24)} />}
           keyboardType="number-pad"
         />
         {/* Name */}
         <TextInputField
           placeholder="Name"
-          leftIcon={<SvgXml xml={user} className="w-[24px] h-[24px]" />}
+          leftIcon={<SvgXml xml={user} width={scale(24)} height={scale(24)} />}
           keyboardType="default"
         />
         {/* Address */}
         <TextInputField
           placeholder="Address"
-          leftIcon={<SvgXml xml={map} className="w-[24px] h-[24px]" />}
+          leftIcon={<SvgXml xml={map} width={scale(24)} height={scale(24)} />}
           keyboardType="default"
         />
         {/* Button */}

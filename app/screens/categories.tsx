@@ -10,14 +10,14 @@ import { scale } from "react-native-size-matters";
 
 const Categories = () => {
   return (
-    <View className="flex-1 bg-[#FFFFE3] p-[20px]">
+    <View className="flex-1 bg-[#FFFFE3]" style={{ padding: scale(20) }}>
       {/* Back Button */}
 
       <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
       {/* Heading */}
 
-      <View className="mb-[20px]">
+      <View style={{ marginBottom: scale(20) }}>
         <HeadingTitle size={32} title="Categories" />
       </View>
 

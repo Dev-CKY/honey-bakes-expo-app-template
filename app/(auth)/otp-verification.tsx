@@ -8,12 +8,14 @@ import SubHeadingTitle from "@/src/components/custom/SubHeadingTitle";
 import { router } from "expo-router";
 import React from "react";
 import { ImageBackground } from "react-native";
+import { scale } from "react-native-size-matters";
 
 const OtpVerification = () => {
   return (
     <ImageBackground
       source={require("@/src/assets/images/custom/bg.jpeg")}
-      className="flex-1 p-[20px]"
+      className="flex-1"
+      style={{ padding: scale(20) }}
       resizeMode="cover"
     >
       {/* Otp Verification Screen Content */}

@@ -34,31 +34,38 @@ const MyOrders = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFDE7] pt-[20px]"
+      className="flex-1 bg-[#FFFDE7]"
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         paddingBottom: scale(20),
       }}
+      style={{ paddingTop: scale(20) }}
     >
       {/* Back Button */}
-      <View className="px-[20px]">
+      <View style={{ paddingHorizontal: scale(20) }}>
         <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
       </View>
 
       {/* Heading */}
-      <View className="px-[20px]">
+      <View style={{ paddingHorizontal: scale(20) }}>
         <HeadingTitle size={32} title="My Orders" />
       </View>
 
       {/* Toggle Tabs */}
-      <View className="p-[20px]">
-        <View className="h-[52px] overflow-hidden rounded-full bg-[#F4EFD7] p-[4px]">
+      <View style={{ padding: scale(20) }}>
+        <View
+          style={{ height: scale(52), padding: scale(4) }}
+          className="overflow-hidden rounded-full bg-[#F4EFD7]"
+        >
           {/* Animated Active Background */}
           <Animated.View
-            className="absolute left-[4px] top-[4px] h-[44px] rounded-full border border-[#2E261C] bg-[#F0BA5C]"
+            className="absolute rounded-full border border-[#2E261C] bg-[#F0BA5C]"
             style={[
               {
                 width: BUTTON_WIDTH,
+                left: scale(4),
+                top: scale(4),
+                height: scale(44),
               },
               animatedToggleStyle,
             ]}
@@ -82,12 +89,12 @@ const MyOrders = () => {
       </View>
 
       {/* Search */}
-      <View className="px-[20px]">
+      <View style={{ paddingHorizontal: scale(20) }}>
         <SearchBar placeholder="Search orders..." searchValue="" />
       </View>
 
       {/* Orders List */}
-      <View className="mt-[10px]">
+      <View style={{ marginTop: scale(10) }}>
         {filteredOrders.length ? (
           filteredOrders.map((item) => (
             <OrderCard key={`${activeTab}-${item.id}`} item={item} />
@@ -95,9 +102,13 @@ const MyOrders = () => {
         ) : (
           <Animated.View
             entering={FadeIn.duration(300)}
-            className="items-center py-[40px]"
+            className="items-center"
+            style={{ paddingVertical: scale(40) }}
           >
-            <Text className="font-[poppins-medium] text-[16px] text-[#777]">
+            <Text
+              style={{ fontSize: scale(16) }}
+              className="font-[poppins-medium] text-[#777]"
+            >
               No orders found
             </Text>
           </Animated.View>

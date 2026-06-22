@@ -10,13 +10,15 @@ import TextInputField from "@/src/components/custom/TextInputField";
 import { Link } from "expo-router";
 import React from "react";
 import { ImageBackground, Text } from "react-native";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 const SignUp = () => {
   return (
     <ImageBackground
       source={require("@/src/assets/images/custom/bg.jpeg")}
-      className="flex-1 p-[20px]"
+      className="flex-1"
+      style={{ padding: scale(20) }}
       resizeMode="cover"
     >
       {/* Sign Up Screen Content */}
@@ -31,14 +33,14 @@ const SignUp = () => {
         {/* Phone number */}
         <TextInputField
           placeholder="Phone number"
-          leftIcon={<SvgXml xml={call} className="w-[24px] h-[24px]" />}
+          leftIcon={<SvgXml xml={call} width={scale(24)} height={scale(24)} />}
           keyboardType="number-pad"
         />
 
         {/* Email */}
         <TextInputField
           placeholder="Email address"
-          leftIcon={<SvgXml xml={email} className="w-[24px] h-[24px]" />}
+          leftIcon={<SvgXml xml={email} width={scale(24)} height={scale(24)} />}
           keyboardType="email-address"
         />
 
@@ -46,9 +48,13 @@ const SignUp = () => {
         <TextInputField
           placeholder="Password"
           isEncrypted
-          leftIcon={<SvgXml xml={lock} className="w-[24px] h-[24px]" />}
-          eyeOpenIcon={<SvgXml xml={eye} className="w-[24px] h-[24px]" />}
-          eyeCloseIcon={<SvgXml xml={eyeOff} className="w-[24px] h-[24px]" />}
+          leftIcon={<SvgXml xml={lock} width={scale(24)} height={scale(24)} />}
+          eyeOpenIcon={
+            <SvgXml xml={eye} width={scale(24)} height={scale(24)} />
+          }
+          eyeCloseIcon={
+            <SvgXml xml={eyeOff} width={scale(24)} height={scale(24)} />
+          }
           keyboardType="default"
         />
 
@@ -57,11 +63,15 @@ const SignUp = () => {
 
         {/* Have an account? */}
         <>
-          <Text className="text-[#C2A26F] text-[14px] font-[poppins-regular] self-center">
+          <Text
+            className="text-[#C2A26F] font-[poppins-regular] self-center"
+            style={{ fontSize: scale(14) }}
+          >
             Have an account?{" "}
             <Link
               href="/(auth)/sign-in"
               className="text-[#1F1500] font-[poppins-medium]"
+              style={{ fontSize: scale(14) }}
             >
               Sign In
             </Link>

@@ -34,20 +34,27 @@ const Settings = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFFE3] py-[20px]"
+      className="flex-1 bg-[#FFFFE3]"
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         paddingBottom: scale(120),
       }}
+      style={{ paddingVertical: scale(20) }}
     >
       <>
-        <View className="px-[20px]">
+        <View style={{ paddingHorizontal: scale(20) }}>
           {/* Back button */}
           <Pressable
-            className="border border-[1px] w-[48px] h-[48px] items-center justify-center rounded-full mb-[20px]"
+            className="border rounded-full items-center justify-center"
             onPress={() => router.back()}
+            style={{
+              width: scale(48),
+              height: scale(48),
+              borderWidth: scale(1),
+              marginBottom: scale(20),
+            }}
           >
-            <SvgXml xml={arrowLeft} className="w-[24px] h-[24px]" />
+            <SvgXml xml={arrowLeft} width={scale(24)} height={scale(24)} />
           </Pressable>
 
           {/* Heading */}
@@ -55,33 +62,55 @@ const Settings = () => {
         </View>
 
         {/* Subheading */}
-        <View className="m-[20px]">
+        <View style={{ marginHorizontal: scale(20), marginTop: scale(20) }}>
           <HeadingTitle size={20} title="Profile & Security" />
         </View>
 
         {/* Routes */}
         <Routes data={SETTINGS_ROUTES} />
 
-        {/* Notification & Theme */}
+        {/* Notification */}
         <View>
           {/* Title */}
-          <View className="m-[20px]">
-            <HeadingTitle size={20} title="Notification & Theme" />
+          <View style={{ marginHorizontal: scale(20), marginTop: scale(20) }}>
+            <HeadingTitle size={20} title="Notification" />
           </View>
 
           {/* Data */}
           {APP_CONTROLS.map((item, index) => (
             <View
               key={index}
-              className="mt-[20px] px-[20px] border-b border-[#F6F0D4] flex-row items-center justify-between pb-[20px]"
+              className="border-b border-[#F6F0D4] flex-row items-center justify-between"
+              style={{
+                marginTop: scale(20),
+                paddingHorizontal: scale(20),
+                paddingBottom: scale(20),
+              }}
             >
               {/* Icon and Text */}
-              <View className="flex-row items-center gap-[15px]">
-                <View className="h-[48px] w-[48px] rounded-full bg-[#F6F0D4] flex-row items-center justify-center">
-                  <SvgXml xml={item.icon} className="w-[24px] h-[24px]" />
+              <View
+                className="flex-row items-center"
+                style={{ columnGap: scale(15) }}
+              >
+                <View
+                  className="rounded-full bg-[#F6F0D4] flex-row items-center justify-center"
+                  style={{
+                    height: scale(48),
+                    width: scale(48),
+                    borderRadius: scale(48) / 2,
+                  }}
+                >
+                  <SvgXml
+                    xml={item.icon}
+                    width={scale(24)}
+                    height={scale(24)}
+                  />
                 </View>
 
-                <Text className="text-[16px] text-[#1F1500] font-[poppins-medium]">
+                <Text
+                  style={{ fontSize: scale(16) }}
+                  className="text-[#1F1500] font-[poppins-medium]"
+                >
                   {item.routeName}
                 </Text>
               </View>
@@ -99,28 +128,48 @@ const Settings = () => {
 
         {/* Logout & Delete Account */}
 
-        <View className="flex-row items-center justify-between mt-[20px] mb-[20px] px-[20px]">
+        <View
+          className="flex-row items-center justify-between"
+          style={{
+            marginTop: scale(20),
+            marginBottom: scale(20),
+            paddingHorizontal: scale(20),
+          }}
+        >
           {/* Logout Text */}
-          <Text className="text-[16px] text-[#F7715D] font-[poppins-medium]">
+          <Text
+            style={{ fontSize: scale(16) }}
+            className="text-[#F7715D] font-[poppins-medium]"
+          >
             Logout
           </Text>
 
           {/* Logout Icon */}
           <TouchableOpacity onPress={() => {}}>
-            <SvgXml xml={logout} className="w-[24px] h-[24px]" />
+            <SvgXml xml={logout} width={scale(24)} height={scale(24)} />
           </TouchableOpacity>
         </View>
 
         {/* Delete Account */}
-        <View className="flex-row items-center justify-between mt-[20px] mb-[20px] px-[20px]">
+        <View
+          className="flex-row items-center justify-between"
+          style={{
+            marginTop: scale(20),
+            marginBottom: scale(20),
+            paddingHorizontal: scale(20),
+          }}
+        >
           {/* Delete Account Text */}
-          <Text className="text-[16px] text-[#F7715D] font-[poppins-medium]">
+          <Text
+            style={{ fontSize: scale(16) }}
+            className="text-[#F7715D] font-[poppins-medium]"
+          >
             Delete Account
           </Text>
 
           {/* Delete Account Icon */}
           <TouchableOpacity onPress={() => {}}>
-            <SvgXml xml={bin} className="w-[24px] h-[24px]" />
+            <SvgXml xml={bin} width={scale(24)} height={scale(24)} />
           </TouchableOpacity>
         </View>
       </>

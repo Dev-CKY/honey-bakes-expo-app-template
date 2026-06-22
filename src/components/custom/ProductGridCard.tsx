@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, Pressable, Text, View } from "react-native";
+import { scale } from "react-native-size-matters";
 
 interface Props {
   title: string;
@@ -13,38 +14,71 @@ const ProductGridCard = ({ title, image, price, brand, onPress }: Props) => {
   return (
     <Pressable
       onPress={onPress}
-      className="flex-1 w-[170px] border border-[#F6F0D4] rounded-[12px] bg-[#FFFFE3] overflow-hidden"
+      style={{ borderRadius: scale(12) }}
+      className="flex-1 border border-[#F6F0D4] bg-[#FFFFE3] overflow-hidden"
     >
       {/* Image */}
-      <View className="p-[8px]">
-        <Image
-          source={image}
-          resizeMode="cover"
-          className="w-full h-[120px] rounded-[10px]"
-        />
+      <View style={{ padding: scale(8) }}>
+        <View
+          style={{
+            width: scale(125),
+            height: scale(100),
+          }}
+        >
+          <Image
+            source={image}
+            resizeMode="cover"
+            className="w-full h-full"
+            style={{ borderRadius: scale(10) }}
+          />
+        </View>
 
         {/* Add Button */}
-        <Pressable className="absolute bottom-[-10px] self-center bg-[#F7BC5D] px-[18px] py-[5px] rounded-full border border-[#1F1500]">
-          <Text className="text-[12px] font-[poppins-medium] text-[#1F1500]">
+        <Pressable
+          className="absolute self-center bg-[#F7BC5D] rounded-full border border-[#1F1500]"
+          style={{
+            bottom: scale(-10),
+            paddingHorizontal: scale(18),
+            paddingVertical: scale(5),
+          }}
+        >
+          <Text
+            className=" font-[poppins-medium] text-[#1F1500]"
+            style={{ fontSize: scale(12) }}
+          >
             Add +
           </Text>
         </Pressable>
       </View>
 
       {/* Content */}
-      <View className="pt-[18px] pb-[12px] px-[10px] items-center">
+      <View
+        className="items-center"
+        style={{
+          paddingTop: scale(18),
+          paddingBottom: scale(12),
+          paddingHorizontal: scale(10),
+        }}
+      >
         <Text
           numberOfLines={1}
-          className="text-[16px] text-[#1F1500] font-[poppins-medium]"
+          className="text-[#1F1500] font-[poppins-medium]"
+          style={{ fontSize: scale(16) }}
         >
           {title}
         </Text>
 
-        <Text className="text-[12px] text-[#C2A26F] font-[poppins-regular]">
+        <Text
+          className=" text-[#C2A26F] font-[poppins-regular]"
+          style={{ fontSize: scale(12) }}
+        >
           By {brand}
         </Text>
 
-        <Text className="text-[16px] font-[poppins-medium] text-[#1F1500] mt-[6px]">
+        <Text
+          className="font-[poppins-medium] text-[#1F1500]"
+          style={{ fontSize: scale(16), marginTop: scale(6) }}
+        >
           {price}
         </Text>
       </View>

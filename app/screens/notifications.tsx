@@ -43,15 +43,19 @@ const Notifications = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFFE3] py-[20px]"
+      className="flex-1 bg-[#FFFFE3]"
       showsVerticalScrollIndicator={false}
+      style={{ paddingVertical: scale(20) }}
       contentContainerStyle={{
         flexGrow: 1,
         paddingBottom: scale(20),
       }}
     >
       {/* Header */}
-      <View className="flex-row items-center justify-between px-[20px]">
+      <View
+        className="flex-row items-center justify-between"
+        style={{ paddingHorizontal: scale(20) }}
+      >
         <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
         {notifications.length > 0 && (
@@ -60,7 +64,7 @@ const Notifications = () => {
       </View>
 
       {/* Heading */}
-      <View className="px-[20px]">
+      <View style={{ paddingHorizontal: scale(20) }}>
         <HeadingTitle size={32} title="Notifications" />
       </View>
 
@@ -70,11 +74,21 @@ const Notifications = () => {
           entering={FadeIn.duration(900).delay(150)}
           className="flex-1 items-center justify-center"
         >
-          <Text className="text-[#1F1500] text-[22px] font-[poppins-semibold]">
+          <Text
+            style={{ fontSize: scale(22) }}
+            className="text-[#1F1500] font-[poppins-semibold]"
+          >
             No Notifications
           </Text>
 
-          <Text className="text-[#C2A26F] text-center mt-[8px] px-[32px] font-[poppins-regular]">
+          <Text
+            style={{
+              marginTop: scale(8),
+              paddingHorizontal: scale(32),
+              fontSize: scale(16),
+            }}
+            className="text-[#C2A26F] text-center font-[poppins-regular]"
+          >
             You're all caught up. New notifications will appear here.
           </Text>
         </Animated.View>

@@ -15,14 +15,15 @@ import { SvgXml } from "react-native-svg";
 const Profile = () => {
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFFE3] py-[20px]"
+      className="flex-1 bg-[#FFFFE3]"
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         paddingBottom: scale(120),
       }}
+      style={{ paddingVertical: scale(20) }}
     >
       <>
-        <View className="px-[20px]">
+        <View style={{ paddingHorizontal: scale(20) }}>
           {/* Back button */}
           <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
@@ -31,12 +32,22 @@ const Profile = () => {
         </View>
 
         {/* Image avatar */}
-        <View className="items-center justify-center mt-[20px]">
-          <View className="relative">
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: scale(20),
+          }}
+        >
+          <View style={{ position: "relative" }}>
             {/* Avatar */}
             <Image
               source={require("@/src/assets/images/custom/profile.jpg")}
-              className="h-[100px] w-[100px] rounded-full"
+              style={{
+                height: scale(100),
+                width: scale(100),
+                borderRadius: scale(100) / 2,
+              }}
             />
 
             {/* Floating Icon Button */}
@@ -44,19 +55,37 @@ const Profile = () => {
               onPress={() => {
                 router.push("/screens/edit-profile");
               }}
-              className="absolute bottom-0 right-0 h-[38px] w-[38px] items-center justify-center rounded-full border border-[#1F1500] bg-[#F7BC5D]"
+              style={{
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                height: scale(38),
+                width: scale(38),
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: scale(38) / 2,
+                borderWidth: scale(1),
+                borderColor: "#1F1500",
+                backgroundColor: "#F7BC5D",
+              }}
             >
-              <SvgXml xml={pencil} />
+              <SvgXml xml={pencil} width={scale(18)} height={scale(18)} />
             </Pressable>
           </View>
 
           {/* Name */}
-          <Text className="text-[20px] text-[#1F1500] font-[kalnia-medium] mt-[5px]">
+          <Text
+            style={{ fontSize: scale(20), marginTop: scale(5) }}
+            className="text-[#1F1500] font-[kalnia-medium]"
+          >
             Mathew Doe
           </Text>
 
           {/* Email */}
-          <Text className="text-[14px] text-[#C2A26F] font-[poppins-regular]">
+          <Text
+            style={{ fontSize: scale(14) }}
+            className="text-[#C2A26F] font-[poppins-regular]"
+          >
             mathew.doe@example.com
           </Text>
         </View>
@@ -65,39 +94,92 @@ const Profile = () => {
         <Routes data={PROFILE_ROUTES} />
 
         {/* Others section */}
-        <Text className="text-[20px] p-[20px] text-[#1F1500] font-[kalnia-medium] mt-[5px]">
+        <Text
+          style={{
+            fontSize: scale(20),
+            padding: scale(20),
+            marginTop: scale(5),
+          }}
+          className="text-[#1F1500] font-[kalnia-medium]"
+        >
           Others
         </Text>
 
-        <View className="flex-row items-center justify-between px-[20px]">
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingHorizontal: scale(20),
+          }}
+        >
           {/* Account and add account icon */}
-          <View className="flex-row items-center gap-[20px]">
-            <View className="items-center">
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: scale(20),
+            }}
+          >
+            <View style={{ alignItems: "center" }}>
               <Image
                 source={require("@/src/assets/images/custom/profile.jpg")}
-                className="h-[54px] w-[54px] rounded-full"
+                style={{
+                  height: scale(54),
+                  width: scale(54),
+                  borderRadius: scale(54) / 2,
+                }}
               />
-              <Text className="text-[14px]  text-[#1F1500] font-[poppins-regular] mt-[2px]">
+              <Text
+                style={{ fontSize: scale(14), marginTop: scale(2) }}
+                className="text-[#1F1500] font-[poppins-regular]"
+              >
                 You
               </Text>
             </View>
 
-            <Pressable className="items-center">
-              <View className="h-[54px] w-[54px] rounded-full bg-[#F6F0D4] items-center justify-center">
+            <Pressable style={{ alignItems: "center" }}>
+              <View
+                style={{
+                  height: scale(54),
+                  width: scale(54),
+                  borderRadius: scale(54) / 2,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#F6F0D4",
+                }}
+              >
                 <SvgXml xml={plus} />
               </View>
-              <Text className="text-[14px]  text-[#1F1500] font-[poppins-regular] mt-[2px]">
+              <Text
+                style={{ fontSize: scale(14), marginTop: scale(2) }}
+                className="text-[#1F1500] font-[poppins-regular]"
+              >
                 Add
               </Text>
             </Pressable>
           </View>
 
           {/* Logout */}
-          <Pressable className="items-center">
-            <View className="h-[54px] w-[54px] rounded-full bg-[#F7BC5D] border border-[1.5px] border-[#1F1500] items-center justify-center">
+          <Pressable style={{ alignItems: "center" }}>
+            <View
+              style={{
+                height: scale(54),
+                width: scale(54),
+                borderRadius: scale(54) / 2,
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#F7BC5D",
+                borderWidth: scale(1.5),
+                borderColor: "#1F1500",
+              }}
+            >
               <SvgXml xml={logout2} />
             </View>
-            <Text className="text-[14px]  text-[#1F1500] font-[poppins-regular] mt-[2px]">
+            <Text
+              style={{ fontSize: scale(14), marginTop: scale(2) }}
+              className="text-[#1F1500] font-[poppins-regular]"
+            >
               Logout
             </Text>
           </Pressable>

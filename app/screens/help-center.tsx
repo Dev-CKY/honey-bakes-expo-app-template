@@ -32,30 +32,46 @@ const HelpCenter = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFFE3] py-[20px]"
+      className="flex-1 bg-[#FFFFE3]"
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         paddingBottom: scale(40),
       }}
+      style={{ paddingVertical: scale(20) }}
     >
       {/* Back Button */}
-      <View className="px-[20px]">
+      <View style={{ paddingHorizontal: scale(20) }}>
         <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
       </View>
 
       {/* Heading */}
-      <View className="px-[20px]">
+      <View style={{ paddingHorizontal: scale(20) }}>
         <HeadingTitle size={32} title="Help Center" />
       </View>
 
       {/* Toggle Tabs */}
-      <View className="p-[20px]">
-        <View className="h-[52px] overflow-hidden rounded-full bg-[#F4EFD7] p-[4px]">
+      <View style={{ padding: scale(20) }}>
+        <View
+          style={{
+            height: scale(52),
+            overflow: "hidden",
+            borderRadius: scale(52) / 2,
+            backgroundColor: "#F4EFD7",
+            padding: scale(4),
+          }}
+        >
           {/* Animated Active Background */}
           <Animated.View
-            className="absolute left-[4px] top-[4px] h-[44px] rounded-full border border-[#2E261C] bg-[#F0BA5C]"
             style={[
               {
+                position: "absolute",
+                left: scale(4),
+                top: scale(4),
+                height: scale(44),
+                borderRadius: scale(44) / 2,
+                borderWidth: scale(1),
+                borderColor: "#2E261C",
+                backgroundColor: "#F0BA5C",
                 width: BUTTON_WIDTH,
               },
               animatedToggleStyle,
@@ -86,13 +102,13 @@ const HelpCenter = () => {
         exiting={FadeOut.duration(500)}
       >
         {activeTab === "faqs" ? (
-          <View className="gap-y-[4px]">
+          <View style={{ rowGap: scale(4) }}>
             {FAQS_DATA.map((item) => (
               <FAQAccordion key={item.id} item={item} />
             ))}
           </View>
         ) : (
-          <View className="mt-[-10px]">
+          <View style={{ marginTop: -scale(10) }}>
             <Routes data={CONTACT_ROUTES} />
           </View>
         )}

@@ -24,24 +24,29 @@ const SearchScreen = () => {
     <Animated.View
       entering={FadeIn.duration(250)}
       className="flex-1 bg-[#FFFFE3]"
+      style={{ paddingTop: scale(20), backgroundColor: "#FFFFE3" }}
     >
-      <View className="px-[20px] pt-[20px]">
+      <View style={{ paddingHorizontal: scale(20) }}>
         {/* Back button */}
         <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
       </View>
 
-      <View className="flex-1 px-[20px]">
+      <View className="flex-1" style={{ paddingHorizontal: scale(20) }}>
         {/* Search */}
         <Animated.View
           entering={FadeInDown.duration(400)}
-          className="flex-row items-center gap-[12px]"
+          className="flex-row items-center"
+          style={{ gap: scale(12) }}
         >
           <View className="flex-1 w-full">
             <SearchBar placeholder="Search" />
           </View>
 
           <Pressable onPress={() => router.back()}>
-            <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
+            <Text
+              className="font-[poppins-medium] text-[16px] text-[#1F1500]"
+              style={{ fontSize: scale(16) }}
+            >
               Cancel
             </Text>
           </Pressable>
@@ -56,13 +61,16 @@ const SearchScreen = () => {
           {/* Recent Search */}
           <Animated.View
             entering={FadeInDown.delay(100).duration(450)}
-            className="mt-[20px]"
+            style={{ marginTop: scale(20) }}
           >
             <View className="flex-row items-end justify-between">
               <HeadingTitle size={20} title="Recent searches" />
 
               <Pressable>
-                <Text className="font-[poppins-medium] text-[14px] text-[#1F1500]">
+                <Text
+                  style={{ fontSize: scale(14) }}
+                  className="font-[poppins-medium] text-[#1F1500]"
+                >
                   Clear all
                 </Text>
               </Pressable>
@@ -79,12 +87,25 @@ const SearchScreen = () => {
               }}
               renderItem={({ item }) => (
                 <Animated.View layout={LinearTransition.springify()}>
-                  <Pressable className="h-[44px] rounded-full border border-[#DDD5B5] flex-row items-center justify-between pl-[20px] pr-[10px]">
-                    <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
+                  <Pressable
+                    className="rounded-full border border-[#DDD5B5] flex-row items-center justify-between"
+                    style={{
+                      height: scale(44),
+                      paddingLeft: scale(20),
+                      paddingRight: scale(10),
+                      borderWidth: scale(1),
+                      borderColor: "#DDD5B5",
+                      borderRadius: scale(44) / 2,
+                    }}
+                  >
+                    <Text
+                      style={{ fontSize: scale(16) }}
+                      className="font-[poppins-medium] text-[#1F1500]"
+                    >
                       {item}
                     </Text>
 
-                    <SvgXml xml={cross} />
+                    <SvgXml xml={cross} width={scale(16)} height={scale(16)} />
                   </Pressable>
                 </Animated.View>
               )}
@@ -94,9 +115,9 @@ const SearchScreen = () => {
           {/* Trending */}
           <Animated.View
             entering={FadeInDown.delay(200).duration(500)}
-            className="mt-[20px]"
+            style={{ marginTop: scale(20) }}
           >
-            <View className="mb-[10px]">
+            <View style={{ marginBottom: scale(10) }}>
               <HeadingTitle size={20} title="Trending" />
             </View>
 
@@ -106,18 +127,31 @@ const SearchScreen = () => {
                 entering={FadeInDown.delay(250 + index * 50).duration(400)}
                 layout={LinearTransition.springify()}
               >
-                <Pressable className="flex-row items-center justify-between py-[10px]">
+                <Pressable
+                  className="flex-row items-center justify-between"
+                  style={{ paddingVertical: scale(10) }}
+                >
                   <View className="flex-1">
-                    <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
+                    <Text
+                      className="font-[poppins-medium] text-[#1F1500]"
+                      style={{ fontSize: scale(16) }}
+                    >
                       {item.title}
                     </Text>
 
-                    <Text className="font-[poppins-regular] text-[14px] text-[#C7A16A]">
+                    <Text
+                      style={{ fontSize: scale(14) }}
+                      className="font-[poppins-regular] text-[#C7A16A]"
+                    >
                       By {item.bakery}
                     </Text>
                   </View>
 
-                  <SvgXml xml={arrowTopRight} />
+                  <SvgXml
+                    xml={arrowTopRight}
+                    width={scale(16)}
+                    height={scale(16)}
+                  />
                 </Pressable>
               </Animated.View>
             ))}

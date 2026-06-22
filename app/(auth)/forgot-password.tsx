@@ -8,13 +8,15 @@ import TextInputField from "@/src/components/custom/TextInputField";
 import { Link, router } from "expo-router";
 import React from "react";
 import { ImageBackground, Text } from "react-native";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 const ForgotPassword = () => {
   return (
     <ImageBackground
       source={require("@/src/assets/images/custom/bg.jpeg")}
-      className="flex-1 p-[20px]"
+      className="flex-1"
+      style={{ padding: scale(20) }}
       resizeMode="cover"
     >
       {/* Forgot Password Screen Content */}
@@ -33,12 +35,19 @@ const ForgotPassword = () => {
         <TextInputField
           keyboardType="email-address"
           placeholder="Email address"
-          leftIcon={<SvgXml xml={email} className="w-[24px] h-[24px]" />}
+          leftIcon={<SvgXml xml={email} width={scale(24)} height={scale(24)} />}
         />
 
         {/* Remember Password */}
-        <Link href="/(auth)/sign-in" className="self-end mb-[20px]">
-          <Text className="text-[#1F1500] text-[14px] font-[poppins-medium]">
+        <Link
+          href="/(auth)/sign-in"
+          className="self-end"
+          style={{ marginBottom: scale(20) }}
+        >
+          <Text
+            className="text-[#1F1500] font-[poppins-medium]"
+            style={{ fontSize: scale(14) }}
+          >
             Remember Password?
           </Text>
         </Link>

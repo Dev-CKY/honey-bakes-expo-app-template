@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Image, Pressable, Text } from "react-native";
+import { scale } from "react-native-size-matters";
 
 import Animated, {
   LinearTransition,
@@ -17,14 +18,14 @@ type Props = {
 
 const PaymentMethodCard = ({ title, icon, isSelected, onPress }: Props) => {
   const opacity = useSharedValue(isSelected ? 1 : 0.85);
-  const scale = useSharedValue(isSelected ? 1 : 0.96);
+  const scaleVal = useSharedValue(isSelected ? 1 : 0.96);
 
   useEffect(() => {
     opacity.value = withTiming(isSelected ? 1 : 0.85, {
       duration: 600,
     });
 
-    scale.value = withTiming(isSelected ? 1 : 0.96, {
+    scaleVal.value = withTiming(isSelected ? 1 : 0.96, {
       duration: 600,
     });
   }, [isSelected, opacity, scale]);
@@ -33,7 +34,7 @@ const PaymentMethodCard = ({ title, icon, isSelected, onPress }: Props) => {
     opacity: opacity.value,
     transform: [
       {
-        scale: scale.value,
+        scale: scaleVal.value,
       },
     ],
   }));
@@ -42,23 +43,33 @@ const PaymentMethodCard = ({ title, icon, isSelected, onPress }: Props) => {
     <Pressable onPress={onPress}>
       <Animated.View
         layout={LinearTransition.springify().damping(18).stiffness(180)}
-        style={animatedStyle}
-        className={`h-[88px] w-[118px] items-center justify-center rounded-[12px] border ${
-          isSelected
-            ? "border-[#1F1500] bg-[#F7BC5D]"
-            : "border-[#EEE8C9] bg-[#FFFFE3]"
-        }`}
+        style={[
+          animatedStyle,
+          {
+            height: scale(88),
+            width: scale(118),
+            alignItems: "center",
+            justifyContent: "center",
+            borderWidth: scale(1),
+            borderRadius: scale(12),
+            backgroundColor: isSelected ? "#F7BC5D" : "#FFFFE3",
+            borderColor: isSelected ? "#1F1500" : "#EEE8C9",
+          },
+        ]}
       >
         <Image
           source={icon}
           resizeMode="contain"
-          className="h-[28px] w-[40px]"
+          style={{ height: scale(28), width: scale(40) }}
         />
 
         <Text
-          className={`mt-[10px] font-[poppins-medium] text-[14px] ${
-            isSelected ? "text-[#1F1500]" : "text-[#C2A26F]"
-          }`}
+          style={{
+            marginTop: scale(10),
+            fontSize: scale(14),
+            color: isSelected ? "#1F1500" : "#C2A26F",
+          }}
+          className="font-[poppins-medium]"
         >
           {title}
         </Text>

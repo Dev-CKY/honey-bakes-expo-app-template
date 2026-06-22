@@ -1,6 +1,7 @@
 import arrowRight from "@/src/assets/icons/svg/arrowRight";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 const Routes = ({ data = [] }: { data?: any[] }) => {
@@ -9,23 +10,35 @@ const Routes = ({ data = [] }: { data?: any[] }) => {
       {data.map((item: any, index: number) => (
         <View
           key={index}
-          className="mt-[20px] px-[20px] border-b border-[#F6F0D4]"
+          className="border-b border-[#F6F0D4]"
+          style={{ marginTop: scale(20), paddingHorizontal: scale(20) }}
         >
           <Pressable
-            className="flex-row items-center justify-between mb-[20px]"
+            className="flex-row items-center justify-between"
             onPress={item.onPress}
+            style={{ marginBottom: scale(20) }}
           >
-            <View className="flex-row items-center gap-[15px]">
-              <View className="h-[48px] w-[48px] rounded-full bg-[#F6F0D4] flex-row items-center justify-center">
-                <SvgXml xml={item.icon} className="w-[24px] h-[24px]" />
+            <View className="flex-row items-center" style={{ gap: scale(15) }}>
+              <View
+                className="bg-[#F6F0D4] flex-row items-center justify-center"
+                style={{
+                  height: scale(48),
+                  width: scale(48),
+                  borderRadius: scale(48) / 2,
+                }}
+              >
+                <SvgXml xml={item.icon} width={scale(24)} height={scale(24)} />
               </View>
 
-              <Text className="text-[16px] text-[#1F1500] font-[poppins-medium]">
+              <Text
+                style={{ fontSize: scale(16) }}
+                className="text-[#1F1500] font-[poppins-medium]"
+              >
                 {item.routeName}
               </Text>
             </View>
 
-            <SvgXml xml={arrowRight} className="w-[24px] h-[24px] rotate-180" />
+            <SvgXml xml={arrowRight} width={scale(24)} height={scale(24)} />
           </Pressable>
         </View>
       ))}

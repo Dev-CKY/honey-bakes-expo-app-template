@@ -1,7 +1,3 @@
-// ======================================================
-// Hook Values
-// ======================================================
-
 import { useMyOrders } from "@/hooks/custom/useMyOrders";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
@@ -10,6 +6,7 @@ import calendar from "@/src/assets/icons/svg/calender";
 import clock from "@/src/assets/icons/svg/clock";
 import { router } from "expo-router";
 import { Image, Pressable, Text, View } from "react-native";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 // ======================================================
@@ -27,66 +24,83 @@ const OrderCard = ({ item }: any) => {
       exiting={FadeOut.duration(700)}
     >
       <Pressable
-        className="flex-row border-b border-[#ECE5C8] px-[20px] py-[20px]"
+        className="flex-row border-b border-[#ECE5C8]"
         onPress={() => router.push("/screens/my-orders/order")}
+        style={{ paddingHorizontal: scale(20), paddingVertical: scale(20) }}
       >
         {/* Product Image */}
         <Image
           source={item.image}
           resizeMode="cover"
-          className="h-[90px] w-[90px] rounded-[14px]"
+          style={{
+            height: scale(90),
+            width: scale(90),
+            borderRadius: scale(14),
+          }}
         />
 
         {/* Content */}
-        <View className="ml-[14px] flex-1">
+        <View style={{ marginLeft: scale(14), flex: 1 }}>
           {/* Title */}
           <View className="flex-row items-start justify-between">
             <Text
-              numberOfLines={1}
-              className="flex-1 font-[poppins-medium] text-[20px] text-[#2A1F15]"
+              className="flex-1 font-[poppins-medium] text-[#2A1F15]"
+              style={{ fontSize: scale(20) }}
             >
               {item.name}
             </Text>
 
-            <SvgXml xml={arrowRight} />
+            <SvgXml xml={arrowRight} width={scale(24)} height={scale(24)} />
           </View>
 
           {/* Status Badge */}
           <View
-            className="mt-[10px] self-start rounded-full px-[16px] py-[7px]"
             style={{
+              marginTop: scale(10),
+              alignSelf: "flex-start",
+              borderRadius: scale(999),
+              paddingHorizontal: scale(16),
+              paddingVertical: scale(7),
               backgroundColor: badgeBg,
             }}
           >
             <Text
-              className="font-[poppins-medium] text-[14px]"
-              style={{
-                color: textColor,
-              }}
+              className="font-[poppins-medium]"
+              style={{ fontSize: scale(14), color: textColor }}
             >
               {item.status}
             </Text>
           </View>
 
           {/* Date & Time */}
-          <View className="mt-[10px] flex-row items-center">
+          <View
+            style={{
+              marginTop: scale(10),
+            }}
+          >
             {/* Date */}
-            <View className="flex-row items-center">
-              <SvgXml xml={calendar} width={16} height={16} />
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <SvgXml xml={calendar} width={scale(16)} height={scale(16)} />
 
-              <Text className="ml-[6px] font-[poppins-regular] text-[14px] text-[#C59B61]">
+              <Text
+                style={{ marginLeft: scale(6), fontSize: scale(14) }}
+                className="font-[poppins-regular] text-[#C59B61]"
+              >
                 {item.date}
               </Text>
             </View>
 
             {/* Space */}
-            <View className="w-[12px]" />
+            <View style={{ width: scale(12) }} />
 
             {/* Time */}
-            <View className="flex-row items-center">
-              <SvgXml xml={clock} width={16} height={16} />
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <SvgXml xml={clock} width={scale(16)} height={scale(16)} />
 
-              <Text className="ml-[6px] font-[poppins-regular] text-[14px] text-[#C59B61]">
+              <Text
+                style={{ marginLeft: scale(6), fontSize: scale(14) }}
+                className="font-[poppins-regular] text-[#C59B61]"
+              >
                 {item.time}
               </Text>
             </View>

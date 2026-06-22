@@ -1,7 +1,7 @@
 export const FILTER_CATEGORIES = [
   "All",
   "Pizza",
-  "Donuts",
+  "Low Sugar Donuts",
   "Cupcake",
   "Burger",
   "Dessert",

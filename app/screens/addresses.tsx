@@ -62,37 +62,70 @@ const AddressCard = ({ item, isSelected, onPress }: AddressCardProps) => {
     <AnimatedPressable
       onPress={onPress}
       layout={LinearTransition.springify().damping(18).stiffness(180)}
-      style={animatedCardStyle}
-      className="mx-[20px] mb-[20px] min-h-[150px] rounded-[10px] border-[1.5px] p-[16px]"
+      style={[
+        animatedCardStyle,
+        {
+          marginHorizontal: scale(20),
+          marginBottom: scale(20),
+          minHeight: scale(150),
+          borderWidth: scale(1.5),
+          borderRadius: scale(10),
+          padding: scale(16),
+        },
+      ]}
     >
       {/* Header */}
-      <View className="flex-row items-center justify-between">
-        <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text
+          style={{ fontSize: scale(16) }}
+          className="font-[poppins-medium] text-[#1F1500]"
+        >
           {item.title}
         </Text>
 
         <Pressable hitSlop={10}>
-          <SvgXml xml={pencil} />
+          <SvgXml xml={pencil} width={scale(20)} height={scale(20)} />
         </Pressable>
       </View>
 
       {/* Address */}
       <AnimatedText
-        style={animatedDescriptionStyle}
-        className="mt-[12px] text-[14px] leading-[22px] font-[poppins-medium]"
+        style={[
+          animatedDescriptionStyle,
+          { marginTop: scale(12), fontSize: scale(14), lineHeight: scale(22) },
+        ]}
+        className="font-[poppins-medium]"
       >
         {item.address}
       </AnimatedText>
 
       {/* Phone */}
-      <View className="mt-[10px] flex-row items-center">
-        <Text className="font-[poppins-medium] text-[14px] text-[#1F1500]">
+      <View
+        style={{
+          marginTop: scale(10),
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{ fontSize: scale(14) }}
+          className="font-[poppins-medium] text-[#1F1500]"
+        >
           Phone no :
         </Text>
 
         <AnimatedText
-          style={animatedDescriptionStyle}
-          className="ml-[4px] text-[14px] font-[poppins-medium]"
+          style={[
+            animatedDescriptionStyle,
+            { marginLeft: scale(4), fontSize: scale(14) },
+          ]}
+          className="font-[poppins-medium]"
         >
           {item.phoneNumber}
         </AnimatedText>
@@ -106,19 +139,20 @@ const Addresses = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFFE3] py-[20px]"
+      className="flex-1 bg-[#FFFFE3]"
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         paddingBottom: scale(40),
       }}
+      style={{ paddingVertical: scale(20) }}
     >
       {/* Back Button */}
-      <View className="px-[20px]">
+      <View style={{ paddingHorizontal: scale(20) }}>
         <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
       </View>
 
       {/* Heading */}
-      <View className="mb-[20px] px-[20px]">
+      <View style={{ marginBottom: scale(20), paddingHorizontal: scale(20) }}>
         <HeadingTitle size={32} title="My addresses" />
       </View>
 
@@ -139,13 +173,25 @@ const Addresses = () => {
       {/* Add Address */}
       <Animated.View
         entering={FadeInDown.delay(250).duration(450)}
-        className="mx-[20px]"
+        style={{ marginHorizontal: scale(20) }}
       >
         <Pressable
-          className="h-[50px] w-full items-center justify-center rounded-full border-[1.5px] border-dashed border-[#1F1500]"
+          style={{
+            height: scale(50),
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: scale(50) / 2,
+            borderWidth: scale(1.5),
+            borderStyle: "dashed",
+            borderColor: "#1F1500",
+          }}
           onPress={() => router.push("/screens/add-address")}
         >
-          <Text className="font-[poppins-medium] text-[14px] text-[#1F1500]">
+          <Text
+            style={{ fontSize: scale(14) }}
+            className="font-[poppins-medium] text-[#1F1500]"
+          >
             Add new address
           </Text>
         </Pressable>

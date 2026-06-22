@@ -43,7 +43,7 @@ const EditProfile = () => {
           paddingBottom: scale(40),
         }}
       >
-        <View className="px-[20px] pt-[20px]">
+        <View style={{ paddingHorizontal: scale(20), paddingTop: scale(20) }}>
           {/* Back Button */}
           <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
@@ -51,29 +51,53 @@ const EditProfile = () => {
           <HeadingTitle size={32} title="Edit Profile" />
 
           {/* Avatar */}
-          <View className="items-center mt-[25px]">
-            <View className="relative">
+          <View style={{ alignItems: "center", marginTop: scale(25) }}>
+            <View style={{ position: "relative" }}>
               <Image
                 source={require("@/src/assets/images/custom/profile.jpg")}
-                className="h-[110px] w-[110px] rounded-full"
+                style={{
+                  height: scale(110),
+                  width: scale(110),
+                  borderRadius: scale(110) / 2,
+                }}
               />
 
-              <Pressable className="absolute bottom-0 right-0 h-[40px] w-[40px] items-center justify-center rounded-full border border-[#1F1500] bg-[#F7BC5D]">
-                <SvgXml xml={pencil} />
+              <Pressable
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: 0,
+                  height: scale(40),
+                  width: scale(40),
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: scale(40) / 2,
+                  borderWidth: scale(1),
+                  borderColor: "#1F1500",
+                  backgroundColor: "#F7BC5D",
+                }}
+              >
+                <SvgXml xml={pencil} width={scale(18)} height={scale(18)} />
               </Pressable>
             </View>
 
-            <Text className="mt-[10px] text-[20px] font-[kalnia-medium] text-[#1F1500]">
+            <Text
+              style={{ marginTop: scale(10), fontSize: scale(20) }}
+              className="font-[kalnia-medium] text-[#1F1500]"
+            >
               {name}
             </Text>
 
-            <Text className="text-[14px] font-[poppins-regular] text-[#C2A26F]">
+            <Text
+              style={{ fontSize: scale(14) }}
+              className="font-[poppins-regular] text-[#C2A26F]"
+            >
               {email}
             </Text>
           </View>
 
           {/* Form */}
-          <View className="mt-[30px] gap-y-[20px]">
+          <View style={{ marginTop: scale(30), rowGap: scale(20) }}>
             <EditProfileTextInputField
               label="Name"
               value={name}
@@ -95,12 +119,17 @@ const EditProfile = () => {
             />
 
             {/* Gender */}
-            <View className="flex-row items-center">
-              <Text className="w-[80px] text-[16px] font-[poppins-regular] text-[#C2A26F]">
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Text
+                style={{ width: scale(80), fontSize: scale(16) }}
+                className="font-[poppins-regular] text-[#C2A26F]"
+              >
                 Gender
               </Text>
 
-              <View className="flex-1 flex-row gap-x-[10px]">
+              <View
+                style={{ flex: 1, flexDirection: "row", columnGap: scale(10) }}
+              >
                 <GenderButton
                   title="Male"
                   symbol="♂"
@@ -122,18 +151,41 @@ const EditProfile = () => {
           </View>
 
           {/* Buttons */}
-          <View className="mt-[30px] gap-y-[16px]">
-            <Pressable className="h-[64px] items-center justify-center rounded-full border-2 border-[#1F1500] bg-[#F7BC5D]">
-              <Text className="font-[poppins-medium] text-[20px] text-[#1F1500]">
+          <View style={{ marginTop: scale(30), rowGap: scale(16) }}>
+            <Pressable
+              style={{
+                height: scale(64),
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: scale(64) / 2,
+                borderWidth: scale(2),
+                borderColor: "#1F1500",
+                backgroundColor: "#F7BC5D",
+              }}
+            >
+              <Text
+                style={{ fontSize: scale(20) }}
+                className="font-[poppins-medium] text-[#1F1500]"
+              >
                 Save
               </Text>
             </Pressable>
 
             <Pressable
-              className="h-[64px] items-center justify-center rounded-full border border-[#1F1500]"
-              style={{ borderStyle: "dashed" }}
+              style={{
+                height: scale(64),
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: scale(64) / 2,
+                borderWidth: scale(1),
+                borderColor: "#1F1500",
+                borderStyle: "dashed",
+              }}
             >
-              <Text className="font-[poppins-medium] text-[20px] text-[#1F1500]">
+              <Text
+                style={{ fontSize: scale(20) }}
+                className="font-[poppins-medium] text-[#1F1500]"
+              >
                 Discard
               </Text>
             </Pressable>

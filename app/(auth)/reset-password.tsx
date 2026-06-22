@@ -10,17 +10,18 @@ import TextInputField from "@/src/components/custom/TextInputField";
 import { router } from "expo-router";
 import React from "react";
 import { ImageBackground, View } from "react-native";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 const ResetPassword = () => {
   return (
     <ImageBackground
       source={require("@/src/assets/images/custom/bg.jpeg")}
-      className="flex-1 p-[20px]"
+      className="flex-1"
+      style={{ padding: scale(20) }}
       resizeMode="cover"
     >
       {/* Reset Password Screen Content */}
-
       <>
         {/* Back Button */}
         <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
@@ -36,9 +37,13 @@ const ResetPassword = () => {
           keyboardType="default"
           placeholder="New Password"
           isEncrypted
-          leftIcon={<SvgXml xml={lock} className="w-[24px] h-[24px]" />}
-          eyeOpenIcon={<SvgXml xml={eye} className="w-[24px] h-[24px]" />}
-          eyeCloseIcon={<SvgXml xml={eyeOff} className="w-[24px] h-[24px]" />}
+          leftIcon={<SvgXml xml={lock} width={scale(24)} height={scale(24)} />}
+          eyeOpenIcon={
+            <SvgXml xml={eye} width={scale(24)} height={scale(24)} />
+          }
+          eyeCloseIcon={
+            <SvgXml xml={eyeOff} width={scale(24)} height={scale(24)} />
+          }
         />
 
         {/* Confirm Password */}
@@ -46,12 +51,16 @@ const ResetPassword = () => {
           keyboardType="default"
           placeholder="Confirm New Password"
           isEncrypted
-          leftIcon={<SvgXml xml={lock} className="w-[24px] h-[24px]" />}
-          eyeOpenIcon={<SvgXml xml={eye} className="w-[24px] h-[24px]" />}
-          eyeCloseIcon={<SvgXml xml={eyeOff} className="w-[24px] h-[24px]" />}
+          leftIcon={<SvgXml xml={lock} width={scale(24)} height={scale(24)} />}
+          eyeOpenIcon={
+            <SvgXml xml={eye} width={scale(24)} height={scale(24)} />
+          }
+          eyeCloseIcon={
+            <SvgXml xml={eyeOff} width={scale(24)} height={scale(24)} />
+          }
         />
 
-        <View className="mt-[20px]">
+        <View style={{ marginTop: scale(20) }}>
           {/* Button */}
           <Button label="Reset Password" onPress={() => {}} />
         </View>

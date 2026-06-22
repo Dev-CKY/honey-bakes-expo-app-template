@@ -62,32 +62,45 @@ const Checkout = () => {
           }}
         >
           {/* Header */}
-          <View className="px-[20px]">
+          <View style={{ paddingHorizontal: scale(20) }}>
             <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
           </View>
 
           {/* Heading */}
-          <View className="px-[20px]">
+          <View style={{ paddingHorizontal: scale(20) }}>
             <HeadingTitle size={32} title="Checkout" />
           </View>
 
           {/* Address Heading */}
-          <View className="flex-row items-center justify-between px-[20px] pt-[20px]">
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingHorizontal: scale(20),
+              paddingTop: scale(20),
+            }}
+          >
             <HeadingTitle size={20} title="Select address" />
 
-            <Pressable
-              onPress={() => {
-                router.push("/screens/add-address");
-              }}
-            >
-              <Text className="font-[poppins-medium] text-[14px] text-black">
+            <Pressable onPress={() => router.push("/screens/add-address")}>
+              <Text
+                style={{ fontSize: scale(14) }}
+                className="font-[poppins-medium] text-black"
+              >
                 Add new +
               </Text>
             </Pressable>
           </View>
 
           {/* Address List */}
-          <View className="gap-y-[20px] px-[20px] pt-[20px]">
+          <View
+            style={{
+              paddingHorizontal: scale(20),
+              paddingTop: scale(20),
+              gap: scale(20),
+            }}
+          >
             {ADDRESS_DATA.map((item) => (
               <AddressCard
                 key={item.id}
@@ -98,17 +111,30 @@ const Checkout = () => {
             ))}
 
             <Pressable
-              className="items-center justify-center rounded-full border-dashed border-[1.5px] border-[#1F1500] w-full h-[50px] self-center"
               onPress={() => router.push("/screens/addresses")}
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: scale(50) / 2,
+                borderWidth: scale(1.5),
+                borderStyle: "dashed",
+                borderColor: "#1F1500",
+                width: "100%",
+                height: scale(50),
+                alignSelf: "center",
+              }}
             >
-              <Text className="font-[poppins-medium] text-[14px] text-[#1F1500]">
+              <Text
+                style={{ fontSize: scale(14) }}
+                className="font-[poppins-medium] text-[#1F1500]"
+              >
                 See more addresses
               </Text>
             </Pressable>
           </View>
 
           {/* Payment Method */}
-          <View className="p-[20px]">
+          <View style={{ padding: scale(20) }}>
             <HeadingTitle size={20} title="Select payment method" />
           </View>
 
@@ -135,7 +161,13 @@ const Checkout = () => {
             )}
           />
 
-          <View className="items-center justify-center pt-[20px]">
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              paddingTop: scale(20),
+            }}
+          >
             <HeadingTitle size={20} title="Or" />
           </View>
 
@@ -156,19 +188,31 @@ const Checkout = () => {
             <Animated.View
               entering={FadeIn.duration(300)}
               layout={LinearTransition.springify()}
-              style={[animatedStyle]}
-              className={`mx-[20px] mt-[20px] ${
-                isCardFormDisabled
-                  ? "rounded-[16px] border-[1.5px] border-dashed border-[#F7BC5D] p-[10px]"
-                  : ""
-              }`}
               pointerEvents={isCardFormDisabled ? "none" : "auto"}
+              style={[
+                animatedStyle,
+                { marginHorizontal: scale(20), marginTop: scale(20) },
+                isCardFormDisabled
+                  ? {
+                      borderRadius: scale(16),
+                      borderWidth: scale(1.5),
+                      borderStyle: "dashed",
+                      borderColor: "#F7BC5D",
+                      padding: scale(10),
+                    }
+                  : {},
+              ]}
             >
               {isCardFormDisabled && (
                 <Animated.Text
                   entering={FadeIn.duration(250)}
                   exiting={FadeOut.duration(150)}
-                  className="mb-[12px] text-center font-[poppins-medium] text-[12px] text-[#1F1500]"
+                  className="font-[poppins-medium] text-[#1F1500]"
+                  style={{
+                    marginBottom: scale(12),
+                    textAlign: "center",
+                    fontSize: scale(12),
+                  }}
                 >
                   Tap anywhere here to pay with card instead
                 </Animated.Text>
@@ -177,33 +221,49 @@ const Checkout = () => {
               <TextInputField
                 keyboardType="default"
                 placeholder="Card holder name"
-                leftIcon={<SvgXml xml={user} width={24} height={24} />}
+                leftIcon={
+                  <SvgXml xml={user} width={scale(24)} height={scale(24)} />
+                }
               />
 
               <TextInputField
                 keyboardType="number-pad"
                 placeholder="Card number"
                 isEncrypted
-                leftIcon={<SvgXml xml={card} width={24} height={24} />}
-                eyeOpenIcon={<SvgXml xml={eye} width={24} height={24} />}
-                eyeCloseIcon={<SvgXml xml={eyeOff} width={24} height={24} />}
+                leftIcon={
+                  <SvgXml xml={card} width={scale(24)} height={scale(24)} />
+                }
+                eyeOpenIcon={
+                  <SvgXml xml={eye} width={scale(24)} height={scale(24)} />
+                }
+                eyeCloseIcon={
+                  <SvgXml xml={eyeOff} width={scale(24)} height={scale(24)} />
+                }
               />
 
               <View className="flex-row items-center justify-between">
-                <View className="w-[48%]">
+                <View style={{ width: "48%" }}>
                   <TextInputField
                     keyboardType="number-pad"
                     placeholder="Expiry"
-                    leftIcon={<SvgXml xml={calender2} width={24} height={24} />}
+                    leftIcon={
+                      <SvgXml
+                        xml={calender2}
+                        width={scale(24)}
+                        height={scale(24)}
+                      />
+                    }
                   />
                 </View>
 
-                <View className="w-[48%]">
+                <View style={{ width: "48%" }}>
                   <TextInputField
                     keyboardType="number-pad"
                     placeholder="CVV"
                     isEncrypted
-                    leftIcon={<SvgXml xml={key} width={24} height={24} />}
+                    leftIcon={
+                      <SvgXml xml={key} width={scale(24)} height={scale(24)} />
+                    }
                   />
                 </View>
               </View>
@@ -212,24 +272,39 @@ const Checkout = () => {
               <Pressable
                 disabled={isCardFormDisabled}
                 onPress={() => setRememberCard(!rememberCard)}
-                className="mt-[10px] flex-row items-center px-[10px]"
+                style={{
+                  marginTop: scale(10),
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingHorizontal: scale(10),
+                }}
               >
                 <View
-                  className={`h-[30px] w-[30px] items-center justify-center rounded-[5px] border border-[#1F1500] ${
-                    rememberCard ? "bg-[#F7BC5D]" : "bg-transparent"
-                  }`}
+                  style={{
+                    height: scale(30),
+                    width: scale(30),
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: scale(5),
+                    borderWidth: scale(1),
+                    borderColor: "#1F1500",
+                    backgroundColor: rememberCard ? "#F7BC5D" : "transparent",
+                  }}
                 >
                   {rememberCard && (
                     <Animated.View
                       entering={FadeIn.duration(150)}
                       exiting={FadeOut.duration(150)}
                     >
-                      <SvgXml xml={tick} />
+                      <SvgXml xml={tick} width={scale(16)} height={scale(16)} />
                     </Animated.View>
                   )}
                 </View>
 
-                <Text className="ml-[10px] font-[poppins-medium] text-[16px] text-[#1F1500]">
+                <Text
+                  style={{ marginLeft: scale(10), fontSize: scale(16) }}
+                  className="font-[poppins-medium] text-[#1F1500]"
+                >
                   Remember my card details
                 </Text>
               </Pressable>
@@ -238,16 +313,47 @@ const Checkout = () => {
         </ScrollView>
 
         {/* Footer */}
-        <View className="my-[20px] h-[60px] w-[85%] self-center rounded-full bg-[#F6F0D4] flex-row items-center justify-between">
-          <Text className="ml-[20px] w-[40%] font-[poppins-medium] text-[20px] text-[#1F1500]">
+        <View
+          style={{
+            marginVertical: scale(20),
+            height: scale(60),
+            width: "85%",
+            alignSelf: "center",
+            borderRadius: scale(60) / 2,
+            backgroundColor: "#F6F0D4",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Text
+            style={{
+              paddingLeft: scale(20),
+              width: "40%",
+              fontSize: scale(20),
+            }}
+            className="font-[poppins-medium] text-[#1F1500]"
+          >
             $100.00
           </Text>
 
           <Pressable
-            className="h-[60px] w-[60%] items-center justify-center rounded-full border-[1.5px] border-[#1F1500] bg-[#F7BC5D]"
+            style={{
+              height: scale(60),
+              width: "60%",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: scale(60) / 2,
+              borderWidth: scale(1.5),
+              borderColor: "#1F1500",
+              backgroundColor: "#F7BC5D",
+            }}
             onPress={() => router.push("/screens/order-placed")}
           >
-            <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
+            <Text
+              style={{ fontSize: scale(16) }}
+              className="font-[poppins-medium] text-[#1F1500]"
+            >
               Place order
             </Text>
           </Pressable>

@@ -61,11 +61,12 @@ const OrderTracking = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFDE7] px-[20px] pt-[20px]"
+      className="flex-1 bg-[#FFFDE7]"
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         paddingBottom: scale(40),
       }}
+      style={{ paddingHorizontal: scale(20), paddingTop: scale(20) }}
     >
       {/* Back Button */}
       <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
@@ -74,14 +75,14 @@ const OrderTracking = () => {
       <HeadingTitle size={32} title="Order Tracking" />
 
       {/* Ordered Item */}
-      <View className="my-[20px]">
+      <View style={{ marginVertical: scale(20) }}>
         <HeadingTitle size={20} title="Ordered Item" />
       </View>
 
       <OrderedItemCard />
 
       {/* Timeline */}
-      <View className="mt-[20px]">
+      <View style={{ marginTop: scale(20) }}>
         {trackingSteps.map((item, index) => {
           // Check status
           const isCompleted = item.status === "completed";
@@ -91,31 +92,58 @@ const OrderTracking = () => {
           const isLastCompleted = isCompleted && index === currentStepIndex - 1;
 
           return (
-            <View key={index} className="flex-row">
+            <View key={index} style={{ flexDirection: "row" }}>
               {/* Left Side */}
-              <View className="items-center mr-[15px]">
+              <View style={{ alignItems: "center", marginRight: scale(15) }}>
                 {/* Circle with animation for current step */}
                 {isCurrent ? (
-                  <Animated.View className="w-[24px] h-[24px] rounded-full border-2 border-[#F7BC5D] items-center justify-center">
+                  <Animated.View
+                    style={{
+                      width: scale(24),
+                      height: scale(24),
+                      borderRadius: scale(24) / 2,
+                      borderWidth: scale(2),
+                      borderColor: "#F7BC5D",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
                     <Animated.View
-                      className="w-[14px] h-[14px] rounded-full bg-[#F7BC5D]"
-                      style={pulseStyle}
+                      style={[
+                        {
+                          width: scale(14),
+                          height: scale(14),
+                          borderRadius: scale(14) / 2,
+                          backgroundColor: "#F7BC5D",
+                        },
+                        pulseStyle,
+                      ]}
                     />
                   </Animated.View>
                 ) : (
                   <View
-                    className={`
-                      w-[24px] h-[24px] rounded-full border-2 border-[#1F1500] 
-                      items-center justify-center
-                    `}
+                    style={{
+                      width: scale(24),
+                      height: scale(24),
+                      borderRadius: scale(24) / 2,
+                      borderWidth: scale(2),
+                      borderColor: "#1F1500",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
                   >
                     {/* Inner Dot */}
                     {(isCompleted || isCurrent) && (
                       <View
-                        className={`
-                          w-[14px] h-[14px] rounded-full
-                          ${isCompleted || isCurrent ? "bg-[#F7BC5D]" : "bg-transparent"}
-                        `}
+                        style={{
+                          width: scale(14),
+                          height: scale(14),
+                          borderRadius: scale(14) / 2,
+                          backgroundColor:
+                            isCompleted || isCurrent
+                              ? "#F7BC5D"
+                              : "transparent",
+                        }}
                       />
                     )}
                   </View>
@@ -123,40 +151,76 @@ const OrderTracking = () => {
 
                 {/* Animated Line with gradient fill */}
                 {!isLastItem && (
-                  <View className="relative h-[70px] w-[2px] overflow-hidden">
+                  <View
+                    style={{
+                      position: "relative",
+                      height: scale(70),
+                      width: scale(2),
+                      overflow: "hidden",
+                    }}
+                  >
                     {/* Base line (grey/dashed) */}
                     <View
-                      className={`
-                        absolute w-full h-full border-l-2 border-dashed
-                        ${isActive ? "border-[#ffdca3]" : "border-[#1F1500]"}
-                      `}
+                      style={{
+                        position: "absolute",
+                        left: 0,
+                        top: 0,
+                        width: "100%",
+                        height: "100%",
+                        borderLeftWidth: scale(2),
+                        borderStyle: "dashed",
+                        borderLeftColor: isActive ? "#ffdca3" : "#1F1500",
+                      }}
                     />
 
                     {/* Animated progress fill - only for the last completed step */}
                     {isLastCompleted && (
                       <Animated.View
-                        className="absolute top-0 w-full bg-[#F7BC5D]"
-                        style={lineAnimatedStyle}
+                        style={[
+                          lineAnimatedStyle,
+                          {
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            backgroundColor: "#F7BC5D",
+                          },
+                        ]}
                       />
                     )}
 
                     {/* Fully filled lines for other completed steps (not the last one) */}
                     {isCompleted && !isLastCompleted && (
-                      <View className="absolute top-0 w-full h-full bg-[#F7BC5D]" />
+                      <View
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          width: "100%",
+                          height: "100%",
+                          backgroundColor: "#F7BC5D",
+                        }}
+                      />
                     )}
                   </View>
                 )}
               </View>
 
               {/* Right Side - No animation on text */}
-              <View className="flex-1 pb-[25px]">
+              <View style={{ flex: 1, paddingBottom: scale(25) }}>
                 {/* Title - static text */}
-                <Text className="text-[18px] text-[#1F1500] font-[poppins-medium]">
+                <Text
+                  style={{ fontSize: scale(18) }}
+                  className="text-[#1F1500] font-[poppins-medium]"
+                >
                   {item.title}
                 </Text>
 
                 {/* Time */}
-                <Text className="text-[12px] text-[#C2A26F] mt-[2px] font-[poppins-regular]">
+                <Text
+                  style={{ fontSize: scale(12), marginTop: scale(2) }}
+                  className="text-[#C2A26F] font-[poppins-regular]"
+                >
                   {item.time}
                 </Text>
               </View>

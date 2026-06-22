@@ -4,6 +4,7 @@ import React from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import Animated, { FadeOut, LinearTransition } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 import { useCart } from "@/hooks/custom/useCart";
@@ -56,50 +57,89 @@ const Cart = () => {
       key={item.id}
       layout={LinearTransition.springify()}
       exiting={FadeOut.duration(300)}
-      className="mt-[20px] flex-row items-center justify-between border-b border-[#F6F0D4] pb-[20px]"
+      className="flex-row items-center justify-between"
+      style={{
+        marginTop: scale(20),
+        paddingBottom: scale(20),
+        borderBottomWidth: scale(1),
+        borderBottomColor: "#F6F0D4",
+      }}
     >
       {/* Product Information */}
-      <View className="flex-1 flex-row items-center pl-[20px]">
+      <View
+        className="flex-1 flex-row items-center"
+        style={{ paddingLeft: scale(10) }}
+      >
         <Image
           source={item.image}
-          className="h-[90px] w-[90px] rounded-[10px]"
+          style={{
+            height: scale(90),
+            width: scale(90),
+            borderRadius: scale(10),
+          }}
         />
 
-        <View className="ml-[10px] flex-1">
-          <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
+        <View style={{ marginLeft: scale(10), flex: 1 }}>
+          <Text
+            style={{
+              fontFamily: "poppins-medium",
+              fontSize: scale(16),
+              color: "#1F1500",
+            }}
+          >
             {item.name}
           </Text>
 
-          <Text className="font-[poppins-regular] text-[14px] text-[#C2A26F]">
+          <Text
+            style={{
+              fontFamily: "poppins-regular",
+              fontSize: scale(14),
+              color: "#C2A26F",
+            }}
+          >
             {item.seller}
           </Text>
 
-          <Text className="mt-[10px] font-[poppins-medium] text-[16px] text-[#1F1500]">
+          <Text
+            style={{
+              marginTop: scale(10),
+              fontFamily: "poppins-medium",
+              fontSize: scale(16),
+              color: "#1F1500",
+            }}
+          >
             {item.price}
           </Text>
         </View>
       </View>
 
       {/* Quantity Controls */}
-      <View className="items-center pr-[20px]">
+      <View style={{ alignItems: "center", paddingRight: scale(10) }}>
         <Pressable onPress={() => incrementQuantity(item.id)}>
-          <SvgXml xml={plus} />
+          <SvgXml xml={plus} width={scale(16)} height={scale(16)} />
         </Pressable>
 
-        <Text className="my-[10px] font-[poppins-regular] text-[14px] text-[#1F1500]">
+        <Text
+          style={{
+            marginVertical: scale(10),
+            fontFamily: "poppins-regular",
+            fontSize: scale(14),
+            color: "#1F1500",
+          }}
+        >
           {item.quantity}
         </Text>
 
         <Pressable onPress={() => decrementQuantity(item.id)}>
-          <SvgXml xml={minus} />
+          <SvgXml xml={minus} width={scale(16)} height={scale(16)} />
         </Pressable>
 
         {/* Delete Item */}
         <Pressable
-          className="mt-[12px]"
+          style={{ marginTop: scale(12) }}
           onPress={() => handleRemoveItem(item.id)}
         >
-          <SvgXml xml={bin2} width={18} height={18} />
+          <SvgXml xml={bin2} width={scale(18)} height={scale(18)} />
         </Pressable>
       </View>
     </Animated.View>
@@ -110,9 +150,14 @@ const Cart = () => {
   // --------------------------------------------------
   const renderPriceDetails = () => (
     <View
-      className="border-t border-[#F6F0D4] bg-[#FFFFE3] px-[20px] pt-[20px]"
+      className="bg-[#FFFFE3]"
       style={{
-        paddingBottom: insets.bottom + tabBarHeight + 40,
+        borderTopWidth: scale(1),
+        borderTopColor: "#F6F0D4",
+        backgroundColor: "#FFFFE3",
+        paddingHorizontal: scale(20),
+        paddingTop: scale(20),
+        paddingBottom: tabBarHeight + scale(50),
       }}
     >
       {/* Section Title */}
@@ -122,28 +167,71 @@ const Cart = () => {
       {orderSummary.map((item, index) => (
         <View
           key={index}
-          className="mt-[10px] flex-row items-center justify-between"
+          style={{
+            marginTop: scale(10),
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
         >
-          <Text className="font-[poppins-regular] text-[14px] text-[#C2A26F]">
+          <Text
+            style={{
+              fontFamily: "poppins-regular",
+              fontSize: scale(14),
+              color: "#C2A26F",
+            }}
+          >
             {item.label} :
           </Text>
 
-          <Text className="font-[poppins-medium] text-[14px] text-[#C2A26F]">
+          <Text
+            style={{
+              fontFamily: "poppins-medium",
+              fontSize: scale(14),
+              color: "#C2A26F",
+            }}
+          >
             {item.value}
           </Text>
         </View>
       ))}
 
       {/* Divider */}
-      <View className="my-[10px] border-b border-dashed border-[#E9DFC0]" />
+      <View
+        style={{
+          marginVertical: scale(10),
+          borderBottomWidth: scale(1),
+          borderStyle: "dashed",
+          borderBottomColor: "#E9DFC0",
+        }}
+      />
 
       {/* Grand Total */}
-      <View className="mb-[20px] flex-row items-center justify-between">
-        <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
+      <View
+        style={{
+          marginBottom: scale(20),
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: "poppins-medium",
+            fontSize: scale(16),
+            color: "#1F1500",
+          }}
+        >
           Total :
         </Text>
 
-        <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
+        <Text
+          style={{
+            fontFamily: "poppins-medium",
+            fontSize: scale(16),
+            color: "#1F1500",
+          }}
+        >
           {total}
         </Text>
       </View>
@@ -158,15 +246,19 @@ const Cart = () => {
 
   return (
     <ScrollView
-      className="flex-1"
+      className="flex-1 bg-[#FFFFE3]"
       contentContainerStyle={{ flexGrow: 1 }}
       showsVerticalScrollIndicator={false}
+      style={{ paddingTop: scale(20) }}
     >
-      <View className="flex-1 bg-[#FFFFE3] pt-[20px]">
+      <View>
         {/* ==================================================
           Header
       ================================================== */}
-        <View className="flex-row items-center justify-between px-[20px]">
+        <View
+          className="flex-row items-center justify-between"
+          style={{ paddingHorizontal: scale(20) }}
+        >
           <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
           {!isCartEmpty && (
@@ -177,7 +269,7 @@ const Cart = () => {
         {/* ==================================================
           Screen Title
       ================================================== */}
-        <View className="px-[20px]">
+        <View style={{ paddingHorizontal: scale(20) }}>
           <HeadingTitle size={32} title="My Cart" />
         </View>
 

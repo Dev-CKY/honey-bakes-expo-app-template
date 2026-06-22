@@ -46,13 +46,31 @@ const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
         margin: 0,
       }}
     >
-      <View className="bg-[#FFFFE3] rounded-t-[30px] px-[20px] pt-[20px] pb-[20px]">
+      <View
+        style={{
+          backgroundColor: "#FFFFE3",
+          borderTopLeftRadius: scale(30),
+          borderTopRightRadius: scale(30),
+          paddingHorizontal: scale(20),
+          paddingTop: scale(20),
+          paddingBottom: scale(20),
+        }}
+      >
         {/* Handle */}
-        <View className="w-[60px] h-[5px] bg-[#C2A26F] rounded-full self-center mb-[20px]" />
+        <View
+          style={{
+            width: scale(60),
+            height: scale(5),
+            backgroundColor: "#C2A26F",
+            borderRadius: scale(5) / 2,
+            alignSelf: "center",
+            marginBottom: scale(20),
+          }}
+        />
 
         {/* Title */}
-        <View className="self-center mb-[20px]">
-          <HeadingTitle size={20} title="Sort and filters" />
+        <View style={{ alignSelf: "center", marginBottom: scale(20) }}>
+          <HeadingTitle size={scale(20)} title="Sort and filters" />
         </View>
 
         {/* Categories */}
@@ -66,26 +84,26 @@ const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
         />
 
         {/* Price */}
-        <View className="mt-[20px]">
-          <HeadingTitle size={20} title="Price" />
+        <View style={{ marginTop: scale(20) }}>
+          <HeadingTitle size={scale(20)} title="Price" />
 
           <MultiSlider
             values={priceRange}
             min={0}
             max={50}
             step={1}
-            sliderLength={300}
+            sliderLength={scale(300)}
             onValuesChange={(values) => setPriceRange(values)}
             selectedStyle={{
               backgroundColor: "#1F1500",
-              height: 4,
+              height: scale(4),
             }}
             unselectedStyle={{
               backgroundColor: "#E5D6B8",
-              height: 4,
+              height: scale(4),
             }}
             trackStyle={{
-              height: 4,
+              height: scale(4),
             }}
             markerStyle={{
               width: scale(20),
@@ -97,20 +115,28 @@ const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
             }}
           />
 
-          <View className="flex-row justify-between">
-            <Text className="font-[poppins-medium] text-[#1F1500] text-[14px]">
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text
+              style={{ fontSize: scale(14) }}
+              className="font-[poppins-medium] text-[#1F1500]"
+            >
               ${priceRange[0].toFixed(2)}
             </Text>
 
-            <Text className="font-[poppins-medium] text-[#1F1500] text-[14px]">
+            <Text
+              style={{ fontSize: scale(14) }}
+              className="font-[poppins-medium] text-[#1F1500]"
+            >
               ${priceRange[1].toFixed(2)}
             </Text>
           </View>
         </View>
 
         {/* Short by heading */}
-        <View className="mt-[20px]">
-          <HeadingTitle size={20} title="Short by" />
+        <View style={{ marginTop: scale(20) }}>
+          <HeadingTitle size={scale(20)} title="Short by" />
         </View>
 
         {/* Short by */}
@@ -122,8 +148,8 @@ const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
 
         {/* Rating title */}
 
-        <View className="mt-[20px]">
-          <HeadingTitle size={20} title="Rating" />
+        <View style={{ marginTop: scale(20) }}>
+          <HeadingTitle size={scale(20)} title="Rating" />
         </View>
 
         {/* Rating */}
@@ -135,17 +161,42 @@ const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
         />
 
         {/* Buttons */}
-        <View className="flex-row justify-between mt-[40px]">
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: scale(40),
+          }}
+        >
           <Pressable
             onPress={handleReset}
-            className="flex-1 h-[52px] border border-dashed border-[#1F1500] rounded-full items-center justify-center mr-[12px]"
+            style={{
+              flex: 1,
+              height: scale(52),
+              borderWidth: scale(1),
+              borderStyle: "dashed",
+              borderColor: "#1F1500",
+              borderRadius: scale(999),
+              alignItems: "center",
+              justifyContent: "center",
+              marginRight: scale(12),
+            }}
           >
             <Text className="font-[poppins-medium] text-[#1F1500]">Reset</Text>
           </Pressable>
 
           <Pressable
             onPress={handleApply}
-            className="flex-1 h-[52px] bg-[#F7BC5D] border border-[#1F1500] rounded-full items-center justify-center"
+            style={{
+              flex: 1,
+              height: scale(52),
+              backgroundColor: "#F7BC5D",
+              borderWidth: scale(1),
+              borderColor: "#1F1500",
+              borderRadius: scale(999),
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
             <Text className="font-[poppins-medium] text-[#1F1500]">Apply</Text>
           </Pressable>

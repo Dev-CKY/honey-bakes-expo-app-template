@@ -3,6 +3,7 @@ import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { router } from "expo-router";
 import React from "react";
 import { Image, Pressable, Text, View } from "react-native";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 export default function CustomDrawerContent(props: any) {
@@ -20,36 +21,53 @@ export default function CustomDrawerContent(props: any) {
         onPress={() => {
           router.push("/profile");
         }}
-        className="px-5"
+        style={{ paddingHorizontal: scale(20) }}
       >
         <View className="flex-row items-center">
           <Image
             source={require("@/src/assets/images/custom/icons/avatar2.png")}
-            className="w-[44px] h-[44px] rounded-full"
+            className="rounded-full"
+            style={{ width: scale(44), height: scale(44) }}
           />
 
-          <Text className="font-[poppins-medium] text-[15px] text-[#1F1500] ml-3">
+          <Text
+            className="font-[poppins-medium] text-[#1F1500]"
+            style={{ fontSize: scale(15), marginLeft: scale(12) }}
+          >
             Michel Jordan
           </Text>
         </View>
       </Pressable>
 
       {/* Divider */}
-      <View className="h-[1px] bg-[#E3DEC0] mt-6" />
+      <View
+        className="bg-[#E3DEC0]"
+        style={{ height: scale(1), marginTop: scale(20) }}
+      />
 
       {/* Menu */}
-      <View className="pt-[20px] gap-[30px]">
+      <View style={{ paddingTop: scale(20), gap: scale(30) }}>
         {DRAWER_NAVIGATION_MENU_ITEMS.map((item) => (
           <Pressable
             onPress={() => router.push(item.route)}
             key={item.title}
             className="flex-row items-center"
           >
-            <View className="w-[44px] h-[44px] rounded-full bg-[#F6F0D4] items-center justify-center mr-4">
-              <SvgXml xml={item.icon} />
+            <View
+              style={{
+                width: scale(44),
+                height: scale(44),
+                marginRight: scale(16),
+              }}
+              className="rounded-full bg-[#F6F0D4] items-center justify-center"
+            >
+              <SvgXml xml={item.icon} width={scale(24)} height={scale(24)} />
             </View>
 
-            <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
+            <Text
+              className="font-[poppins-medium] text-[#1F1500]"
+              style={{ fontSize: scale(16) }}
+            >
               {item.title}
             </Text>
           </Pressable>

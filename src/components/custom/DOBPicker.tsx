@@ -12,6 +12,8 @@ import DateTimePicker from "react-native-ui-datepicker";
 import { useDOBPicker } from "@/hooks/custom/useDOBPicker";
 import { useMonths } from "@/hooks/custom/useMonths";
 import { useYears } from "@/hooks/custom/useYears";
+import { styles } from "@/src/styles/components/DOBPicker.styles";
+import { scale } from "react-native-size-matters";
 
 type Props = {
   value: Dayjs;
@@ -39,20 +41,13 @@ const DOBPicker = ({ value, onChange }: Props) => {
 
   return (
     <>
-      <Pressable onPress={openModal} className="flex-row items-center">
-        <Text className="w-[80px] text-[16px] font-[poppins-regular] text-[#C2A26F]">
-          DOB
-        </Text>
+      <Pressable onPress={openModal} style={styles.triggerContainer}>
+        <Text style={styles.label}>DOB</Text>
 
-        <View className="flex-1 flex-row justify-between">
+        <View style={styles.dateContainer}>
           {["DD", "MM", "YYYY"].map((format) => (
-            <View
-              key={format}
-              className="w-[80px] items-center justify-center border-b border-[#E8DDB6] pb-[10px]"
-            >
-              <Text className="font-[poppins-medium] text-[18px] text-[#1F1500]">
-                {value.format(format)}
-              </Text>
+            <View key={format} style={styles.dateItem}>
+              <Text style={styles.dateText}>{value.format(format)}</Text>
             </View>
           ))}
         </View>
@@ -64,11 +59,11 @@ const DOBPicker = ({ value, onChange }: Props) => {
         animationType="fade"
         onRequestClose={closeModal}
       >
-        <View className="flex-1 items-center justify-center bg-black/40 px-5">
+        <View style={styles.modalOverlay}>
           <Animated.View
             entering={FadeIn.duration(250)}
             layout={LinearTransition.springify()}
-            className="w-full rounded-[24px] bg-white p-5"
+            style={styles.modalContainer}
           >
             {screen === "calendar" && (
               <Animated.View
@@ -76,21 +71,21 @@ const DOBPicker = ({ value, onChange }: Props) => {
                 exiting={FadeOut.duration(180)}
                 layout={LinearTransition.springify()}
               >
-                <View className="mb-5 flex-row justify-center gap-x-4">
+                <View style={styles.headerContainer}>
                   <Pressable
                     onPress={() => setScreen("month")}
-                    className="rounded-full border border-[#E8DDB6] px-4 py-2"
+                    style={styles.selectorButton}
                   >
-                    <Text className="font-[poppins-medium] text-[#1F1500]">
+                    <Text style={styles.selectorButtonText}>
                       {value.format("MMMM")} ▼
                     </Text>
                   </Pressable>
 
                   <Pressable
                     onPress={() => setScreen("year")}
-                    className="rounded-full border border-[#E8DDB6] px-4 py-2"
+                    style={styles.selectorButton}
                   >
-                    <Text className="font-[poppins-medium] text-[#1F1500]">
+                    <Text style={styles.selectorButtonText}>
                       {value.format("YYYY")} ▼
                     </Text>
                   </Pressable>
@@ -100,19 +95,46 @@ const DOBPicker = ({ value, onChange }: Props) => {
                   mode="single"
                   date={value.toDate()}
                   maxDate={new Date()}
+                  hideHeader
                   disableMonthPicker
                   disableYearPicker
                   styles={{
+                    day_label: {
+                      fontSize: scale(14),
+                      lineHeight: scale(14),
+                      textAlign: "center",
+                      fontFamily: "poppins-medium",
+                    },
+
+                    selected_label: {
+                      fontSize: scale(14),
+                      fontFamily: "poppins-medium",
+                      color: "#1F1500",
+                    },
+
+                    today_label: {
+                      fontSize: scale(14),
+                      fontFamily: "poppins-medium",
+                    },
+
+                    weekday_label: {
+                      fontSize: scale(14),
+                      fontFamily: "poppins-medium",
+                      color: "#1F1500",
+                    },
+
+                    month_label: {
+                      fontSize: scale(18),
+                      color: "#1F1500",
+                    },
+
                     selected: {
                       backgroundColor: "#F7BC5D",
                       borderRadius: 999,
                     },
-                    selected_label: {
-                      color: "#1F1500",
-                      fontWeight: "600",
-                    },
+
                     today: {
-                      borderWidth: 1,
+                      borderWidth: scale(1.5),
                       borderColor: "#F7BC5D",
                       borderRadius: 999,
                     },
@@ -124,13 +146,8 @@ const DOBPicker = ({ value, onChange }: Props) => {
                   }}
                 />
 
-                <Pressable
-                  onPress={closeModal}
-                  className="mt-5 h-[56px] items-center justify-center rounded-full bg-[#F7BC5D]"
-                >
-                  <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
-                    Done
-                  </Text>
+                <Pressable onPress={closeModal} style={styles.doneButton}>
+                  <Text style={styles.doneButtonText}>Done</Text>
                 </Pressable>
               </Animated.View>
             )}
@@ -141,33 +158,33 @@ const DOBPicker = ({ value, onChange }: Props) => {
                 exiting={FadeOut.duration(180)}
                 layout={LinearTransition.springify()}
               >
-                <Text className="mb-5 text-center font-[poppins-medium] text-[20px] text-[#1F1500]">
-                  Select Month
-                </Text>
+                <Text style={styles.sectionTitle}>Select Month</Text>
 
-                <View className="flex-row flex-wrap">
+                <View style={styles.monthsContainer}>
                   {months.map((month, index) => {
                     const selected = index === value.month();
 
                     return (
                       <Pressable
                         key={month}
-                        className="mb-3 w-1/3 px-2"
                         onPress={() => selectMonth(index)}
+                        style={styles.monthPressable}
                       >
                         <Animated.View
                           entering={ZoomIn.duration(180)}
                           layout={LinearTransition.springify()}
-                          className={`rounded-full py-3 ${
+                          style={[
+                            styles.monthItem,
                             selected
-                              ? "bg-[#F7BC5D]"
-                              : "border border-[#E8DDB6]"
-                          }`}
+                              ? styles.monthItemSelected
+                              : styles.monthItemUnselected,
+                          ]}
                         >
                           <Text
-                            className={`text-center ${
-                              selected ? "font-[poppins-medium]" : ""
-                            }`}
+                            style={[
+                              styles.monthText,
+                              selected && styles.monthTextSelected,
+                            ]}
                           >
                             {month.slice(0, 3)}
                           </Text>
@@ -185,13 +202,11 @@ const DOBPicker = ({ value, onChange }: Props) => {
                 exiting={FadeOut.duration(180)}
                 layout={LinearTransition.springify()}
               >
-                <Text className="mb-5 text-center font-[poppins-medium] text-[20px] text-[#1F1500]">
-                  Select Year
-                </Text>
+                <Text style={styles.yearTitle}>Select Year</Text>
 
                 <ScrollView
                   ref={yearScrollRef}
-                  className="max-h-[400px]"
+                  style={styles.yearScrollView}
                   showsVerticalScrollIndicator={false}
                 >
                   {years.map((year) => {
@@ -200,17 +215,16 @@ const DOBPicker = ({ value, onChange }: Props) => {
                     return (
                       <Pressable
                         key={year}
-                        className="py-4"
+                        style={styles.yearItem}
                         onPress={() => selectYear(year)}
                       >
                         <Animated.Text
                           entering={ZoomIn.duration(180)}
                           layout={LinearTransition.springify()}
-                          className={`text-center text-[18px] ${
-                            selected
-                              ? "font-[poppins-semibold] text-[#F7BC5D]"
-                              : "text-[#1F1500]"
-                          }`}
+                          style={[
+                            styles.yearText,
+                            selected && styles.yearTextSelected,
+                          ]}
                         >
                           {year}
                         </Animated.Text>

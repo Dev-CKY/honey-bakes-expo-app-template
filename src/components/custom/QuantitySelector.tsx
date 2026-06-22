@@ -6,13 +6,14 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { scale } from "react-native-size-matters";
 import { scheduleOnRN } from "react-native-worklets";
 
 type Props = {
   value: number;
 };
 
-const DIGIT_HEIGHT = 24;
+const DIGIT_HEIGHT = scale(24);
 
 export default function AnimatedQuantity({ value }: Props) {
   const [displayValue, setDisplayValue] = useState(value);
@@ -63,7 +64,10 @@ export default function AnimatedQuantity({ value }: Props) {
       className={`h-${DIGIT_HEIGHT} overflow-hidden justify-center items-center`}
     >
       <Animated.View style={animatedStyle}>
-        <Text className="font-[poppins-medium] text-[#1F1500] text-[14px]">
+        <Text
+          className="font-[poppins-medium] text-[#1F1500]"
+          style={{ fontSize: scale(14) }}
+        >
           {displayValue}
         </Text>
       </Animated.View>

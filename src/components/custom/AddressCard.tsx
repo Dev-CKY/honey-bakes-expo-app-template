@@ -8,6 +8,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { scale } from "react-native-size-matters";
 
 type AddressCardProps = {
   item: {
@@ -85,29 +86,61 @@ const AddressCard = ({ item, isSelected, onPress }: AddressCardProps) => {
   return (
     <Pressable onPress={onPress}>
       <Animated.View
-        style={cardStyle}
-        className="flex-row items-center rounded-[14px] border p-[15px]"
+        style={[
+          cardStyle,
+          {
+            flexDirection: "row",
+            alignItems: "center",
+            borderWidth: scale(1),
+            borderRadius: scale(14),
+            padding: scale(15),
+          },
+        ]}
       >
         {/* Radio */}
-        <View className="mr-[14px]">
+        <View style={{ marginRight: scale(14) }}>
           <Animated.View
-            style={radioStyle}
-            className="h-[24px] w-[24px] items-center justify-center rounded-full border-[1.5px]"
+            style={[
+              radioStyle,
+              {
+                height: scale(24),
+                width: scale(24),
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: scale(24) / 2,
+                borderWidth: scale(1.5),
+              },
+            ]}
           >
             <Animated.View
-              style={dotStyle}
-              className="h-[16px] w-[16px] rounded-full border-[1.5px] border-[#1F1500] bg-[#F7BC5D]"
+              style={[
+                dotStyle,
+                {
+                  height: scale(16),
+                  width: scale(16),
+                  borderRadius: scale(16) / 2,
+                  borderWidth: scale(1.5),
+                  borderColor: "#1F1500",
+                  backgroundColor: "#F7BC5D",
+                },
+              ]}
             />
           </Animated.View>
         </View>
 
         {/* Content */}
-        <View className="flex-1">
-          <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
+        <View style={{ flex: 1 }}>
+          <Text
+            style={{ fontSize: scale(16) }}
+            className="font-[poppins-medium] text-[#1F1500]"
+          >
             {item.title}
           </Text>
 
-          <Text className="font-[poppins-medium] text-[14px] text-[#C2A26F]">
+          <Text
+            style={{ fontSize: scale(14) }}
+            className="font-[poppins-medium] text-[#C2A26F]"
+          >
             {item.address}
           </Text>
         </View>

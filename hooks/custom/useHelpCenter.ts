@@ -7,6 +7,7 @@ import {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
+import { scale } from "react-native-size-matters";
 
 // ======================================================
 // Screen Width
@@ -18,8 +19,8 @@ const SCREEN_WIDTH = Dimensions.get("window").width;
 // Toggle Sizes
 // ======================================================
 
-const CONTAINER_HORIZONTAL_PADDING = 20;
-const TOGGLE_INNER_PADDING = 4;
+const CONTAINER_HORIZONTAL_PADDING = scale(20);
+const TOGGLE_INNER_PADDING = scale(4);
 
 const TOGGLE_WIDTH =
   SCREEN_WIDTH - CONTAINER_HORIZONTAL_PADDING * 2 - TOGGLE_INNER_PADDING * 2;

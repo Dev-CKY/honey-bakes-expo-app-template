@@ -3,8 +3,8 @@ import map from "@/src/assets/icons/svg/map";
 import { BannerItem } from "@/src/components/custom/BannerItem";
 import FilterCategories from "@/src/components/custom/FilterCategories";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
+import HorizontalProductsFlatlist from "@/src/components/custom/HorizontalProductsFlatlist";
 import PaginationDot from "@/src/components/custom/PaginationDot";
-import ProductGridHomeCard from "@/src/components/custom/ProductGridHomeCard";
 import SearchBar from "@/src/components/custom/SearchBar";
 import { FILTER_CATEGORIES } from "@/src/data/filter-categories.data";
 import { HOME_BANNERS } from "@/src/data/home-banner.data";
@@ -22,6 +22,7 @@ import {
   View,
 } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 const { width } = Dimensions.get("window");
@@ -38,12 +39,13 @@ const Home = () => {
       className="flex-1 bg-[#FFFFE3]"
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
-        paddingBottom: tabBarHeight + 40,
+        paddingBottom: tabBarHeight + scale(40),
       }}
     >
       {/* Header */}
       <ImageBackground
-        className="w-full h-[300px] p-[20px] justify-between"
+        className="w-full justify-center"
+        style={{ height: scale(275), padding: scale(20), gap: scale(30) }}
         source={require("@/src/assets/images/custom/home_bg.jpg")}
       >
         <View className="flex-row items-center justify-between">
@@ -52,27 +54,39 @@ const Home = () => {
           >
             <Image
               source={require("@/src/assets/images/custom/icons/avatar.png")}
-              className="w-[44px] h-[44px] rounded-full"
+              className="rounded-full"
+              style={{ width: scale(44), height: scale(44) }}
             />
           </Pressable>
 
           <Pressable
             onPress={() => router.push("/screens/notifications")}
-            className="w-[44px] h-[44px] rounded-full bg-[#FFFFE3] border border-[1.5px] items-center justify-center"
+            className="rounded-full bg-[#FFFFE3] border items-center justify-center"
+            style={{
+              width: scale(44),
+              height: scale(44),
+              borderWidth: scale(1.5),
+            }}
           >
-            <SvgXml xml={bell} />
+            <SvgXml xml={bell} width={scale(24)} height={scale(24)} />
           </Pressable>
         </View>
 
         <View>
-          <Text className="font-[kalnia-medium] text-[#1F1500] text-[32px]">
+          <Text
+            className="font-[kalnia-medium] text-[#1F1500]"
+            style={{ fontSize: scale(32) }}
+          >
             Hello, Michel
           </Text>
 
-          <View className="flex-row items-center gap-[5px]">
+          <View className="flex-row items-center" style={{ gap: scale(5) }}>
             <SvgXml xml={map} />
 
-            <Text className="font-[poppins-regular] text-[16px] text-[#1F1500]">
+            <Text
+              className="font-[poppins-regular] text-[#1F1500]"
+              style={{ fontSize: scale(14) }}
+            >
               New York, NY, USA
             </Text>
           </View>
@@ -86,12 +100,18 @@ const Home = () => {
       </ImageBackground>
 
       {/* Body */}
-      <View className="p-[20px]">
-        <View className="flex-row items-end justify-between">
+      <View style={{ paddingVertical: scale(20) }}>
+        <View
+          className="flex-row items-end justify-between"
+          style={{ paddingHorizontal: scale(20) }}
+        >
           <HeadingTitle size={20} title="Categories" />
 
           <Pressable onPress={() => router.push("/screens/categories")}>
-            <Text className="font-[poppins-medium] text-[14px] text-[#1F1500]">
+            <Text
+              className="font-[poppins-medium]  text-[#1F1500]"
+              style={{ fontSize: scale(14) }}
+            >
               View all
             </Text>
           </Pressable>
@@ -104,30 +124,25 @@ const Home = () => {
         />
 
         {/* Premium Carousel */}
-        <View className="my-[20px]">
+        <View style={{ marginVertical: scale(20) }}>
           <Carousel
             loop
             autoPlay
             autoPlayInterval={4000}
-            width={width - 40}
-            height={220}
+            width={width}
+            height={scale(155)}
             pagingEnabled
             snapEnabled
             data={HOME_BANNERS}
             onSnapToItem={setActiveIndex}
-            mode="parallax"
-            modeConfig={{
-              parallaxScrollingScale: 0.9,
-              parallaxScrollingOffset: 80,
-              parallaxAdjacentItemScale: 0.75,
-            }}
-            renderItem={({ item, animationValue }) => (
-              <BannerItem item={item} animationValue={animationValue} />
-            )}
+            renderItem={({ item }) => <BannerItem item={item} />}
           />
 
           {/* Pagination */}
-          <View className="flex-row justify-center items-center mt-[12px]">
+          <View
+            className="flex-row justify-center items-center"
+            style={{ marginTop: scale(12) }}
+          >
             {HOME_BANNERS.map((_, index) => (
               <PaginationDot key={index} active={activeIndex === index} />
             ))}
@@ -135,49 +150,76 @@ const Home = () => {
         </View>
 
         {/* Popular */}
-        <View className="flex-row items-end justify-between">
+        <View
+          className="flex-row items-end justify-between"
+          style={{ paddingHorizontal: scale(20) }}
+        >
           <HeadingTitle title="Popular" size={20} />
 
           <Pressable onPress={() => router.push("/screens/products")}>
-            <Text className="font-[poppins-medium] text-[14px] text-[#1F1500]">
+            <Text
+              className="font-[poppins-medium] text-[#1F1500]"
+              style={{ fontSize: scale(14) }}
+            >
               View all
             </Text>
           </Pressable>
         </View>
 
-        <ProductGridHomeCard />
+        <HorizontalProductsFlatlist />
 
         {/* New Products */}
-        <View className="flex-row items-end justify-between mt-[20px]">
+        <View
+          className="flex-row items-end justify-between"
+          style={{ paddingHorizontal: scale(20), marginTop: scale(20) }}
+        >
           <HeadingTitle title="Our new products" size={20} />
 
           <Pressable onPress={() => router.push("/screens/products")}>
-            <Text className="font-[poppins-medium] text-[14px] text-[#1F1500]">
+            <Text
+              className="font-[poppins-medium] text-[#1F1500]"
+              style={{ fontSize: scale(14) }}
+            >
               View all
             </Text>
           </Pressable>
         </View>
 
-        <ProductGridHomeCard />
+        <HorizontalProductsFlatlist />
 
-        <Image
-          className="w-full h-[175px] rounded-[10px] my-[20px]"
-          resizeMode="contain"
-          source={require("@/src/assets/images/custom/banners/4.jpg")}
-        />
+        <View
+          className="w-full"
+          style={{
+            height: scale(155),
+            marginVertical: scale(20),
+            paddingHorizontal: scale(20),
+          }}
+        >
+          <Image
+            className="w-full h-full"
+            style={{ borderRadius: scale(10) }}
+            source={require("@/src/assets/images/custom/banners/4.jpg")}
+          />
+        </View>
 
         {/* Recently Viewed */}
-        <View className="flex-row items-end justify-between">
+        <View
+          className="flex-row items-end justify-between"
+          style={{ paddingHorizontal: scale(20) }}
+        >
           <HeadingTitle title="Recently viewed" size={20} />
 
           <Pressable onPress={() => router.push("/screens/products")}>
-            <Text className="font-[poppins-medium] text-[14px] text-[#1F1500]">
+            <Text
+              className="font-[poppins-medium] text-[#1F1500]"
+              style={{ fontSize: scale(14) }}
+            >
               View all
             </Text>
           </Pressable>
         </View>
 
-        <ProductGridHomeCard />
+        <HorizontalProductsFlatlist />
       </View>
     </ScrollView>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, Pressable, Text } from "react-native";
+import { scale } from "react-native-size-matters";
 
 interface Props {
   title: string;
@@ -11,14 +12,30 @@ const CategoryCard = ({ title, image, onPress }: Props) => {
   return (
     <Pressable
       onPress={onPress}
-      className="flex-1 min-h-[150px] border border-[#F6F0D4] rounded-[10px] items-center justify-center py-[18px]"
+      style={{
+        minHeight: scale(150),
+        borderRadius: scale(10),
+        paddingVertical: scale(18),
+      }}
+      className="flex-1 border border-[#F6F0D4] items-center justify-center"
     >
-      <Text className="text-[15px] font-medium text-[#1F1500]">{title}</Text>
+      <Text
+        className="font-medium text-[#1F1500]"
+        style={{
+          fontSize: scale(15),
+        }}
+      >
+        {title}
+      </Text>
 
       <Image
         source={image}
         resizeMode="contain"
-        className="w-[50px] h-[50px] mt-[12px]"
+        style={{
+          width: scale(50),
+          height: scale(50),
+          marginTop: scale(12),
+        }}
       />
     </Pressable>
   );

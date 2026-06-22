@@ -10,6 +10,7 @@ import Animated, {
   FadeOut,
   LinearTransition,
 } from "react-native-reanimated";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 type FAQAccordionProps = {
@@ -26,18 +27,31 @@ const FAQAccordion = ({ item }: FAQAccordionProps) => {
   return (
     <Animated.View
       layout={LinearTransition.springify()}
-      className="overflow-hidden border-b border-[#D8D1BA] px-[20px]"
+      style={{
+        overflow: "hidden",
+        borderBottomWidth: 1,
+        borderBottomColor: "#D8D1BA",
+        paddingHorizontal: scale(20),
+      }}
     >
       <Pressable
         onPress={handleToggle}
-        className="flex-row items-center justify-between py-[15px]"
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          paddingVertical: scale(15),
+        }}
       >
-        <Text className="flex-1 pr-[16px] font-[poppins-medium] text-[16px]  text-[#1F1500]">
+        <Text
+          style={{ flex: 1, paddingRight: scale(16), fontSize: scale(16) }}
+          className="font-[poppins-medium] text-[#1F1500]"
+        >
           {item.id}. {item.question}
         </Text>
 
         <Animated.View style={animatedIconStyle}>
-          <SvgXml xml={plus} />
+          <SvgXml xml={plus} width={scale(20)} height={scale(20)} />
         </Animated.View>
       </Pressable>
 
@@ -46,9 +60,12 @@ const FAQAccordion = ({ item }: FAQAccordionProps) => {
           entering={FadeIn.duration(200)}
           exiting={FadeOut.duration(200)}
           layout={LinearTransition.springify()}
-          className="pb-[18px]"
+          style={{ paddingBottom: scale(18) }}
         >
-          <Text className="font-[poppins-regular] text-[14px] leading-[22px] text-[#6B645C]">
+          <Text
+            style={{ fontSize: scale(14), lineHeight: scale(22) }}
+            className="font-[poppins-regular] text-[#6B645C]"
+          >
             {item.answer}
           </Text>
         </Animated.View>

@@ -15,25 +15,46 @@ const ProductGrid = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
 
   return (
-    <View className="flex-1 bg-[#FFFFE3] px-[20px] pt-[20px]">
+    <View
+      className="flex-1 bg-[#FFFFE3]"
+      style={{
+        paddingHorizontal: scale(20),
+        paddingTop: scale(20),
+        backgroundColor: "#FFFFE3",
+      }}
+    >
       {/* Back Button */}
       <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
       {/* Search Bar */}
       <View className="flex-row items-start justify-between">
-        <View className="flex-1 mr-[12px]">
+        <View className="flex-1" style={{ marginRight: scale(12) }}>
           <SearchBar placeholder="Search products..." searchValue="Cake" />
         </View>
 
         <Pressable
           onPress={() => setShowFilterModal(true)}
-          className="w-[50px] h-[50px] rounded-full bg-[#F7BC5D] border-[1.5px] border-[#1F1500] items-center justify-center"
+          className="rounded-full bg-[#F7BC5D] border-[#1F1500] items-center justify-center"
+          style={{
+            width: scale(50),
+            height: scale(50),
+            borderWidth: scale(1.5),
+            borderColor: "#1F1500",
+            borderRadius: scale(25),
+          }}
         >
-          <SvgXml xml={filter} />
+          <SvgXml xml={filter} width={scale(20)} height={scale(20)} />
         </Pressable>
       </View>
 
-      <Text className="text-[14px] text-[#C2A26F] mt-[12px] mb-[20px]">
+      <Text
+        className="text-[#C2A26F]"
+        style={{
+          fontSize: scale(14),
+          marginTop: scale(12),
+          marginBottom: scale(20),
+        }}
+      >
         Found {PRODUCT_ITEMS.length} results
       </Text>
 

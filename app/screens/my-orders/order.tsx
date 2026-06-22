@@ -1,5 +1,3 @@
-// Order.tsx
-
 import { useOrderDetails } from "@/hooks/custom/useOrderDetails";
 import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
 import CancelButton from "@/src/components/custom/CancelButton";
@@ -16,11 +14,12 @@ const Order = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFDE7] pt-[20px] px-[20px]"
+      className="flex-1 bg-[#FFFDE7]"
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         paddingBottom: scale(20),
       }}
+      style={{ paddingTop: scale(20), paddingHorizontal: scale(20) }}
     >
       {/* Back Button */}
       <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
@@ -29,7 +28,7 @@ const Order = () => {
       <HeadingTitle size={32} title="Order Details" />
 
       {/* Sub Heading */}
-      <View className="my-[20px]">
+      <View style={{ marginVertical: scale(20) }}>
         <HeadingTitle size={20} title="Order Summery" />
       </View>
 
@@ -42,10 +41,18 @@ const Order = () => {
         return (
           <View
             key={index}
-            className="flex-row items-center justify-between py-[15px]"
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingVertical: scale(15),
+            }}
           >
             {/* Label */}
-            <Text className="text-[14px] text-[#C2A26F] font-[poppins-regular]">
+            <Text
+              style={{ fontSize: scale(14) }}
+              className="text-[#C2A26F] font-[poppins-regular]"
+            >
               {item.label} :
             </Text>
 
@@ -54,20 +61,25 @@ const Order = () => {
               <View
                 style={{
                   backgroundColor: statusStyle.backgroundColor,
+                  paddingHorizontal: scale(15),
+                  height: scale(30),
+                  borderRadius: scale(30) / 2,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-                className="px-[15px] h-[30px] rounded-full items-center justify-center"
               >
                 <Text
-                  style={{
-                    color: statusStyle.textColor,
-                  }}
-                  className="text-[14px] font-[poppins-medium] capitalize"
+                  style={{ color: statusStyle.textColor, fontSize: scale(14) }}
+                  className="font-[poppins-medium] capitalize"
                 >
                   {item.value}
                 </Text>
               </View>
             ) : (
-              <Text className="text-[14px] text-[#C2A26F] font-[poppins-medium]">
+              <Text
+                style={{ fontSize: scale(14) }}
+                className="text-[#C2A26F] font-[poppins-medium]"
+              >
                 {item.value}
               </Text>
             )}
@@ -79,12 +91,25 @@ const Order = () => {
       <View className="border-b border-[#E9DFC0]" />
 
       {/* Total */}
-      <View className="flex-row items-center justify-between my-[15px]">
-        <Text className="text-[14px] text-[#1F1500] font-[poppins-medium]">
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginVertical: scale(15),
+        }}
+      >
+        <Text
+          style={{ fontSize: scale(14) }}
+          className="text-[#1F1500] font-[poppins-medium]"
+        >
           Total price :
         </Text>
 
-        <Text className="text-[14px] text-[#1F1500] font-[poppins-medium]">
+        <Text
+          style={{ fontSize: scale(14) }}
+          className="text-[#1F1500] font-[poppins-medium]"
+        >
           $58.37
         </Text>
       </View>
@@ -93,7 +118,7 @@ const Order = () => {
       <View className="border-b border-[#E9DFC0]" />
 
       {/* Ordered Items */}
-      <View className="my-[20px]">
+      <View style={{ marginVertical: scale(20) }}>
         <HeadingTitle size={20} title="Ordered Item" />
       </View>
 
@@ -101,16 +126,27 @@ const Order = () => {
       <OrderedItemCard />
 
       {/* Cancel Button */}
-      <View className="mt-[20px]">
+      <View style={{ marginTop: scale(20) }}>
         <CancelButton />
       </View>
 
       {/* Track order */}
       <Pressable
         onPress={() => router.push("/screens/my-orders/order-tracking")}
-        className="w-full h-[60px] rounded-full items-center justify-center border border-dashed border-[1.5px] border-[#1F1500] my-[20px]"
+        className="w-full border border-dashed border-[#1F1500]"
+        style={{
+          height: scale(60),
+          borderWidth: scale(1.5),
+          borderRadius: scale(60) / 2,
+          alignItems: "center",
+          justifyContent: "center",
+          marginVertical: scale(20),
+        }}
       >
-        <Text className="font-[poppins-medium] text-[16px] text-[#1F1500]">
+        <Text
+          style={{ fontSize: scale(16) }}
+          className="font-[poppins-medium] text-[#1F1500]"
+        >
           Track Order
         </Text>
       </Pressable>

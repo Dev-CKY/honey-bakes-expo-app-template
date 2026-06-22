@@ -9,6 +9,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 type FilterChipProps = {
@@ -78,11 +79,17 @@ const FilterChip = ({
   return (
     <AnimatedPressable
       onPress={onPress}
-      className="px-[20px] h-[44px] rounded-full items-center justify-center border"
-      style={containerStyle}
+      className="rounded-full items-center justify-center border"
+      style={[
+        containerStyle,
+        { paddingHorizontal: scale(20), height: scale(44) },
+      ]}
     >
-      <View className="flex-row items-center gap-[4px]">
-        <Animated.Text style={textStyle} className="font-[poppins-medium]">
+      <View className="flex-row items-center" style={{ gap: scale(4) }}>
+        <Animated.Text
+          style={[textStyle, { fontSize: scale(12) }]}
+          className="font-[poppins-medium]"
+        >
           {label}
         </Animated.Text>
 

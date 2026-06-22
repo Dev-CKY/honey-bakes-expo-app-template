@@ -52,9 +52,10 @@ const FilterCategories = ({
       initialScrollIndex={index}
       horizontal
       showsHorizontalScrollIndicator={false}
-      className="mt-[20px]"
+      style={{ marginTop: scale(20) }}
       contentContainerStyle={{
-        gap: 12,
+        gap: scale(10),
+        paddingHorizontal: scale(20),
       }}
       data={options}
       renderItem={renderItem}

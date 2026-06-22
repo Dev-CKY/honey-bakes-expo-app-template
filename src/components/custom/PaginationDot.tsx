@@ -5,6 +5,7 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
+import { scale } from "react-native-size-matters";
 
 const PaginationDot = ({ active }: { active: boolean }) => {
   const progress = useSharedValue(active ? 1 : 0);
@@ -43,7 +44,7 @@ const PaginationDot = ({ active }: { active: boolean }) => {
     <Animated.View
       style={[
         {
-          marginHorizontal: 4,
+          marginHorizontal: scale(4),
         },
         animatedStyle,
       ]}

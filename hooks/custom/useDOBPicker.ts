@@ -1,11 +1,12 @@
 import { Dayjs } from "dayjs";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ScrollView } from "react-native";
+import { scale } from "react-native-size-matters";
 
 export type Screen = "calendar" | "month" | "year";
 
-const YEAR_ROW_HEIGHT = 56;
-const SCROLL_OFFSET = 180;
+const YEAR_ROW_HEIGHT = scale(56);
+const SCROLL_OFFSET = scale(180);
 
 type Props = {
   value: Dayjs;

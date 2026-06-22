@@ -5,7 +5,7 @@ import { FlatList } from "react-native";
 import { scale } from "react-native-size-matters";
 import ProductGridCard from "./ProductGridCard";
 
-const ProductGridHomeCard = () => {
+const HorizontalProductsFlatlist = () => {
   return (
     <FlatList
       data={PRODUCT_ITEMS}
@@ -14,7 +14,8 @@ const ProductGridHomeCard = () => {
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
         paddingTop: scale(20),
-        gap: scale(20),
+        gap: scale(10),
+        paddingHorizontal: scale(10),
       }}
       renderItem={({ item }) => (
         <ProductGridCard
@@ -36,4 +37,4 @@ const ProductGridHomeCard = () => {
   );
 };
 
-export default ProductGridHomeCard;
+export default HorizontalProductsFlatlist;

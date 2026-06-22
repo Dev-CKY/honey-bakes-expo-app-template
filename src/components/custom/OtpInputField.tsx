@@ -6,6 +6,7 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
+import { scale } from "react-native-size-matters";
 
 const CELL_COUNT = 4;
 
@@ -40,10 +41,17 @@ const OtpInputField = () => {
           <View
             key={index}
             onLayout={getCellOnLayoutHandler(index)}
-            className={`h-[50px] w-[75px] items-center justify-center rounded-full border bg-[#FFFFE3]
-              ${isFocused ? "border-[#3E3A2F]" : "border-[#F6F0D4]"}`}
+            className={
+              "items-center justify-center rounded-full border bg-[#FFFFE3] "
+            }
+            style={{
+              height: scale(50),
+              width: scale(75),
+              borderWidth: scale(1),
+              borderColor: isFocused ? "#3E3A2F" : "#F6F0D4",
+            }}
           >
-            <Text className="text-[15px] text-[#B08A52] font-[poppins-medium]">
+            <Text style={{ fontSize: scale(15) }}>
               {symbol || (isFocused ? <Cursor /> : "0")}
             </Text>
           </View>

@@ -10,6 +10,7 @@ import { router } from "expo-router";
 import React from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import Animated, { FadeOut, LinearTransition } from "react-native-reanimated";
+import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
 const Wishlist = () => {
@@ -22,12 +23,16 @@ const Wishlist = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFFE3] py-[20px]"
+      className="flex-1 bg-[#FFFFE3]"
       contentContainerStyle={{ flexGrow: 1 }}
       showsVerticalScrollIndicator={false}
+      style={{ paddingVertical: scale(20) }}
     >
       {/* Header */}
-      <View className="flex-row items-center justify-between px-[20px]">
+      <View
+        className="flex-row items-center justify-between"
+        style={{ paddingHorizontal: scale(20) }}
+      >
         <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
         {!isEmptyWishlist && (
@@ -36,7 +41,7 @@ const Wishlist = () => {
       </View>
 
       {/* Heading */}
-      <View className="px-[20px]">
+      <View style={{ paddingHorizontal: scale(20) }}>
         <HeadingTitle size={32} title="My Wishlist" />
       </View>
 
@@ -49,30 +54,58 @@ const Wishlist = () => {
               key={item.id}
               layout={LinearTransition.springify()}
               exiting={FadeOut.duration(300)}
-              className="flex-row items-start justify-between mt-[20px] border-b border-b-[1px] border-[#F6F0D4] pb-[20px]"
+              className="flex-row items-start justify-between border-b border-[#F6F0D4]"
+              style={{
+                marginTop: scale(20),
+                paddingBottom: scale(20),
+                borderBottomWidth: scale(1),
+                borderBottomColor: "#F6F0D4",
+              }}
             >
-              <View className="flex-row items-center pl-[20px]">
-                <Image source={item.image} className="w-[90px] h-[90px]" />
+              <View
+                className="flex-row items-center"
+                style={{ paddingLeft: scale(20) }}
+              >
+                <Image
+                  source={item.image}
+                  style={{ width: scale(90), height: scale(90) }}
+                />
 
-                <View className="ml-[10px]">
-                  <View className="flex-row items-center justify-between w-[250px]">
-                    <Text className="text-[16px] font-[poppins-medium] text-[#1F1500]">
+                <View style={{ marginLeft: scale(10) }}>
+                  <View
+                    className="flex-row items-center justify-between"
+                    style={{ width: scale(250) }}
+                  >
+                    <Text
+                      className="font-[poppins-medium] text-[#1F1500]"
+                      style={{ fontSize: scale(16) }}
+                    >
                       {item.name}
                     </Text>
 
                     <Pressable
-                      className="pr-[20px]"
                       onPress={() => handleRemoveItem(item.id)}
+                      style={{ paddingRight: scale(20) }}
                     >
-                      <SvgXml xml={cross} width={24} height={24} />
+                      <SvgXml
+                        xml={cross}
+                        width={scale(24)}
+                        height={scale(24)}
+                      />
                     </Pressable>
                   </View>
 
-                  <Text className="text-[14px] font-[poppins-regular] text-[#C2A26F]">
+                  <Text
+                    className="font-[poppins-regular] text-[#C2A26F]"
+                    style={{ fontSize: scale(14) }}
+                  >
                     {item.seller}
                   </Text>
 
-                  <Text className="text-[16px] font-[poppins-medium] text-[#1F1500] mt-[10px]">
+                  <Text
+                    className="font-[poppins-medium] text-[#1F1500]"
+                    style={{ fontSize: scale(16), marginTop: scale(10) }}
+                  >
                     {item.price}
                   </Text>
                 </View>
@@ -83,7 +116,7 @@ const Wishlist = () => {
       )}
 
       {!isEmptyWishlist && (
-        <View className="px-[20px] mt-[20px]">
+        <View style={{ paddingHorizontal: scale(20), marginTop: scale(20) }}>
           <Button label="Move to Cart" onPress={() => {}} />
         </View>
       )}

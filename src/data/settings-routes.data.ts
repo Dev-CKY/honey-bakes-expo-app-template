@@ -3,7 +3,6 @@ import bellFilled from "../assets/icons/svg/bellFilled";
 import language from "../assets/icons/svg/language";
 import pencilFilled from "../assets/icons/svg/pencilFilled";
 import person from "../assets/icons/svg/person";
-import sun from "../assets/icons/svg/sun";
 
 export const SETTINGS_ROUTES = [
   {
@@ -38,11 +37,5 @@ export const APP_CONTROLS = [
     key: "notifications",
     icon: bellFilled,
     routeName: "Notifications",
-  },
-  {
-    id: 2,
-    key: "darkMode",
-    icon: sun,
-    routeName: "Dark mode",
   },
 ];
