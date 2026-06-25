@@ -20,7 +20,7 @@ const CategoryCard = ({ title, image, onPress }: Props) => {
       className="flex-1 border border-[#F6F0D4] items-center justify-center"
     >
       <Text
-        className="font-medium text-[#1F1500]"
+        className="font-[poppins-medium] text-[#1F1500]"
         style={{
           fontSize: scale(15),
         }}

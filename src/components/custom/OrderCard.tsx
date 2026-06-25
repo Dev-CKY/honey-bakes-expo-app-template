@@ -56,7 +56,6 @@ const OrderCard = ({ item }: any) => {
           {/* Status Badge */}
           <View
             style={{
-              marginTop: scale(10),
               alignSelf: "flex-start",
               borderRadius: scale(999),
               paddingHorizontal: scale(16),

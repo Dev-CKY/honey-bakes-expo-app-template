@@ -1,5 +1,3 @@
-// OrderTracking.tsx
-
 import { useLineProgressAnimation } from "@/hooks/custom/useLineProgressAnimation";
 import { usePulseAnimation } from "@/hooks/custom/usePulseAnimation";
 import arrowLeft from "@/src/assets/icons/svg/arrowLeft";
@@ -7,11 +5,11 @@ import CancelButton from "@/src/components/custom/CancelButton";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import OrderedItemCard from "@/src/components/custom/OrderedItemCard";
+import styles from "@/src/styles/screens/orderTracking.styles";
 import { router } from "expo-router";
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
 import Animated from "react-native-reanimated";
-import { scale } from "react-native-size-matters";
 
 // Tracking data
 const trackingSteps = [
@@ -61,12 +59,9 @@ const OrderTracking = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFDE7]"
+      style={styles.container}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingBottom: scale(40),
-      }}
-      style={{ paddingHorizontal: scale(20), paddingTop: scale(20) }}
+      contentContainerStyle={styles.contentContainer}
     >
       {/* Back Button */}
       <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
@@ -75,14 +70,14 @@ const OrderTracking = () => {
       <HeadingTitle size={32} title="Order Tracking" />
 
       {/* Ordered Item */}
-      <View style={{ marginVertical: scale(20) }}>
+      <View style={styles.orderedItemHeading}>
         <HeadingTitle size={20} title="Ordered Item" />
       </View>
 
       <OrderedItemCard />
 
       {/* Timeline */}
-      <View style={{ marginTop: scale(20) }}>
+      <View style={styles.timelineContainer}>
         {trackingSteps.map((item, index) => {
           // Check status
           const isCompleted = item.status === "completed";
@@ -92,137 +87,60 @@ const OrderTracking = () => {
           const isLastCompleted = isCompleted && index === currentStepIndex - 1;
 
           return (
-            <View key={index} style={{ flexDirection: "row" }}>
+            <View key={index} style={styles.timelineRow}>
               {/* Left Side */}
-              <View style={{ alignItems: "center", marginRight: scale(15) }}>
+              <View style={styles.timelineLeft}>
                 {/* Circle with animation for current step */}
                 {isCurrent ? (
-                  <Animated.View
-                    style={{
-                      width: scale(24),
-                      height: scale(24),
-                      borderRadius: scale(24) / 2,
-                      borderWidth: scale(2),
-                      borderColor: "#F7BC5D",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <Animated.View style={styles.currentOuterCircle}>
                     <Animated.View
-                      style={[
-                        {
-                          width: scale(14),
-                          height: scale(14),
-                          borderRadius: scale(14) / 2,
-                          backgroundColor: "#F7BC5D",
-                        },
-                        pulseStyle,
-                      ]}
+                      style={[styles.currentInnerCircle, pulseStyle]}
                     />
                   </Animated.View>
                 ) : (
-                  <View
-                    style={{
-                      width: scale(24),
-                      height: scale(24),
-                      borderRadius: scale(24) / 2,
-                      borderWidth: scale(2),
-                      borderColor: "#1F1500",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <View style={styles.circle}>
                     {/* Inner Dot */}
                     {(isCompleted || isCurrent) && (
-                      <View
-                        style={{
-                          width: scale(14),
-                          height: scale(14),
-                          borderRadius: scale(14) / 2,
-                          backgroundColor:
-                            isCompleted || isCurrent
-                              ? "#F7BC5D"
-                              : "transparent",
-                        }}
-                      />
+                      <View style={styles.circleInner} />
                     )}
                   </View>
                 )}
 
                 {/* Animated Line with gradient fill */}
                 {!isLastItem && (
-                  <View
-                    style={{
-                      position: "relative",
-                      height: scale(70),
-                      width: scale(2),
-                      overflow: "hidden",
-                    }}
-                  >
+                  <View style={styles.lineContainer}>
                     {/* Base line (grey/dashed) */}
                     <View
-                      style={{
-                        position: "absolute",
-                        left: 0,
-                        top: 0,
-                        width: "100%",
-                        height: "100%",
-                        borderLeftWidth: scale(2),
-                        borderStyle: "dashed",
-                        borderLeftColor: isActive ? "#ffdca3" : "#1F1500",
-                      }}
+                      style={[
+                        styles.lineBase,
+                        {
+                          borderLeftColor: isActive ? "#ffdca3" : "#1F1500",
+                        },
+                      ]}
                     />
 
                     {/* Animated progress fill - only for the last completed step */}
                     {isLastCompleted && (
                       <Animated.View
-                        style={[
-                          lineAnimatedStyle,
-                          {
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            backgroundColor: "#F7BC5D",
-                          },
-                        ]}
+                        style={[lineAnimatedStyle, styles.animatedLine]}
                       />
                     )}
 
                     {/* Fully filled lines for other completed steps (not the last one) */}
                     {isCompleted && !isLastCompleted && (
-                      <View
-                        style={{
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          width: "100%",
-                          height: "100%",
-                          backgroundColor: "#F7BC5D",
-                        }}
-                      />
+                      <View style={styles.completedLine} />
                     )}
                   </View>
                 )}
               </View>
 
               {/* Right Side - No animation on text */}
-              <View style={{ flex: 1, paddingBottom: scale(25) }}>
+              <View style={styles.timelineContent}>
                 {/* Title - static text */}
-                <Text
-                  style={{ fontSize: scale(18) }}
-                  className="text-[#1F1500] font-[poppins-medium]"
-                >
-                  {item.title}
-                </Text>
+                <Text style={styles.title}>{item.title}</Text>
 
                 {/* Time */}
-                <Text
-                  style={{ fontSize: scale(12), marginTop: scale(2) }}
-                  className="text-[#C2A26F] font-[poppins-regular]"
-                >
-                  {item.time}
-                </Text>
+                <Text style={styles.time}>{item.time}</Text>
               </View>
             </View>
           );

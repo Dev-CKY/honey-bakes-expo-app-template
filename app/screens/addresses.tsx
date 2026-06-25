@@ -18,6 +18,7 @@ import pencil from "@/src/assets/icons/svg/pencil";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import { ADDRESS_DATA } from "@/src/data/address.data";
+import styles from "@/src/styles/screens/addresses.styles";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const AnimatedText = Animated.createAnimatedComponent(Text);
@@ -62,32 +63,11 @@ const AddressCard = ({ item, isSelected, onPress }: AddressCardProps) => {
     <AnimatedPressable
       onPress={onPress}
       layout={LinearTransition.springify().damping(18).stiffness(180)}
-      style={[
-        animatedCardStyle,
-        {
-          marginHorizontal: scale(20),
-          marginBottom: scale(20),
-          minHeight: scale(150),
-          borderWidth: scale(1.5),
-          borderRadius: scale(10),
-          padding: scale(16),
-        },
-      ]}
+      style={[animatedCardStyle, styles.card]}
     >
       {/* Header */}
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <Text
-          style={{ fontSize: scale(16) }}
-          className="font-[poppins-medium] text-[#1F1500]"
-        >
-          {item.title}
-        </Text>
+      <View style={styles.cardHeader}>
+        <Text style={styles.title}>{item.title}</Text>
 
         <Pressable hitSlop={10}>
           <SvgXml xml={pencil} width={scale(20)} height={scale(20)} />
@@ -95,38 +75,15 @@ const AddressCard = ({ item, isSelected, onPress }: AddressCardProps) => {
       </View>
 
       {/* Address */}
-      <AnimatedText
-        style={[
-          animatedDescriptionStyle,
-          { marginTop: scale(12), fontSize: scale(14), lineHeight: scale(22) },
-        ]}
-        className="font-[poppins-medium]"
-      >
+      <AnimatedText style={[animatedDescriptionStyle, styles.addressText]}>
         {item.address}
       </AnimatedText>
 
       {/* Phone */}
-      <View
-        style={{
-          marginTop: scale(10),
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <Text
-          style={{ fontSize: scale(14) }}
-          className="font-[poppins-medium] text-[#1F1500]"
-        >
-          Phone no :
-        </Text>
+      <View style={styles.phoneContainer}>
+        <Text style={styles.phoneLabel}>Phone no :</Text>
 
-        <AnimatedText
-          style={[
-            animatedDescriptionStyle,
-            { marginLeft: scale(4), fontSize: scale(14) },
-          ]}
-          className="font-[poppins-medium]"
-        >
+        <AnimatedText style={[animatedDescriptionStyle, styles.phoneValue]}>
           {item.phoneNumber}
         </AnimatedText>
       </View>
@@ -139,20 +96,17 @@ const Addresses = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFFE3]"
+      style={styles.scrollView}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingBottom: scale(40),
-      }}
-      style={{ paddingVertical: scale(20) }}
+      contentContainerStyle={styles.scrollContent}
     >
       {/* Back Button */}
-      <View style={{ paddingHorizontal: scale(20) }}>
+      <View style={styles.horizontalPadding}>
         <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
       </View>
 
       {/* Heading */}
-      <View style={{ marginBottom: scale(20), paddingHorizontal: scale(20) }}>
+      <View style={styles.headingContainer}>
         <HeadingTitle size={32} title="My addresses" />
       </View>
 
@@ -173,27 +127,13 @@ const Addresses = () => {
       {/* Add Address */}
       <Animated.View
         entering={FadeInDown.delay(250).duration(450)}
-        style={{ marginHorizontal: scale(20) }}
+        style={styles.addAddressContainer}
       >
         <Pressable
-          style={{
-            height: scale(50),
-            width: "100%",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: scale(50) / 2,
-            borderWidth: scale(1.5),
-            borderStyle: "dashed",
-            borderColor: "#1F1500",
-          }}
+          style={styles.addAddressButton}
           onPress={() => router.push("/screens/add-address")}
         >
-          <Text
-            style={{ fontSize: scale(14) }}
-            className="font-[poppins-medium] text-[#1F1500]"
-          >
-            Add new address
-          </Text>
+          <Text style={styles.addAddressText}>Add new address</Text>
         </Pressable>
       </Animated.View>
     </ScrollView>

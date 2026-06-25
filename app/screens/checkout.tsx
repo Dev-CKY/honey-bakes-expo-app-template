@@ -14,6 +14,7 @@ import PaymentMethodCard from "@/src/components/custom/PaymentMethodCard";
 import TextInputField from "@/src/components/custom/TextInputField";
 import { ADDRESS_DATA } from "@/src/data/address.data";
 import { PAYMENT_METHODS } from "@/src/data/payment.data";
+import styles from "@/src/styles/screens/checkout.styles";
 import { router } from "expo-router";
 import React from "react";
 import {
@@ -49,58 +50,37 @@ const Checkout = () => {
 
   return (
     <KeyboardAvoidingView
-      className="flex-1 bg-[#FFFFE3]"
+      style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <View className="flex-1">
+      <View style={styles.contentWrapper}>
         <ScrollView
-          className="flex-1"
+          style={styles.contentWrapper}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{
-            paddingTop: scale(20),
-          }}
+          contentContainerStyle={styles.scrollContent}
         >
           {/* Header */}
-          <View style={{ paddingHorizontal: scale(20) }}>
+          <View style={styles.horizontalPadding}>
             <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
           </View>
 
           {/* Heading */}
-          <View style={{ paddingHorizontal: scale(20) }}>
+          <View style={styles.horizontalPadding}>
             <HeadingTitle size={32} title="Checkout" />
           </View>
 
           {/* Address Heading */}
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              paddingHorizontal: scale(20),
-              paddingTop: scale(20),
-            }}
-          >
+          <View style={styles.sectionHeader}>
             <HeadingTitle size={20} title="Select address" />
 
             <Pressable onPress={() => router.push("/screens/add-address")}>
-              <Text
-                style={{ fontSize: scale(14) }}
-                className="font-[poppins-medium] text-black"
-              >
-                Add new +
-              </Text>
+              <Text style={styles.addNewText}>Add new +</Text>
             </Pressable>
           </View>
 
           {/* Address List */}
-          <View
-            style={{
-              paddingHorizontal: scale(20),
-              paddingTop: scale(20),
-              gap: scale(20),
-            }}
-          >
+          <View style={styles.addressContainer}>
             {ADDRESS_DATA.map((item) => (
               <AddressCard
                 key={item.id}
@@ -112,29 +92,14 @@ const Checkout = () => {
 
             <Pressable
               onPress={() => router.push("/screens/addresses")}
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: scale(50) / 2,
-                borderWidth: scale(1.5),
-                borderStyle: "dashed",
-                borderColor: "#1F1500",
-                width: "100%",
-                height: scale(50),
-                alignSelf: "center",
-              }}
+              style={styles.moreAddressesButton}
             >
-              <Text
-                style={{ fontSize: scale(14) }}
-                className="font-[poppins-medium] text-[#1F1500]"
-              >
-                See more addresses
-              </Text>
+              <Text style={styles.moreAddressesText}>See more addresses</Text>
             </Pressable>
           </View>
 
           {/* Payment Method */}
-          <View style={{ padding: scale(20) }}>
+          <View style={styles.paymentHeadingContainer}>
             <HeadingTitle size={20} title="Select payment method" />
           </View>
 
@@ -142,10 +107,7 @@ const Checkout = () => {
             data={PAYMENT_METHODS}
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              paddingHorizontal: scale(20),
-              gap: scale(16),
-            }}
+            contentContainerStyle={styles.paymentMethodsContent}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <PaymentMethodCard
@@ -161,13 +123,7 @@ const Checkout = () => {
             )}
           />
 
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              paddingTop: scale(20),
-            }}
-          >
+          <View style={styles.orContainer}>
             <HeadingTitle size={20} title="Or" />
           </View>
 
@@ -176,9 +132,7 @@ const Checkout = () => {
             onPress={() => {
               if (isCardFormDisabled) {
                 setSelectedPayment(null);
-
                 translateY.value = 15;
-
                 translateY.value = withTiming(0, {
                   duration: 350,
                 });
@@ -191,28 +145,15 @@ const Checkout = () => {
               pointerEvents={isCardFormDisabled ? "none" : "auto"}
               style={[
                 animatedStyle,
-                { marginHorizontal: scale(20), marginTop: scale(20) },
-                isCardFormDisabled
-                  ? {
-                      borderRadius: scale(16),
-                      borderWidth: scale(1.5),
-                      borderStyle: "dashed",
-                      borderColor: "#F7BC5D",
-                      padding: scale(10),
-                    }
-                  : {},
+                styles.cardFormContainer,
+                isCardFormDisabled ? styles.disabledCardForm : {},
               ]}
             >
               {isCardFormDisabled && (
                 <Animated.Text
                   entering={FadeIn.duration(250)}
                   exiting={FadeOut.duration(150)}
-                  className="font-[poppins-medium] text-[#1F1500]"
-                  style={{
-                    marginBottom: scale(12),
-                    textAlign: "center",
-                    fontSize: scale(12),
-                  }}
+                  style={styles.cardFormHint}
                 >
                   Tap anywhere here to pay with card instead
                 </Animated.Text>
@@ -241,8 +182,8 @@ const Checkout = () => {
                 }
               />
 
-              <View className="flex-row items-center justify-between">
-                <View style={{ width: "48%" }}>
+              <View style={styles.cardRow}>
+                <View style={styles.halfWidth}>
                   <TextInputField
                     keyboardType="number-pad"
                     placeholder="Expiry"
@@ -256,7 +197,7 @@ const Checkout = () => {
                   />
                 </View>
 
-                <View style={{ width: "48%" }}>
+                <View style={styles.halfWidth}>
                   <TextInputField
                     keyboardType="number-pad"
                     placeholder="CVV"
@@ -272,24 +213,13 @@ const Checkout = () => {
               <Pressable
                 disabled={isCardFormDisabled}
                 onPress={() => setRememberCard(!rememberCard)}
-                style={{
-                  marginTop: scale(10),
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingHorizontal: scale(10),
-                }}
+                style={styles.rememberContainer}
               >
                 <View
-                  style={{
-                    height: scale(30),
-                    width: scale(30),
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: scale(5),
-                    borderWidth: scale(1),
-                    borderColor: "#1F1500",
-                    backgroundColor: rememberCard ? "#F7BC5D" : "transparent",
-                  }}
+                  style={[
+                    styles.checkbox,
+                    rememberCard ? styles.checkboxActive : {},
+                  ]}
                 >
                   {rememberCard && (
                     <Animated.View
@@ -301,10 +231,7 @@ const Checkout = () => {
                   )}
                 </View>
 
-                <Text
-                  style={{ marginLeft: scale(10), fontSize: scale(16) }}
-                  className="font-[poppins-medium] text-[#1F1500]"
-                >
+                <Text style={styles.rememberText}>
                   Remember my card details
                 </Text>
               </Pressable>
@@ -313,49 +240,14 @@ const Checkout = () => {
         </ScrollView>
 
         {/* Footer */}
-        <View
-          style={{
-            marginVertical: scale(20),
-            height: scale(60),
-            width: "85%",
-            alignSelf: "center",
-            borderRadius: scale(60) / 2,
-            backgroundColor: "#F6F0D4",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Text
-            style={{
-              paddingLeft: scale(20),
-              width: "40%",
-              fontSize: scale(20),
-            }}
-            className="font-[poppins-medium] text-[#1F1500]"
-          >
-            $100.00
-          </Text>
+        <View style={styles.footer}>
+          <Text style={styles.totalPrice}>$100.00</Text>
 
           <Pressable
-            style={{
-              height: scale(60),
-              width: "60%",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: scale(60) / 2,
-              borderWidth: scale(1.5),
-              borderColor: "#1F1500",
-              backgroundColor: "#F7BC5D",
-            }}
+            style={styles.placeOrderButton}
             onPress={() => router.push("/screens/order-placed")}
           >
-            <Text
-              style={{ fontSize: scale(16) }}
-              className="font-[poppins-medium] text-[#1F1500]"
-            >
-              Place order
-            </Text>
+            <Text style={styles.placeOrderText}>Place order</Text>
           </Pressable>
         </View>
       </View>

@@ -8,6 +8,7 @@ import PaginationDot from "@/src/components/custom/PaginationDot";
 import SearchBar from "@/src/components/custom/SearchBar";
 import { FILTER_CATEGORIES } from "@/src/data/filter-categories.data";
 import { HOME_BANNERS } from "@/src/data/home-banner.data";
+import styles from "@/src/styles/screens/home.styles";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { DrawerActions } from "@react-navigation/native";
 import { router, useNavigation } from "expo-router";
@@ -36,59 +37,40 @@ const Home = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFFE3]"
+      style={styles.container}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingBottom: tabBarHeight + scale(40),
-      }}
+      contentContainerStyle={{ paddingBottom: tabBarHeight + scale(40) }}
     >
       {/* Header */}
       <ImageBackground
-        className="w-full justify-center"
-        style={{ height: scale(275), padding: scale(20), gap: scale(30) }}
+        style={styles.headerBackground}
         source={require("@/src/assets/images/custom/home_bg.jpg")}
       >
-        <View className="flex-row items-center justify-between">
+        <View style={styles.headerRow}>
           <Pressable
             onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
           >
             <Image
               source={require("@/src/assets/images/custom/icons/avatar.png")}
-              className="rounded-full"
-              style={{ width: scale(44), height: scale(44) }}
+              style={styles.avatar}
             />
           </Pressable>
 
           <Pressable
             onPress={() => router.push("/screens/notifications")}
-            className="rounded-full bg-[#FFFFE3] border items-center justify-center"
-            style={{
-              width: scale(44),
-              height: scale(44),
-              borderWidth: scale(1.5),
-            }}
+            style={styles.notificationButton}
           >
             <SvgXml xml={bell} width={scale(24)} height={scale(24)} />
           </Pressable>
         </View>
 
         <View>
-          <Text
-            className="font-[kalnia-medium] text-[#1F1500]"
-            style={{ fontSize: scale(32) }}
-          >
-            Hello, Michel
-          </Text>
+          <Text style={styles.greetingText}>Hello, Michel</Text>
 
-          <View className="flex-row items-center" style={{ gap: scale(5) }}>
+          <View style={styles.locationContainer}>
             <SvgXml xml={map} />
 
-            <Text
-              className="font-[poppins-regular] text-[#1F1500]"
-              style={{ fontSize: scale(14) }}
-            >
-              New York, NY, USA
-            </Text>
+            <Text style={styles.locationText}>New York, NY, USA</Text>
           </View>
         </View>
 
@@ -100,20 +82,12 @@ const Home = () => {
       </ImageBackground>
 
       {/* Body */}
-      <View style={{ paddingVertical: scale(20) }}>
-        <View
-          className="flex-row items-end justify-between"
-          style={{ paddingHorizontal: scale(20) }}
-        >
+      <View style={styles.body}>
+        <View style={styles.sectionHeader}>
           <HeadingTitle size={20} title="Categories" />
 
           <Pressable onPress={() => router.push("/screens/categories")}>
-            <Text
-              className="font-[poppins-medium]  text-[#1F1500]"
-              style={{ fontSize: scale(14) }}
-            >
-              View all
-            </Text>
+            <Text style={styles.viewAllText}>View all</Text>
           </Pressable>
         </View>
 
@@ -124,7 +98,7 @@ const Home = () => {
         />
 
         {/* Premium Carousel */}
-        <View style={{ marginVertical: scale(20) }}>
+        <View style={styles.carouselContainer}>
           <Carousel
             loop
             autoPlay
@@ -139,10 +113,7 @@ const Home = () => {
           />
 
           {/* Pagination */}
-          <View
-            className="flex-row justify-center items-center"
-            style={{ marginTop: scale(12) }}
-          >
+          <View style={styles.paginationContainer}>
             {HOME_BANNERS.map((_, index) => (
               <PaginationDot key={index} active={activeIndex === index} />
             ))}
@@ -150,72 +121,40 @@ const Home = () => {
         </View>
 
         {/* Popular */}
-        <View
-          className="flex-row items-end justify-between"
-          style={{ paddingHorizontal: scale(20) }}
-        >
+        <View style={styles.sectionHeader}>
           <HeadingTitle title="Popular" size={20} />
 
           <Pressable onPress={() => router.push("/screens/products")}>
-            <Text
-              className="font-[poppins-medium] text-[#1F1500]"
-              style={{ fontSize: scale(14) }}
-            >
-              View all
-            </Text>
+            <Text style={styles.viewAllText}>View all</Text>
           </Pressable>
         </View>
 
         <HorizontalProductsFlatlist />
 
         {/* New Products */}
-        <View
-          className="flex-row items-end justify-between"
-          style={{ paddingHorizontal: scale(20), marginTop: scale(20) }}
-        >
+        <View style={styles.sectionHeaderWithMargin}>
           <HeadingTitle title="Our new products" size={20} />
 
           <Pressable onPress={() => router.push("/screens/products")}>
-            <Text
-              className="font-[poppins-medium] text-[#1F1500]"
-              style={{ fontSize: scale(14) }}
-            >
-              View all
-            </Text>
+            <Text style={styles.viewAllText}>View all</Text>
           </Pressable>
         </View>
 
         <HorizontalProductsFlatlist />
 
-        <View
-          className="w-full"
-          style={{
-            height: scale(155),
-            marginVertical: scale(20),
-            paddingHorizontal: scale(20),
-          }}
-        >
+        <View style={styles.bannerContainer}>
           <Image
-            className="w-full h-full"
-            style={{ borderRadius: scale(10) }}
+            style={styles.bannerImage}
             source={require("@/src/assets/images/custom/banners/4.jpg")}
           />
         </View>
 
         {/* Recently Viewed */}
-        <View
-          className="flex-row items-end justify-between"
-          style={{ paddingHorizontal: scale(20) }}
-        >
+        <View style={styles.sectionHeader}>
           <HeadingTitle title="Recently viewed" size={20} />
 
           <Pressable onPress={() => router.push("/screens/products")}>
-            <Text
-              className="font-[poppins-medium] text-[#1F1500]"
-              style={{ fontSize: scale(14) }}
-            >
-              View all
-            </Text>
+            <Text style={styles.viewAllText}>View all</Text>
           </Pressable>
         </View>
 

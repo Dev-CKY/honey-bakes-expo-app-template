@@ -9,6 +9,11 @@ import {
   Text,
   View,
 } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
 import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
@@ -24,14 +29,11 @@ import starFilled from "@/src/assets/icons/svg/starFilled";
 import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import AnimatedQuantity from "@/src/components/custom/QuantitySelector";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from "react-native-reanimated";
 
-const VEG_COLOR = "#00CF21";
-const NON_VEG_COLOR = "#F7715D";
+import styles, {
+  NON_VEG_COLOR,
+  VEG_COLOR,
+} from "@/src/styles/screens/productDetails.styles";
 
 const ProductDetails = () => {
   const {
@@ -57,25 +59,22 @@ const ProductDetails = () => {
 
   const onIncrease = () => {
     plusScale.value = 0.85;
-
     plusScale.value = withSpring(1, {
       damping: 8,
       stiffness: 250,
     });
-
     increaseQuantity();
   };
 
   const onDecrease = () => {
     minusScale.value = 0.85;
-
     minusScale.value = withSpring(1, {
       damping: 8,
       stiffness: 250,
     });
-
     decreaseQuantity();
   };
+
   if (!product) {
     return null;
   }
@@ -95,64 +94,33 @@ const ProductDetails = () => {
   }: {
     item: (typeof product.ingredients)[number];
   }) => (
-    <View style={{ marginRight: scale(18), alignItems: "center" }}>
-      <View
-        style={{
-          height: scale(72),
-          width: scale(72),
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: scale(36),
-          backgroundColor: "#F6F0D4",
-        }}
-      >
+    <View style={styles.ingredientItem}>
+      <View style={styles.ingredientImageWrapper}>
         <Image
           source={item.image}
-          style={{ height: scale(35), width: scale(35) }}
+          style={styles.ingredientImage}
           resizeMode="contain"
         />
       </View>
 
-      <Text
-        style={{
-          marginTop: scale(8),
-          fontFamily: "poppins-medium",
-          fontSize: scale(12),
-          color: "#1F1500",
-        }}
-      >
-        {item.name}
-      </Text>
+      <Text style={styles.ingredientName}>{item.name}</Text>
     </View>
   );
 
   return (
-    <View className="flex-1 bg-[#FFFFE3]">
+    <View style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: scale(40),
-        }}
+        contentContainerStyle={styles.scrollContent}
       >
         {/* Hero Image */}
         <ImageBackground
           source={product.image}
           resizeMode="cover"
-          style={{
-            height: scale(280),
-            paddingHorizontal: scale(20),
-            paddingTop: scale(20),
-          }}
+          style={styles.heroImage}
         >
-          <View className="flex-row justify-between">
-            <View
-              className="bg-white"
-              style={{
-                height: scale(48),
-                width: scale(48),
-                borderRadius: scale(24),
-              }}
-            >
+          <View style={styles.headerRow}>
+            <View style={styles.backButtonWrapper}>
               <IconButtonWrapper
                 icon={arrowLeft}
                 onPress={() => {
@@ -161,44 +129,16 @@ const ProductDetails = () => {
               />
             </View>
 
-            <Pressable
-              className="items-center justify-center bg-[#F7BC5D]"
-              style={{
-                height: scale(50),
-                width: scale(50),
-                borderRadius: scale(25),
-                borderWidth: scale(1.5),
-                borderColor: "#1F1500",
-              }}
-            >
+            <Pressable style={styles.favoriteButton}>
               <SvgXml xml={heart} width={scale(20)} height={scale(20)} />
             </Pressable>
           </View>
         </ImageBackground>
 
         {/* Quantity Controls */}
-        <View
-          className="z-10 self-center flex-row items-center justify-between bg-[#F6F0D4]"
-          style={{
-            marginTop: scale(-25),
-            height: scale(55),
-            width: scale(130),
-            borderRadius: scale(27.5),
-            paddingHorizontal: scale(6),
-          }}
-        >
+        <View style={styles.quantityContainer}>
           <Animated.View style={minusStyle}>
-            <Pressable
-              onPress={onDecrease}
-              style={{
-                height: scale(34),
-                width: scale(34),
-                borderRadius: scale(17),
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "white",
-              }}
-            >
+            <Pressable onPress={onDecrease} style={styles.quantityButton}>
               <SvgXml xml={minus} width={scale(16)} height={scale(16)} />
             </Pressable>
           </Animated.View>
@@ -208,16 +148,7 @@ const ProductDetails = () => {
           <Animated.View style={plusStyle}>
             <Pressable
               onPress={onIncrease}
-              style={{
-                height: scale(34),
-                width: scale(34),
-                borderRadius: scale(17),
-                alignItems: "center",
-                justifyContent: "center",
-                borderWidth: scale(1.5),
-                borderColor: "#1F1500",
-                backgroundColor: "#F7BC5D",
-              }}
+              style={[styles.quantityButton, styles.plusButton]}
             >
               <SvgXml xml={plus} width={scale(16)} height={scale(16)} />
             </Pressable>
@@ -225,151 +156,68 @@ const ProductDetails = () => {
         </View>
 
         {/* Product Details */}
-        <View style={{ marginTop: scale(20) }}>
-          <View className="flex-row items-start justify-between">
-            <View
-              className="flex-1"
-              style={{ marginRight: scale(12), paddingHorizontal: scale(10) }}
-            >
-              <Text
-                className="font-[poppins-medium] text-[#1F1500]"
-                style={{ marginBottom: scale(2), fontSize: scale(20) }}
-              >
-                {product.title}
-              </Text>
+        <View style={styles.detailsContainer}>
+          <View style={styles.titleRow}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>{product.title}</Text>
 
-              <Text
-                className="font-[poppins-regular] text-[#C2A26F]"
-                style={{ fontSize: scale(14) }}
-              >
-                By {product.brand}
-              </Text>
+              <Text style={styles.brand}>By {product.brand}</Text>
             </View>
 
             <View
-              className="items-center justify-center"
-              style={{
-                height: scale(38),
-                borderRadius: scale(19),
-                paddingHorizontal: scale(18),
-                marginRight: scale(10),
-                backgroundColor: isVeg ? VEG_COLOR : NON_VEG_COLOR,
-              }}
+              style={[
+                styles.foodTypeBadge,
+                {
+                  backgroundColor: isVeg ? VEG_COLOR : NON_VEG_COLOR,
+                },
+              ]}
             >
-              <Text
-                className="font-[poppins-medium] text-white"
-                style={{ fontSize: scale(12) }}
-              >
-                {product.foodType}
-              </Text>
+              <Text style={styles.foodTypeText}>{product.foodType}</Text>
             </View>
           </View>
 
           {/* Rating */}
-          <View
-            className="flex-row items-center"
-            style={{
-              marginTop: scale(8),
-              marginBottom: scale(18),
-              paddingHorizontal: scale(10),
-            }}
-          >
-            <View className="flex-row items-center">
-              {stars.map(renderStar)}
-            </View>
+          <View style={styles.ratingContainer}>
+            <View style={styles.starsRow}>{stars.map(renderStar)}</View>
 
-            <Text
-              className="font-[poppins-regular] text-[#8A8A8A]"
-              style={{ marginLeft: scale(8), fontSize: scale(14) }}
-            >
+            <Text style={styles.ratingText}>
               {product.rating.toFixed(1)} ({product.reviews.toLocaleString()})
             </Text>
           </View>
 
           {/* About */}
-          <View style={{ paddingHorizontal: scale(10) }}>
+          <View style={styles.sectionContainer}>
             <HeadingTitle title="About" size={20} />
 
-            <Text
-              className="font-[poppins-regular] text-[#C2A26F]"
-              style={{
-                marginBottom: scale(18),
-                marginTop: scale(5),
-                fontSize: scale(14),
-                lineHeight: scale(28),
-              }}
-            >
-              {product.description}
-            </Text>
+            <Text style={styles.description}>{product.description}</Text>
           </View>
 
           {/* Ingredients */}
-          <View style={{ paddingHorizontal: scale(10) }}>
+          <View style={styles.sectionContainer}>
             <HeadingTitle title="Ingredients" size={20} />
           </View>
+
           <FlatList
             horizontal
             data={product.ingredients}
             renderItem={renderIngredient}
             keyExtractor={(item) => item.id}
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              paddingTop: scale(10),
-              paddingHorizontal: scale(10),
-            }}
+            contentContainerStyle={styles.ingredientsList}
           />
         </View>
       </ScrollView>
 
       {/* Bottom Price Bar */}
-      <View
-        className="self-center flex-row items-center justify-between bg-[#F6F0D4]"
-        style={{
-          marginBottom: scale(20),
-          height: scale(60),
-          width: "85%",
-          borderRadius: scale(30),
-        }}
-      >
-        <View
-          className="flex-row items-center"
-          style={{ marginLeft: scale(20) }}
-        >
-          <Text
-            className="font-[poppins-regular] text-[#757B7E]"
-            style={{
-              marginTop: scale(5),
-              fontSize: scale(14),
-              textDecorationLine: "line-through",
-            }}
-          >
-            {product.oldPrice}
-          </Text>
+      <View style={styles.bottomBar}>
+        <View style={styles.priceContainer}>
+          <Text style={styles.oldPrice}>{product.oldPrice}</Text>
 
-          <Text
-            className="font-[poppins-medium] text-[#1F1500]"
-            style={{ marginLeft: scale(5), fontSize: scale(20) }}
-          >
-            {totalPrice}
-          </Text>
+          <Text style={styles.totalPrice}>{totalPrice}</Text>
         </View>
 
-        <View
-          className="items-center justify-center bg-[#F7BC5D]"
-          style={{
-            height: scale(60),
-            width: "50%",
-            borderRadius: scale(30),
-            borderWidth: scale(1.5),
-            borderColor: "#1F1500",
-          }}
-        >
-          <Text
-            className="font-[poppins-medium] text-[#1F1500]"
-            style={{ fontSize: scale(16) }}
-          >
-            Add to cart
-          </Text>
+        <View style={styles.addToCartButton}>
+          <Text style={styles.addToCartText}>Add to cart</Text>
         </View>
       </View>
     </View>

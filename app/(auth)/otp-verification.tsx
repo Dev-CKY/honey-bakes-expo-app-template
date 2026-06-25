@@ -5,17 +5,16 @@ import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import OtpInputField from "@/src/components/custom/OtpInputField";
 import OtpTimer from "@/src/components/custom/OtpTimer";
 import SubHeadingTitle from "@/src/components/custom/SubHeadingTitle";
+import styles from "@/src/styles/screens/otpVerification.styles";
 import { router } from "expo-router";
 import React from "react";
 import { ImageBackground } from "react-native";
-import { scale } from "react-native-size-matters";
 
 const OtpVerification = () => {
   return (
     <ImageBackground
       source={require("@/src/assets/images/custom/bg.jpeg")}
-      className="flex-1"
-      style={{ padding: scale(20) }}
+      style={styles.container}
       resizeMode="cover"
     >
       {/* Otp Verification Screen Content */}

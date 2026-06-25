@@ -18,6 +18,7 @@ import {
   View,
 } from "react-native";
 
+import styles from "@/src/styles/screens/editProfile.styles";
 import dayjs, { Dayjs } from "dayjs";
 import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
@@ -32,18 +33,16 @@ const EditProfile = () => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView
-        className="flex-1 bg-[#FFFFE3]"
+        style={styles.scrollView}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          paddingBottom: scale(40),
-        }}
+        contentContainerStyle={styles.scrollContent}
       >
-        <View style={{ paddingHorizontal: scale(20), paddingTop: scale(20) }}>
+        <View style={styles.contentContainer}>
           {/* Back Button */}
           <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
@@ -51,53 +50,25 @@ const EditProfile = () => {
           <HeadingTitle size={32} title="Edit Profile" />
 
           {/* Avatar */}
-          <View style={{ alignItems: "center", marginTop: scale(25) }}>
-            <View style={{ position: "relative" }}>
+          <View style={styles.avatarSection}>
+            <View style={styles.avatarWrapper}>
               <Image
                 source={require("@/src/assets/images/custom/profile.jpg")}
-                style={{
-                  height: scale(110),
-                  width: scale(110),
-                  borderRadius: scale(110) / 2,
-                }}
+                style={styles.avatar}
               />
 
-              <Pressable
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: 0,
-                  height: scale(40),
-                  width: scale(40),
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: scale(40) / 2,
-                  borderWidth: scale(1),
-                  borderColor: "#1F1500",
-                  backgroundColor: "#F7BC5D",
-                }}
-              >
+              <Pressable style={styles.editAvatarButton}>
                 <SvgXml xml={pencil} width={scale(18)} height={scale(18)} />
               </Pressable>
             </View>
 
-            <Text
-              style={{ marginTop: scale(10), fontSize: scale(20) }}
-              className="font-[kalnia-medium] text-[#1F1500]"
-            >
-              {name}
-            </Text>
+            <Text style={styles.userName}>{name}</Text>
 
-            <Text
-              style={{ fontSize: scale(14) }}
-              className="font-[poppins-regular] text-[#C2A26F]"
-            >
-              {email}
-            </Text>
+            <Text style={styles.userEmail}>{email}</Text>
           </View>
 
           {/* Form */}
-          <View style={{ marginTop: scale(30), rowGap: scale(20) }}>
+          <View style={styles.formContainer}>
             <EditProfileTextInputField
               label="Name"
               value={name}
@@ -119,17 +90,10 @@ const EditProfile = () => {
             />
 
             {/* Gender */}
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Text
-                style={{ width: scale(80), fontSize: scale(16) }}
-                className="font-[poppins-regular] text-[#C2A26F]"
-              >
-                Gender
-              </Text>
+            <View style={styles.genderRow}>
+              <Text style={styles.genderLabel}>Gender</Text>
 
-              <View
-                style={{ flex: 1, flexDirection: "row", columnGap: scale(10) }}
-              >
+              <View style={styles.genderButtonsContainer}>
                 <GenderButton
                   title="Male"
                   symbol="♂"
@@ -151,43 +115,13 @@ const EditProfile = () => {
           </View>
 
           {/* Buttons */}
-          <View style={{ marginTop: scale(30), rowGap: scale(16) }}>
-            <Pressable
-              style={{
-                height: scale(64),
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: scale(64) / 2,
-                borderWidth: scale(2),
-                borderColor: "#1F1500",
-                backgroundColor: "#F7BC5D",
-              }}
-            >
-              <Text
-                style={{ fontSize: scale(20) }}
-                className="font-[poppins-medium] text-[#1F1500]"
-              >
-                Save
-              </Text>
+          <View style={styles.buttonContainer}>
+            <Pressable style={styles.saveButton}>
+              <Text style={styles.saveButtonText}>Save</Text>
             </Pressable>
 
-            <Pressable
-              style={{
-                height: scale(64),
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: scale(64) / 2,
-                borderWidth: scale(1),
-                borderColor: "#1F1500",
-                borderStyle: "dashed",
-              }}
-            >
-              <Text
-                style={{ fontSize: scale(20) }}
-                className="font-[poppins-medium] text-[#1F1500]"
-              >
-                Discard
-              </Text>
+            <Pressable style={styles.discardButton}>
+              <Text style={styles.discardButtonText}>Discard</Text>
             </Pressable>
           </View>
         </View>

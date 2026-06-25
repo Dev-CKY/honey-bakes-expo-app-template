@@ -52,7 +52,7 @@ const LanguageCard = ({ language, image, onPress, selected }: Props) => {
       >
         <Text
           style={{ fontSize: scale(15) }}
-          className="font-medium text-[#1F1500]"
+          className="font-[poppins-medium] text-[#1F1500]"
         >
           {language}
         </Text>

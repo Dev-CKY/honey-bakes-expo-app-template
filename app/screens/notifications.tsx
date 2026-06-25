@@ -4,11 +4,11 @@ import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import NotificationItem from "@/src/components/custom/NotificationItem";
 import NOTIFICATIONS_LIST from "@/src/data/notifications-list.data";
+import styles from "@/src/styles/screens/notifications.styles";
 import { router } from "expo-router";
 import React, { useCallback, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
-import { scale } from "react-native-size-matters";
 
 type NotificationType = {
   id: number | string;
@@ -43,19 +43,12 @@ const Notifications = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFFE3]"
+      style={styles.container}
       showsVerticalScrollIndicator={false}
-      style={{ paddingVertical: scale(20) }}
-      contentContainerStyle={{
-        flexGrow: 1,
-        paddingBottom: scale(20),
-      }}
+      contentContainerStyle={styles.contentContainer}
     >
       {/* Header */}
-      <View
-        className="flex-row items-center justify-between"
-        style={{ paddingHorizontal: scale(20) }}
-      >
+      <View style={styles.header}>
         <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
         {notifications.length > 0 && (
@@ -64,7 +57,7 @@ const Notifications = () => {
       </View>
 
       {/* Heading */}
-      <View style={{ paddingHorizontal: scale(20) }}>
+      <View style={styles.horizontalPadding}>
         <HeadingTitle size={32} title="Notifications" />
       </View>
 
@@ -72,23 +65,11 @@ const Notifications = () => {
       {notifications.length === 0 ? (
         <Animated.View
           entering={FadeIn.duration(900).delay(150)}
-          className="flex-1 items-center justify-center"
+          style={styles.emptyContainer}
         >
-          <Text
-            style={{ fontSize: scale(22) }}
-            className="text-[#1F1500] font-[poppins-semibold]"
-          >
-            No Notifications
-          </Text>
+          <Text style={styles.emptyTitle}>No Notifications</Text>
 
-          <Text
-            style={{
-              marginTop: scale(8),
-              paddingHorizontal: scale(32),
-              fontSize: scale(16),
-            }}
-            className="text-[#C2A26F] text-center font-[poppins-regular]"
-          >
+          <Text style={styles.emptyDescription}>
             You're all caught up. New notifications will appear here.
           </Text>
         </Animated.View>

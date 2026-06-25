@@ -5,6 +5,7 @@ import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import Routes from "@/src/components/custom/Routes";
 import Switch from "@/src/components/custom/Switch";
 import { APP_CONTROLS, SETTINGS_ROUTES } from "@/src/data/settings-routes.data";
+import styles from "@/src/styles/screens/settings.styles";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -34,26 +35,14 @@ const Settings = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-[#FFFFE3]"
+      style={styles.container}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingBottom: scale(120),
-      }}
-      style={{ paddingVertical: scale(20) }}
+      contentContainerStyle={styles.contentContainer}
     >
       <>
-        <View style={{ paddingHorizontal: scale(20) }}>
+        <View style={styles.headerContainer}>
           {/* Back button */}
-          <Pressable
-            className="border rounded-full items-center justify-center"
-            onPress={() => router.back()}
-            style={{
-              width: scale(48),
-              height: scale(48),
-              borderWidth: scale(1),
-              marginBottom: scale(20),
-            }}
-          >
+          <Pressable style={styles.backButton} onPress={() => router.back()}>
             <SvgXml xml={arrowLeft} width={scale(24)} height={scale(24)} />
           </Pressable>
 
@@ -62,7 +51,7 @@ const Settings = () => {
         </View>
 
         {/* Subheading */}
-        <View style={{ marginHorizontal: scale(20), marginTop: scale(20) }}>
+        <View style={styles.sectionTitleContainer}>
           <HeadingTitle size={20} title="Profile & Security" />
         </View>
 
@@ -72,34 +61,16 @@ const Settings = () => {
         {/* Notification */}
         <View>
           {/* Title */}
-          <View style={{ marginHorizontal: scale(20), marginTop: scale(20) }}>
+          <View style={styles.sectionTitleContainer}>
             <HeadingTitle size={20} title="Notification" />
           </View>
 
           {/* Data */}
           {APP_CONTROLS.map((item, index) => (
-            <View
-              key={index}
-              className="border-b border-[#F6F0D4] flex-row items-center justify-between"
-              style={{
-                marginTop: scale(20),
-                paddingHorizontal: scale(20),
-                paddingBottom: scale(20),
-              }}
-            >
+            <View key={index} style={styles.notificationItem}>
               {/* Icon and Text */}
-              <View
-                className="flex-row items-center"
-                style={{ columnGap: scale(15) }}
-              >
-                <View
-                  className="rounded-full bg-[#F6F0D4] flex-row items-center justify-center"
-                  style={{
-                    height: scale(48),
-                    width: scale(48),
-                    borderRadius: scale(48) / 2,
-                  }}
-                >
+              <View style={styles.notificationLeft}>
+                <View style={styles.notificationIconWrapper}>
                   <SvgXml
                     xml={item.icon}
                     width={scale(24)}
@@ -107,12 +78,7 @@ const Settings = () => {
                   />
                 </View>
 
-                <Text
-                  style={{ fontSize: scale(16) }}
-                  className="text-[#1F1500] font-[poppins-medium]"
-                >
-                  {item.routeName}
-                </Text>
+                <Text style={styles.notificationText}>{item.routeName}</Text>
               </View>
 
               {/* Switch */}
@@ -127,22 +93,9 @@ const Settings = () => {
         </View>
 
         {/* Logout & Delete Account */}
-
-        <View
-          className="flex-row items-center justify-between"
-          style={{
-            marginTop: scale(20),
-            marginBottom: scale(20),
-            paddingHorizontal: scale(20),
-          }}
-        >
+        <View style={styles.actionRow}>
           {/* Logout Text */}
-          <Text
-            style={{ fontSize: scale(16) }}
-            className="text-[#F7715D] font-[poppins-medium]"
-          >
-            Logout
-          </Text>
+          <Text style={styles.dangerText}>Logout</Text>
 
           {/* Logout Icon */}
           <TouchableOpacity onPress={() => {}}>
@@ -151,21 +104,9 @@ const Settings = () => {
         </View>
 
         {/* Delete Account */}
-        <View
-          className="flex-row items-center justify-between"
-          style={{
-            marginTop: scale(20),
-            marginBottom: scale(20),
-            paddingHorizontal: scale(20),
-          }}
-        >
+        <View style={styles.actionRow}>
           {/* Delete Account Text */}
-          <Text
-            style={{ fontSize: scale(16) }}
-            className="text-[#F7715D] font-[poppins-medium]"
-          >
-            Delete Account
-          </Text>
+          <Text style={styles.dangerText}>Delete Account</Text>
 
           {/* Delete Account Icon */}
           <TouchableOpacity onPress={() => {}}>

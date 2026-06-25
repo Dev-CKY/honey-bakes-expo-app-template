@@ -3,10 +3,10 @@ import HeadingTitle from "@/src/components/custom/HeadingTitle";
 import IconButtonWrapper from "@/src/components/custom/IconButtonWrapper";
 import LanguageCard from "@/src/components/custom/LanguageCard";
 import { LANGUAGES_ITEMS } from "@/src/data/languages.data";
+import styles from "@/src/styles/screens/languages.styles";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import { FlatList, View } from "react-native";
-import { scale } from "react-native-size-matters";
 
 const Languages = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<string>(
@@ -18,10 +18,10 @@ const Languages = () => {
   };
 
   return (
-    <View className="flex-1 bg-[#FFFFE3]" style={{ padding: scale(20) }}>
+    <View style={styles.container}>
       <IconButtonWrapper icon={arrowLeft} onPress={() => router.back()} />
 
-      <View style={{ marginBottom: scale(20) }}>
+      <View style={styles.headingContainer}>
         <HeadingTitle size={32} title="Languages" />
       </View>
 
@@ -30,13 +30,8 @@ const Languages = () => {
         data={LANGUAGES_ITEMS}
         keyExtractor={(item) => item.id}
         numColumns={2}
-        columnWrapperStyle={{
-          gap: scale(12),
-          marginBottom: scale(20),
-        }}
-        contentContainerStyle={{
-          paddingBottom: scale(30),
-        }}
+        columnWrapperStyle={styles.columnWrapper}
+        contentContainerStyle={styles.contentContainer}
         renderItem={({ item }) => (
           <LanguageCard
             language={item.language}
