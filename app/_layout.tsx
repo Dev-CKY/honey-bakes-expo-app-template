@@ -10,7 +10,6 @@ import "react-native-reanimated";
 import Toast from "react-native-toast-message";
 
 import { styles } from "@/src/styles/layouts/app.layout.styles";
-import "../global.css";
 import Splash from "./splash";
 
 const STATUS_BAR_BG = "#ffffe3";
