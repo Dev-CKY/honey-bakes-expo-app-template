@@ -1,31 +1,15 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
-import { scale } from "react-native-size-matters";
+import styles from "../../styles/components/emptyScreenState.styles";
 
 const EmptyScreenState = ({ title, image }: { title: string; image: any }) => {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Image
-        source={image}
-        style={{ width: scale(60), height: scale(60), marginBottom: scale(10) }}
-        resizeMode="contain"
-      />
+    <View style={styles.container}>
+      <Image source={image} style={styles.image} resizeMode="contain" />
 
-      <Text
-        style={{ fontSize: scale(20) }}
-        className="font-[poppins-medium] text-[#1F1500]"
-      >
-        Your {title} Is Empty
-      </Text>
+      <Text style={styles.title}>Your {title} Is Empty</Text>
 
-      <Text
-        style={{
-          marginTop: scale(8),
-          textAlign: "center",
-          fontSize: scale(14),
-        }}
-        className="font-[poppins-regular] text-[#C2A26F]"
-      >
+      <Text style={styles.message}>
         Oops! Looks like you haven&apos;t {"\n"} added any items yet.
       </Text>
     </View>

@@ -3,12 +3,14 @@ import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import React, { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import Modal from "react-native-modal";
+import { scale } from "react-native-size-matters";
 
 import { RATING_CATEGORIES } from "@/src/data/rating-categories.data";
 import { SHORT_BY_CATEGORY } from "@/src/data/short-by.data";
-import { scale } from "react-native-size-matters";
 import FilterCategories from "./FilterCategories";
 import HeadingTitle from "./HeadingTitle";
+
+import styles from "../../styles/components/filterModal.styles";
 
 type Props = {
   isVisible: boolean;
@@ -41,40 +43,21 @@ const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
       onBackdropPress={onClose}
       swipeDirection="down"
       onSwipeComplete={onClose}
-      style={{
-        justifyContent: "flex-end",
-        margin: 0,
-      }}
+      style={styles.modal}
     >
-      <View
-        style={{
-          backgroundColor: "#FFFFE3",
-          borderTopLeftRadius: scale(30),
-          borderTopRightRadius: scale(30),
-          paddingHorizontal: scale(20),
-          paddingTop: scale(20),
-          paddingBottom: scale(20),
-        }}
-      >
+      <View style={styles.sheet}>
         {/* Handle */}
-        <View
-          style={{
-            width: scale(60),
-            height: scale(5),
-            backgroundColor: "#C2A26F",
-            borderRadius: scale(5) / 2,
-            alignSelf: "center",
-            marginBottom: scale(20),
-          }}
-        />
+        <View style={styles.handle} />
 
         {/* Title */}
-        <View style={{ alignSelf: "center", marginBottom: scale(20) }}>
+        <View style={styles.centerTitle}>
           <HeadingTitle size={scale(20)} title="Sort and filters" />
         </View>
 
         {/* Categories */}
-        <HeadingTitle size={20} title="Categories" />
+        <View style={styles.categoriesTitleContainer}>
+          <HeadingTitle size={20} title="Categories" />
+        </View>
 
         {/* Categories tabs */}
         <FilterCategories
@@ -84,58 +67,31 @@ const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
         />
 
         {/* Price */}
-        <View style={{ marginTop: scale(20) }}>
+        <View style={styles.priceRow}>
           <HeadingTitle size={scale(20)} title="Price" />
 
           <MultiSlider
             values={priceRange}
             min={0}
-            max={50}
+            max={100}
             step={1}
             sliderLength={scale(300)}
             onValuesChange={(values) => setPriceRange(values)}
-            selectedStyle={{
-              backgroundColor: "#1F1500",
-              height: scale(4),
-            }}
-            unselectedStyle={{
-              backgroundColor: "#E5D6B8",
-              height: scale(4),
-            }}
-            trackStyle={{
-              height: scale(4),
-            }}
-            markerStyle={{
-              width: scale(20),
-              height: scale(20),
-              borderRadius: 999,
-              backgroundColor: "#1F1500",
-              borderWidth: scale(3),
-              borderColor: "#7c7c7c",
-            }}
+            selectedStyle={styles.sliderSelected}
+            unselectedStyle={styles.sliderUnselected}
+            trackStyle={styles.sliderTrack}
+            markerStyle={styles.sliderMarker}
           />
 
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <Text
-              style={{ fontSize: scale(14) }}
-              className="font-[poppins-medium] text-[#1F1500]"
-            >
-              ${priceRange[0].toFixed(2)}
-            </Text>
+          <View style={styles.priceValuesRow}>
+            <Text style={styles.priceText}>${priceRange[0].toFixed(2)}</Text>
 
-            <Text
-              style={{ fontSize: scale(14) }}
-              className="font-[poppins-medium] text-[#1F1500]"
-            >
-              ${priceRange[1].toFixed(2)}
-            </Text>
+            <Text style={styles.priceText}>${priceRange[1].toFixed(2)}</Text>
           </View>
         </View>
 
         {/* Short by heading */}
-        <View style={{ marginTop: scale(20) }}>
+        <View style={styles.section}>
           <HeadingTitle size={scale(20)} title="Short by" />
         </View>
 
@@ -147,8 +103,7 @@ const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
         />
 
         {/* Rating title */}
-
-        <View style={{ marginTop: scale(20) }}>
+        <View style={styles.section}>
           <HeadingTitle size={scale(20)} title="Rating" />
         </View>
 
@@ -161,44 +116,13 @@ const FilterModal = ({ isVisible, onClose, onApply }: Props) => {
         />
 
         {/* Buttons */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: scale(40),
-          }}
-        >
-          <Pressable
-            onPress={handleReset}
-            style={{
-              flex: 1,
-              height: scale(52),
-              borderWidth: scale(1),
-              borderStyle: "dashed",
-              borderColor: "#1F1500",
-              borderRadius: scale(999),
-              alignItems: "center",
-              justifyContent: "center",
-              marginRight: scale(12),
-            }}
-          >
-            <Text className="font-[poppins-medium] text-[#1F1500]">Reset</Text>
+        <View style={styles.buttonsRow}>
+          <Pressable onPress={handleReset} style={styles.resetButton}>
+            <Text style={styles.buttonText}>Reset</Text>
           </Pressable>
 
-          <Pressable
-            onPress={handleApply}
-            style={{
-              flex: 1,
-              height: scale(52),
-              backgroundColor: "#F7BC5D",
-              borderWidth: scale(1),
-              borderColor: "#1F1500",
-              borderRadius: scale(999),
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text className="font-[poppins-medium] text-[#1F1500]">Apply</Text>
+          <Pressable onPress={handleApply} style={styles.applyButton}>
+            <Text style={styles.buttonText}>Apply</Text>
           </Pressable>
         </View>
       </View>

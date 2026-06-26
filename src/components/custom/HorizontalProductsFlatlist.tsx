@@ -2,7 +2,7 @@ import { PRODUCT_ITEMS } from "@/src/data/product-items.data";
 import { router } from "expo-router";
 import React from "react";
 import { FlatList } from "react-native";
-import { scale } from "react-native-size-matters";
+import styles from "../../styles/components/horizontalProductsFlatlist.styles";
 import ProductGridCard from "./ProductGridCard";
 
 const HorizontalProductsFlatlist = () => {
@@ -12,11 +12,7 @@ const HorizontalProductsFlatlist = () => {
       keyExtractor={(item) => item.id}
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingTop: scale(20),
-        gap: scale(10),
-        paddingHorizontal: scale(10),
-      }}
+      contentContainerStyle={styles.contentContainer}
       renderItem={({ item }) => (
         <ProductGridCard
           title={item.title}

@@ -9,8 +9,11 @@ import { useFonts } from "expo-font";
 import "react-native-reanimated";
 import Toast from "react-native-toast-message";
 
+import { styles } from "@/src/styles/layouts/app.layout.styles";
 import "../global.css";
 import Splash from "./splash";
+
+const STATUS_BAR_BG = "#ffffe3";
 
 const RootLayout = () => {
   const [showSplash, setShowSplash] = useState(true);
@@ -36,9 +39,9 @@ const RootLayout = () => {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1, backgroundColor: "#ffffe3" }}>
+    <GestureHandlerRootView style={styles.container}>
       <SafeAreaProvider>
-        <StatusBar translucent backgroundColor="#ffffe3" style="dark" />
+        <StatusBar translucent backgroundColor={STATUS_BAR_BG} style="dark" />
 
         <SafeAreaView style={{ flex: 1 }} edges={["top", "left", "right"]}>
           <Stack screenOptions={{ headerShown: false }}>

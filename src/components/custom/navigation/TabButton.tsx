@@ -3,6 +3,7 @@ import { Pressable } from "react-native";
 import { SvgXml } from "react-native-svg";
 
 import { TAB_BAR_COLORS, TAB_BAR_SIZES } from "@/src/constants/tab-bar";
+import styles from "../../../styles/components/tabButton.styles";
 
 type Props = {
   icon: string;
@@ -29,18 +30,18 @@ export function TabButton({
       testID={testID}
       onPress={onPress}
       onLongPress={onLongPress}
-      className="items-center justify-center rounded-full"
-      style={{
-        width: focused
-          ? TAB_BAR_SIZES.activeIconContainer
-          : TAB_BAR_SIZES.inactiveIconContainer,
-
-        height: focused
-          ? TAB_BAR_SIZES.activeIconContainer
-          : TAB_BAR_SIZES.inactiveIconContainer,
-
-        backgroundColor: focused ? TAB_BAR_COLORS.active : "transparent",
-      }}
+      style={[
+        styles.container,
+        {
+          width: focused
+            ? TAB_BAR_SIZES.activeIconContainer
+            : TAB_BAR_SIZES.inactiveIconContainer,
+          height: focused
+            ? TAB_BAR_SIZES.activeIconContainer
+            : TAB_BAR_SIZES.inactiveIconContainer,
+          backgroundColor: focused ? TAB_BAR_COLORS.active : "transparent",
+        },
+      ]}
     >
       <SvgXml
         xml={icon}

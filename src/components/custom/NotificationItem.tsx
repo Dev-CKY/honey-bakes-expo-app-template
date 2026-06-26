@@ -7,7 +7,7 @@ import Animated, {
   FadeOut,
   LinearTransition,
 } from "react-native-reanimated";
-import { scale } from "react-native-size-matters";
+import styles from "../../styles/components/notificationItem.styles";
 
 type NotificationType = {
   id: number | string;
@@ -40,86 +40,34 @@ const NotificationItem = memo(
         exiting={FadeOut.duration(300)}
       >
         <Animated.View
-          style={[deleteBgStyle, { paddingHorizontal: scale(24) }]}
-          className="absolute inset-0 bg-[#FF0000] items-start justify-center"
+          style={[deleteBgStyle, { paddingHorizontal: 24 }, styles.deleteBg]}
         >
-          <Text
-            className="text-white font-[poppins-medium]"
-            style={{ fontSize: scale(14) }}
-          >
-            Delete
-          </Text>
+          <Text style={styles.deleteText}>Delete</Text>
         </Animated.View>
 
         <GestureDetector gesture={panGesture}>
           <Animated.View
             style={[
               cardStyle,
-              {
-                paddingHorizontal: scale(20),
-                paddingVertical: scale(20),
-              },
+              styles.card,
+              { paddingHorizontal: 20, paddingVertical: 20 },
             ]}
-            className="flex-row items-start border-b border-[#F6F0D4] bg-[#FFFFE3]"
           >
-            <View
-              className="rounded-full bg-[#F6F0D4] items-center justify-center"
-              style={{
-                width: scale(48),
-                height: scale(48),
-                marginRight: scale(10),
-              }}
-            >
-              <Image
-                source={notification.image}
-                style={{
-                  width: scale(30),
-                  height: scale(30),
-                  borderRadius: scale(15),
-                }}
-              />
+            <View style={styles.avatarWrap}>
+              <Image source={notification.image} style={styles.avatar} />
             </View>
 
-            <View className="flex-1">
-              <View className="flex-row items-center justify-between">
-                <Text
-                  className="text-[#1F1500] font-[poppins-medium] flex-1"
-                  style={{
-                    fontSize: scale(16),
-                    marginRight: scale(12),
-                  }}
-                >
-                  {notification.title}
-                </Text>
+            <View style={styles.content}>
+              <View style={styles.titleRow}>
+                <Text style={styles.title}>{notification.title}</Text>
 
-                <Text
-                  className="text-[#1F1500] font-[poppins-medium]"
-                  style={{ fontSize: scale(14) }}
-                >
-                  {notification.time}
-                </Text>
+                <Text style={styles.time}>{notification.time}</Text>
               </View>
 
-              <Text
-                className="text-[#C2A26F] font-[poppins-regular]"
-                style={{
-                  fontSize: scale(14),
-                  marginTop: scale(2),
-                }}
-              >
-                {notification.description}
-              </Text>
+              <Text style={styles.description}>{notification.description}</Text>
 
               {isDeletingAll && (
-                <Text
-                  className="text-red-500 font-[poppins-medium]"
-                  style={{
-                    fontSize: scale(12),
-                    marginTop: scale(6),
-                  }}
-                >
-                  Deleting...
-                </Text>
+                <Text style={styles.deleting}>Deleting...</Text>
               )}
             </View>
           </Animated.View>

@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { Image, Pressable, Text } from "react-native";
-import { scale } from "react-native-size-matters";
-
 import Animated, {
   LinearTransition,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import styles from "../../styles/components/paymentMethodCard.styles";
 
 type Props = {
   title: string;
@@ -45,32 +44,13 @@ const PaymentMethodCard = ({ title, icon, isSelected, onPress }: Props) => {
         layout={LinearTransition.springify().damping(18).stiffness(180)}
         style={[
           animatedStyle,
-          {
-            height: scale(88),
-            width: scale(118),
-            alignItems: "center",
-            justifyContent: "center",
-            borderWidth: scale(1),
-            borderRadius: scale(12),
-            backgroundColor: isSelected ? "#F7BC5D" : "#FFFFE3",
-            borderColor: isSelected ? "#1F1500" : "#EEE8C9",
-          },
+          styles.containerBase,
+          isSelected ? styles.containerSelected : styles.containerDefault,
         ]}
       >
-        <Image
-          source={icon}
-          resizeMode="contain"
-          style={{ height: scale(28), width: scale(40) }}
-        />
+        <Image source={icon} resizeMode="contain" style={styles.image} />
 
-        <Text
-          style={{
-            marginTop: scale(10),
-            fontSize: scale(14),
-            color: isSelected ? "#1F1500" : "#C2A26F",
-          }}
-          className="font-[poppins-medium]"
-        >
+        <Text style={isSelected ? styles.titleSelected : styles.titleDefault}>
           {title}
         </Text>
       </Animated.View>

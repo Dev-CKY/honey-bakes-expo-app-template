@@ -6,17 +6,14 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
-import { scale } from "react-native-size-matters";
+import styles from "../../styles/components/otpInputField.styles";
 
 const CELL_COUNT = 4;
 
 const OtpInputField = () => {
   const [value, setValue] = useState("");
 
-  const ref = useBlurOnFulfill({
-    value,
-    cellCount: CELL_COUNT,
-  });
+  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
 
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -24,34 +21,26 @@ const OtpInputField = () => {
   });
 
   return (
-    <View className="flex-row justify-between mb-[10px] ">
+    <View style={styles.wrapper}>
       <CodeField
         ref={ref}
         {...props}
         value={value}
         onChangeText={setValue}
         cellCount={CELL_COUNT}
-        rootStyle={{
-          width: "100%",
-          justifyContent: "space-between",
-        }}
+        rootStyle={styles.root}
         keyboardType="number-pad"
         textContentType="oneTimeCode"
         renderCell={({ index, symbol, isFocused }) => (
           <View
             key={index}
             onLayout={getCellOnLayoutHandler(index)}
-            className={
-              "items-center justify-center rounded-full border bg-[#FFFFE3] "
-            }
-            style={{
-              height: scale(50),
-              width: scale(75),
-              borderWidth: scale(1),
-              borderColor: isFocused ? "#3E3A2F" : "#F6F0D4",
-            }}
+            style={[
+              styles.cell,
+              isFocused ? styles.cellFocused : styles.cellDefault,
+            ]}
           >
-            <Text style={{ fontSize: scale(15) }}>
+            <Text style={styles.text}>
               {symbol || (isFocused ? <Cursor /> : "0")}
             </Text>
           </View>

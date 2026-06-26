@@ -3,7 +3,6 @@ import { router } from "expo-router";
 import React from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import Animated, { FadeOut, LinearTransition } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
 
@@ -41,7 +40,6 @@ const Cart = () => {
   // --------------------------------------------------
   // Layout Helpers
   // --------------------------------------------------
-  const insets = useSafeAreaInsets();
   const tabBarHeight = useBottomTabBarHeight();
 
   // Check whether cart contains any items

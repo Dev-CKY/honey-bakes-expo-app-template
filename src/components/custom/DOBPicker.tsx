@@ -12,8 +12,8 @@ import DateTimePicker from "react-native-ui-datepicker";
 import { useDOBPicker } from "@/hooks/custom/useDOBPicker";
 import { useMonths } from "@/hooks/custom/useMonths";
 import { useYears } from "@/hooks/custom/useYears";
-import { styles } from "@/src/styles/components/DOBPicker.styles";
 import { scale } from "react-native-size-matters";
+import { styles } from "../../styles/components/DOBPicker.styles";
 
 type Props = {
   value: Dayjs;

@@ -1,94 +1,44 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
-import { scale } from "react-native-size-matters";
 import StarRating from "react-native-star-rating-widget";
+import styles from "../../styles/components/orderedItemCard.styles";
 
 const OrderedItemCard = () => {
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        borderWidth: scale(1),
-        borderColor: "#F6F0D4",
-        borderRadius: scale(10),
-        padding: scale(5),
-      }}
-    >
+    <View style={styles.container}>
       {/* Item image */}
       <Image
         source={require("@/src/assets/images/custom/products/cake.jpg")}
-        style={{
-          width: scale(120),
-          height: scale(100),
-          borderRadius: scale(7),
-        }}
+        style={styles.image}
         resizeMode="cover"
       />
 
       {/* Item details wrapper */}
-      <View
-        style={{
-          marginLeft: scale(10),
-          flex: 1,
-          justifyContent: "space-between",
-        }}
-      >
+      <View style={styles.details}>
         {/* Item name */}
-        <Text
-          style={{ fontSize: scale(16) }}
-          className="text-[#1F1500] font-[poppins-medium]"
-        >
-          Vanilla Choco Cake
-        </Text>
+        <Text style={styles.title}>Vanilla Choco Cake</Text>
 
         {/* Seller */}
-        <Text
-          style={{ fontSize: scale(14) }}
-          className="text-[#C2A26F] font-[poppins-regular]"
-        >
-          HoneyBakes
-        </Text>
+        <Text style={styles.seller}>HoneyBakes</Text>
 
         {/* Rating */}
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginTop: scale(4),
-          }}
-        >
+        <View style={styles.ratingRow}>
           <StarRating
             rating={4}
             onChange={() => {}}
-            starSize={scale(18)}
+            starSize={18}
             color="#FFC700"
             emptyColor="#D9D9D9"
-            starStyle={{ marginHorizontal: scale(1) }}
+            starStyle={{ marginHorizontal: 1 }}
           />
 
-          <Text
-            style={{ marginLeft: scale(5), fontSize: scale(14) }}
-            className="text-[#1F1500] font-[poppins-medium]"
-          >
-            4.0
-          </Text>
+          <Text style={styles.ratingText}>4.0</Text>
 
-          <Text
-            style={{ marginLeft: scale(2), fontSize: scale(14) }}
-            className="text-[#C2A26F] font-[poppins-regular]"
-          >
-            (1,656)
-          </Text>
+          <Text style={styles.reviewsText}>(1,656)</Text>
         </View>
 
         {/* Price */}
-        <Text
-          style={{ marginTop: scale(10), fontSize: scale(14) }}
-          className="text-[#1F1500] font-[poppins-medium]"
-        >
-          $54.05
-        </Text>
+        <Text style={styles.price}>$54.05</Text>
       </View>
     </View>
   );

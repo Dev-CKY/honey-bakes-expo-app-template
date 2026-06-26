@@ -1,5 +1,5 @@
 import { Text, TextInput, View } from "react-native";
-import { scale } from "react-native-size-matters";
+import styles from "../../styles/components/editProfileTextInput.styles";
 
 type EditProfileTextInputFieldProps = {
   label: string;
@@ -15,24 +15,16 @@ const EditProfileTextInputField = ({
   keyboardType,
 }: EditProfileTextInputFieldProps) => {
   return (
-    <View style={{ flexDirection: "row", alignItems: "center" }}>
-      <Text
-        style={{ width: scale(80), fontSize: scale(16) }}
-        className="font-[poppins-regular] text-[#C2A26F]"
-      >
-        {label}
-      </Text>
+    <View style={styles.row}>
+      <Text style={styles.label}>{label}</Text>
 
-      <View
-        style={{ flex: 1, borderBottomWidth: 1, borderBottomColor: "#E8DFC7" }}
-      >
+      <View style={styles.inputWrap}>
         <TextInput
           value={value}
           onChangeText={onChangeText}
           keyboardType={keyboardType}
           placeholderTextColor="#C2A26F"
-          style={{ paddingBottom: scale(12), fontSize: scale(18) }}
-          className="font-[poppins-medium] text-[#1F1500]"
+          style={styles.input}
         />
       </View>
     </View>

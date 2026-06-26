@@ -1,6 +1,6 @@
 import React from "react";
 import { Pressable, Text } from "react-native";
-import { scale } from "react-native-size-matters";
+import styles from "../../styles/components/toggleButton.styles";
 
 type ToggleButtonProps<T extends string> = {
   title: string;
@@ -14,16 +14,8 @@ const ToggleButton = <T extends string>({
   handleToggle,
 }: ToggleButtonProps<T>) => {
   return (
-    <Pressable
-      onPress={() => handleToggle(value)}
-      className="flex-1 items-center justify-center"
-    >
-      <Text
-        className="font-[poppins-medium] text-[#2E261C]"
-        style={{ fontSize: scale(16) }}
-      >
-        {title}
-      </Text>
+    <Pressable onPress={() => handleToggle(value)} style={styles.container}>
+      <Text style={styles.title}>{title}</Text>
     </Pressable>
   );
 };

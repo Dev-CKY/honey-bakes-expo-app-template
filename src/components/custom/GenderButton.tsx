@@ -7,7 +7,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { scale } from "react-native-size-matters";
+import styles from "../../styles/components/genderButton.styles";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -49,35 +49,10 @@ const GenderButton = ({
   });
 
   return (
-    <AnimatedPressable
-      onPress={onPress}
-      style={[
-        animatedStyle,
-        {
-          flex: 1,
-          height: scale(50),
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          borderWidth: scale(1.5),
-          borderRadius: scale(50) / 2,
-          paddingHorizontal: scale(12),
-        },
-      ]}
-    >
-      <Text
-        style={{ marginRight: scale(8), fontSize: scale(22) }}
-        className="text-[#1F1500]"
-      >
-        {symbol}
-      </Text>
+    <AnimatedPressable onPress={onPress} style={[animatedStyle, styles.base]}>
+      <Text style={styles.symbol}>{symbol}</Text>
 
-      <Text
-        style={{ fontSize: scale(17) }}
-        className="font-[poppins-medium] text-[#1F1500]"
-      >
-        {title}
-      </Text>
+      <Text style={styles.title}>{title}</Text>
     </AnimatedPressable>
   );
 };

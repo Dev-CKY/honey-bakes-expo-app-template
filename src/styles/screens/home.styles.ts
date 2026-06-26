@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     height: scale(275),
     padding: scale(20),
     gap: scale(30),
+    marginTop: scale(-10),
   },
 
   headerRow: {

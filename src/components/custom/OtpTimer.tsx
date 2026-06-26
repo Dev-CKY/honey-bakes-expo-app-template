@@ -2,7 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 import { useOtpTimer } from "@/hooks/custom/useOtpTimer";
-import { scale } from "react-native-size-matters";
+import styles from "../../styles/components/otpTimer.styles";
 
 const OtpTimer = () => {
   const { expired, formattedTime, handleResend } = useOtpTimer();
@@ -11,25 +11,13 @@ const OtpTimer = () => {
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={handleResend}
-      className="self-end mb-[20px]"
-      style={{ marginBottom: scale(20) }}
+      style={styles.resendButton}
     >
-      <Text
-        className="text-[#1F1500] font-[poppins-medium]"
-        style={{ fontSize: scale(14) }}
-      >
-        Resend OTP
-      </Text>
+      <Text style={styles.resendText}>Resend OTP</Text>
     </TouchableOpacity>
   ) : (
-    <Text
-      className="text-[#C2A26F] font-[poppins-regular] self-end"
-      style={{ marginBottom: scale(20), fontSize: scale(14) }}
-    >
-      OTP expires in{" "}
-      <Text className="text-[#1F1500] font-[poppins-medium]">
-        {formattedTime}
-      </Text>
+    <Text style={styles.timerText}>
+      OTP expires in <Text style={styles.timerHighlight}>{formattedTime}</Text>
     </Text>
   );
 };

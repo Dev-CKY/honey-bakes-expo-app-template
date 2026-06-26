@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Platform, View } from "react-native";
-import { scale } from "react-native-size-matters";
 import SwitchToggle from "react-native-switch-toggle";
+import styles from "../../styles/components/switch.styles";
 
 type SwitchProps = {
   value?: boolean;
@@ -31,22 +31,11 @@ const Switch = ({ value = false, onChange }: SwitchProps) => {
         circleColorOn="#FFFFFF"
         backgroundColorOn="#F7BC5D"
         backgroundColorOff="#D1D5DB"
-        containerStyle={{
-          width: scale(58),
-          height: scale(32),
-          borderRadius: scale(50),
-          padding: Platform.OS === "ios" ? scale(5) : scale(3),
-          paddingLeft: isOn
-            ? scale(3)
-            : Platform.OS === "ios"
-              ? scale(0)
-              : scale(3),
-        }}
-        circleStyle={{
-          width: scale(26),
-          height: scale(26),
-          borderRadius: scale(13),
-        }}
+        containerStyle={[
+          styles.containerStyle,
+          { paddingLeft: isOn ? 3 : Platform.OS === "ios" ? 0 : 3 },
+        ]}
+        circleStyle={styles.circleStyle}
       />
     </View>
   );

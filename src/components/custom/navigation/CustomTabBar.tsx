@@ -8,11 +8,11 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { moderateScale, scale } from "react-native-size-matters";
+import { moderateScale } from "react-native-size-matters";
 
 import { TAB_ICONS } from "@/src/config/tabs";
-import { TAB_BAR_COLORS, TAB_BAR_SIZES } from "@/src/constants/tab-bar";
 
+import styles from "../../../styles/components/customTabBar.styles";
 import { TabButton } from "./TabButton";
 
 // ======================================================
@@ -42,20 +42,17 @@ export function CustomTabBar({
   return (
     <View
       pointerEvents="box-none"
-      className="absolute left-0 right-0 items-center"
-      style={{
-        bottom: Math.max(moderateScale(18), insets.bottom - moderateScale(10)),
-      }}
+      style={[
+        styles.outer,
+        {
+          bottom: Math.max(
+            moderateScale(18),
+            insets.bottom - moderateScale(10),
+          ),
+        },
+      ]}
     >
-      <View
-        className="flex-row items-center justify-between rounded-full"
-        style={{
-          width: "78%",
-          height: TAB_BAR_SIZES.height,
-          backgroundColor: TAB_BAR_COLORS.background,
-          paddingHorizontal: scale(10),
-        }}
-      >
+      <View style={styles.bar}>
         {TAB_ICONS.map((tab) => {
           const route = state.routes.find((item) => item.name === tab.name);
 

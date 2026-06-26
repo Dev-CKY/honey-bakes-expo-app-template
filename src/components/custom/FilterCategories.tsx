@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import { scale } from "react-native-size-matters";
+import styles from "../../styles/components/filterCategories.styles";
 import FilterChip from "./FilterChip";
 
 type Props = {
@@ -52,14 +53,12 @@ const FilterCategories = ({
       initialScrollIndex={index}
       horizontal
       showsHorizontalScrollIndicator={false}
-      style={{ marginTop: scale(20) }}
-      contentContainerStyle={{
-        gap: scale(10),
-        paddingHorizontal: scale(20),
-      }}
+      style={styles.list}
+      contentContainerStyle={styles.contentContainer}
       data={options}
       renderItem={renderItem}
       keyExtractor={(item) => item}
+      ItemSeparatorComponent={() => <View style={{ width: scale(12) }} />}
     />
   );
 };

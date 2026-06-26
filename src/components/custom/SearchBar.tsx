@@ -8,8 +8,8 @@ import {
   View,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { scale } from "react-native-size-matters";
 import { SvgXml } from "react-native-svg";
+import styles from "../../styles/components/searchBar.styles";
 
 type SearchBarProps = TextInputProps & {
   placeholder: string;
@@ -20,17 +20,10 @@ const SearchBar = ({ placeholder, searchValue, ...props }: SearchBarProps) => {
   const [value, setValue] = useState(searchValue || "");
 
   return (
-    <View
-      style={{
-        height: scale(50),
-        marginBottom: scale(10),
-        paddingHorizontal: scale(20),
-      }}
-      className="flex-row items-center rounded-full border border-[#F6F0D4] bg-[#FFFFE3] "
-    >
+    <View style={styles.container}>
       {/* Left Icon */}
-      <View className="mr-3">
-        <SvgXml xml={search} width={scale(24)} height={scale(24)} />
+      <View style={styles.leftIcon}>
+        <SvgXml xml={search} width={24} height={24} />
       </View>
 
       {/* Input */}
@@ -40,20 +33,17 @@ const SearchBar = ({ placeholder, searchValue, ...props }: SearchBarProps) => {
         onChangeText={setValue}
         placeholder={placeholder}
         placeholderTextColor="#B5A98A"
-        className="flex-1 text-[#3E3A2F] font-[poppins-regular]"
-        style={{ fontSize: scale(14) }}
+        style={styles.input}
         textAlignVertical="center"
       />
 
       {/* Right Icon */}
       {value.length > 0 && (
         <Animatable.View animation="fadeIn" duration={1000}>
-          <TouchableOpacity
-            className="ml-3"
-            onPress={() => setValue("")}
-            activeOpacity={0.7}
-          >
-            <SvgXml xml={cross} />
+          <TouchableOpacity onPress={() => setValue("")} activeOpacity={0.7}>
+            <View style={styles.rightIcon}>
+              <SvgXml xml={cross} />
+            </View>
           </TouchableOpacity>
         </Animatable.View>
       )}

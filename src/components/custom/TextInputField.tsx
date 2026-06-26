@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { scale } from "react-native-size-matters";
+import styles from "../../styles/components/textInputField.styles";
 
 type TextInputFieldProps = TextInputProps & {
   isEncrypted?: boolean;
@@ -29,26 +29,16 @@ const TextInputField = ({
   const [secureText, setSecureText] = useState(isEncrypted);
 
   return (
-    <View
-      className="flex-row items-center bg-[#FFFFE3] border-[#F6F0D4]"
-      style={{
-        height: scale(60),
-        marginBottom: scale(10),
-        borderRadius: scale(30),
-        borderWidth: scale(1.5),
-        paddingHorizontal: scale(20),
-      }}
-    >
+    <View style={styles.container}>
       {/* Left Icon */}
-      {leftIcon && <View style={{ marginRight: scale(12) }}>{leftIcon}</View>}
+      {leftIcon && <View style={styles.leftIcon}>{leftIcon}</View>}
 
       {/* Input */}
       <TextInput
         placeholder={placeholder}
         placeholderTextColor="#B5A98A"
         secureTextEntry={secureText}
-        className="flex-1 font-[poppins-regular] text-[#3E3A2F]"
-        style={{ fontSize: scale(14) }}
+        style={styles.input}
         textAlignVertical="center"
         {...props}
         keyboardType={keyboardType}
@@ -59,12 +49,12 @@ const TextInputField = ({
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => setSecureText(!secureText)}
-          style={{ marginLeft: scale(12) }}
+          style={styles.rightIcon}
         >
           {secureText ? eyeCloseIcon : eyeOpenIcon}
         </TouchableOpacity>
       ) : (
-        rightIcon && <View style={{ marginLeft: scale(12) }}>{rightIcon}</View>
+        rightIcon && <View style={styles.rightIcon}>{rightIcon}</View>
       )}
     </View>
   );
